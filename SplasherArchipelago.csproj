@@ -30,6 +30,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>Always</RunPostBuildEvent>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="0Harmony">
       <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Splasher\BepInEx\core\0Harmony.dll</HintPath>
@@ -40,8 +43,18 @@
     <Reference Include="Assembly-CSharp">
       <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Splasher\Splasher_Data\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
+    <Reference Include="Assembly-CSharp-firstpass">
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Splasher\Splasher_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
+    </Reference>
     <Reference Include="BepInEx">
       <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Splasher\BepInEx\core\BepInEx.dll</HintPath>
+    </Reference>
+    <Reference Include="HOTween, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Splasher\Splasher_Data\Managed\HOTween.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Security">
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Splasher\Splasher_Data\Managed\Mono.Security.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Archipelago.MultiClient.Net.6.7.1\lib\net35\Newtonsoft.Json.dll</HintPath>
@@ -55,12 +68,35 @@
     <Reference Include="UnityEngine">
       <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Splasher\Splasher_Data\Managed\UnityEngine.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.UI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Splasher\Splasher_Data\Managed\UnityEngine.UI.dll</HintPath>
+    </Reference>
     <Reference Include="websocket-sharp, Version=1.0.2.34775, Culture=neutral, PublicKeyToken=5660b08a1845a91e, processorArchitecture=MSIL">
       <HintPath>packages\Archipelago.MultiClient.Net.6.7.1\lib\net35\websocket-sharp.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\LevelKeys.cs" />
+    <Compile Include="Data\Powers.cs" />
+    <Compile Include="Data\Splashers.cs" />
     <Compile Include="Main.cs" />
+    <Compile Include="Network\ArchipelagoManager.cs" />
+    <Compile Include="Network\Items\Item.cs" />
+    <Compile Include="Network\Items\ItemManager.cs" />
+    <Compile Include="Network\Items\Powers\Bouncink.cs" />
+    <Compile Include="Network\Items\Powers\Power.cs" />
+    <Compile Include="Network\Items\Powers\Stickink.cs" />
+    <Compile Include="Network\Items\Powers\Water.cs" />
+    <Compile Include="Network\Items\Splasher.cs" />
+    <Compile Include="Network\Items\Victory.cs" />
+    <Compile Include="Util.cs" />
+    <Compile Include="Patches\Controller\Fire.cs" />
+    <Compile Include="Patches\Controller\InitializePowers.cs" />
+    <Compile Include="Patches\Controller\LevelUnlock.cs" />
+    <Compile Include="Patches\UI\PowersUI.cs" />
+    <Compile Include="Patches\Controller\SplasherCount.cs" />
+    <Compile Include="Patches\Controller\Start.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
