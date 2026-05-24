@@ -10,7 +10,7 @@ namespace SplasherArchipelago {
         public const string pluginId = "com.frisk.splahser_archipelago";
 
         public void Awake() {
-            var connectResult = Network.ArchipelagoManager.init();
+            var connectResult = Network.ArchipelagoManager.Init();
 
             if (connectResult is LoginFailure error) {
                 string msg = $"Failed to connect to server\n";
@@ -30,6 +30,8 @@ namespace SplasherArchipelago {
             var harmony = new Harmony(pluginId);
             harmony.PatchAll();
             Logger.LogMessage("Archipelago Loaded !");
+
+            Network.ArchipelagoManager.ReceiveAllItems();
         }
     }
 }
