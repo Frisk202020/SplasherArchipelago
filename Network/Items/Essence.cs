@@ -10,7 +10,7 @@ namespace SplasherArchipelago.Network.Items {
 
         public string Name() => $"Essence ({ammount})";
         public void Collect(ItemInfo info) {
-            Data.Essence.Add(ammount);
+            Data.Items.Essence.Add(ammount);
         }
     }
 }

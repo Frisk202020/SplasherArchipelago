@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 namespace SplasherArchipelago.Network.Items {
-    public static class ItemManager {
+    static class ItemManager {
         private static List<Item> OrderedItems() {
             var items = new List<Item> {
                 new Victory(), new Splasher(),
@@ -20,7 +20,7 @@ namespace SplasherArchipelago.Network.Items {
         }
         private static List<Item> orderedItems = OrderedItems();
 
-        public static void Collect(ItemInfo item) {
+        internal static void Collect(ItemInfo item) {
             var id = item.ItemId - Util.BaseId;
             if (id >= 0 && id < orderedItems.Count) orderedItems[(int)id].Collect(item); // need to substract game's base id
         }

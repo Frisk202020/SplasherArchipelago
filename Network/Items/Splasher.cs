@@ -12,7 +12,7 @@ namespace SplasherArchipelago.Network.Items {
         public void Collect(ItemInfo item) {
             if (collected.Contains(item.LocationId)) return;
 
-            Data.Splashers.Add();
+            Data.Items.Splashers.Add();
             collected.Add(item.LocationId);
         }
     }

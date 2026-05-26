@@ -77,10 +77,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\Essence.cs" />
-    <Compile Include="Data\LevelKeys.cs" />
-    <Compile Include="Data\Powers.cs" />
-    <Compile Include="Data\Splashers.cs" />
+    <Compile Include="Data\Items\Essence.cs" />
+    <Compile Include="Data\Items\LevelKeys.cs" />
+    <Compile Include="Data\Items\Powers.cs" />
+    <Compile Include="Data\Items\Splashers.cs" />
+    <Compile Include="Data\Locations\Clears.cs" />
+    <Compile Include="Data\Locations\LocationType.cs" />
+    <Compile Include="Data\Locations\Powers.cs" />
+    <Compile Include="Data\Locations\Splashers.cs" />
+    <Compile Include="Helpers\EachLevel.cs" />
+    <Compile Include="Helpers\LevelHelper.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Network\ArchipelagoManager.cs" />
     <Compile Include="Network\Items\Essence.cs" />
@@ -98,20 +104,24 @@
     <Compile Include="Network\Items\Traps\BodyAches.cs" />
     <Compile Include="Network\Items\Traps\PaintSwap.cs" />
     <Compile Include="Network\Items\Victory.cs" />
-    <Compile Include="Network\LevelName.cs" />
+    <Compile Include="Patches\Location\ExitLevel.cs" />
+    <Compile Include="Patches\Setup\PostLoading.cs" />
+    <Compile Include="Patches\Setup\PreventLoadSave.cs" />
+    <Compile Include="Patches\Location\SplasherCollect.cs" />
     <Compile Include="Patches\Listener\Checkpoint.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="Patches\Controller\Fire.cs" />
-    <Compile Include="Patches\Controller\InitializePowers.cs" />
-    <Compile Include="Patches\Controller\LevelUnlock.cs" />
+    <Compile Include="Patches\Setup\InitializePowers.cs" />
+    <Compile Include="Patches\Controller\LevelStats.cs" />
     <Compile Include="Patches\UI\PowersUI.cs" />
     <Compile Include="Patches\Controller\SplasherCount.cs" />
-    <Compile Include="Patches\Controller\Start.cs" />
+    <Compile Include="Patches\Setup\Start.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy "$(TargetPath)" "C:\Program Files (x86)\Steam\steamapps\common\Splasher\BepInEx\plugins" /Y /I</PostBuildEvent>

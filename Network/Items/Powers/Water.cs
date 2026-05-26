@@ -4,7 +4,7 @@ namespace SplasherArchipelago.Network.Items.Powers {
     class Water : Power,Item {
         public override string Name() => $"Water {base.Name()}";
         public void Collect(ItemInfo _item) {
-            Data.Powers.UnlockWater();
+            Data.Items.Powers.UnlockWater();
         }
 
         internal Water() { }

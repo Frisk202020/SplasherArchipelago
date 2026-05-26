@@ -1,0 +1,27 @@
+﻿using System;
+
+namespace SplasherArchipelago.Data.Locations {
+    enum LocationType : uint {
+        Water = 0,
+        Stickink = 1,
+        Bouncink = 2,
+        Splasher = 3,
+        Clear = Splasher + Util.LevelCount * 7,
+        Bronze = Clear + Util.LevelCount,
+        Silver = Bronze + Util.LevelCount,
+        Gold = Silver + Util.LevelCount
+    }
+
+    static class LocationExtensions {
+        internal static LocationType FindRange(long id) {
+            var variants = Enum.GetValues(typeof(LocationType));
+            var n = variants.Length - 1;
+
+            for (uint i = 0; i < n; i++) {
+                if (id < (uint)variants.GetValue(i + 1)) return (LocationType)variants.GetValue(i); 
+            }
+
+            return (LocationType)variants.GetValue(n);
+        }
+    }
+}

@@ -1,8 +1,6 @@
 ﻿using Archipelago.MultiClient.Net;
-using Archipelago.MultiClient.Net.Enums;
 using BepInEx;
 using HarmonyLib;
-using System;
 
 namespace SplasherArchipelago {
     [BepInPlugin(pluginId, "SplasherArchipelago", "0.0.1")]
@@ -25,7 +23,7 @@ namespace SplasherArchipelago {
             var success = (LoginSuccessful)connectResult;
             Network.ArchipelagoManager.Slot = success.Slot;
 
-            Data.LevelKeys.UnlockAll();
+            Data.Items.LevelKeys.UnlockAll();
 
             var harmony = new Harmony(pluginId);
             harmony.PatchAll();

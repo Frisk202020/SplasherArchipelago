@@ -11,14 +11,14 @@ namespace SplasherArchipelago.Network.Items {
         }
 
         public void Collect(ItemInfo _item) {
-            Data.LevelKeys.Unlock(id);
+            Data.Items.LevelKeys.Unlock(id);
         }
 
         public string Name() => $"{levelName} : Entrance Key";
         
         internal static void AddAll(List<Item> items) {
-            for (uint i = 0; i < LevelName.levels.Length; i++) {
-                items.Add(new Key(i, LevelName.levels[i]));
+            for (uint i = 0; i < Util.Levels.Length; i++) {
+                items.Add(new Key(i, Util.Levels[i]));
             }
         }
     }

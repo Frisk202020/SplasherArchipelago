@@ -1,6 +1,6 @@
 ﻿using HarmonyLib;
 
-namespace SplasherArchipelago.Patches.Controller {
+namespace SplasherArchipelago.Patches.Setup {
     [HarmonyPatch(typeof(SauceMachine), "InitializePowers")]
     public static class InitializePowers {
         public static bool Prefix(SauceMachine __instance) {

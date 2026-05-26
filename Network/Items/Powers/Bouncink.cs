@@ -7,7 +7,7 @@ namespace SplasherArchipelago.Network.Items.Powers {
         public override string Name() => $"Bouncy Paint {base.Name()}";
 
         public void Collect(ItemInfo _item) {
-            Data.Powers.UnlockBouncy();
+            Data.Items.Powers.UnlockBouncy();
         }
     }
 }
