@@ -31,7 +31,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <RunPostBuildEvent>Always</RunPostBuildEvent>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="0Harmony">
@@ -78,6 +78,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\Items\Essence.cs" />
+    <Compile Include="Data\Items\Freedom.cs" />
     <Compile Include="Data\Items\LevelKeys.cs" />
     <Compile Include="Data\Items\Powers.cs" />
     <Compile Include="Data\Items\Splashers.cs" />
@@ -88,7 +89,7 @@
     <Compile Include="Helpers\EachLevel.cs" />
     <Compile Include="Helpers\LevelHelper.cs" />
     <Compile Include="Main.cs" />
-    <Compile Include="Network\ArchipelagoManager.cs" />
+    <Compile Include="Network\InternalArchipelagoManager.cs" />
     <Compile Include="Network\Items\Essence.cs" />
     <Compile Include="Network\Items\Fillers\Filler.cs" />
     <Compile Include="Network\Items\Fillers\JobPromotion.cs" />
@@ -103,12 +104,18 @@
     <Compile Include="Network\Items\Traps\Antiwater.cs" />
     <Compile Include="Network\Items\Traps\BodyAches.cs" />
     <Compile Include="Network\Items\Traps\PaintSwap.cs" />
-    <Compile Include="Network\Items\Victory.cs" />
+    <Compile Include="Network\Items\Freedom.cs" />
+    <Compile Include="Network\Options\ArchipelagoOptions.cs" />
+    <Compile Include="Patches\Controller\CheckpointGivePower.cs" />
+    <Compile Include="Patches\Controller\Essence.cs" />
     <Compile Include="Patches\Location\ExitLevel.cs" />
+    <Compile Include="Patches\Location\Power.cs" />
+    <Compile Include="Patches\Location\Release.cs" />
+    <Compile Include="Patches\Setup\BossUnlock.cs" />
     <Compile Include="Patches\Setup\PostLoading.cs" />
     <Compile Include="Patches\Setup\PreventLoadSave.cs" />
     <Compile Include="Patches\Location\SplasherCollect.cs" />
-    <Compile Include="Patches\Listener\Checkpoint.cs" />
+    <Compile Include="Patches\Setup\SkipTutorial.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="Patches\Controller\Fire.cs" />
     <Compile Include="Patches\Setup\InitializePowers.cs" />

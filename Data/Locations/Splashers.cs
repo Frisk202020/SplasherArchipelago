@@ -8,7 +8,7 @@ namespace SplasherArchipelago.Data.Locations {
         private static Dictionary<LocalizedString, bool[]> collected = EachLevel<bool[]>.Init(() => new bool[splashers_per_level]);
 
         private static bool guard(LocalizedString level, int splasherId) {
-            return collected.ContainsKey(level) && splasherId >= 0 && splasherId < splashers_per_level;
+            return collected.ContainsKey(level) && splasherId >= 0 && splasherId < splashers_per_level && !collected[level][splasherId];
         }
 
         internal static bool IsRescued(LocalizedString level, int splasherId) {
@@ -25,7 +25,7 @@ namespace SplasherArchipelago.Data.Locations {
             if (!guard(level, splasherId)) return;
 
             collected[level][splasherId] = true;
-            Network.ArchipelagoManager.Check(LocationType.Splasher, splashers_per_level * LevelByName.Id(level) + splasherId);
+            Network.InternalArchipelagoManager.Check(LocationType.Splasher, splashers_per_level * LevelByName.Id(level) + splasherId);
         }
 
         internal static void Check(int id) {

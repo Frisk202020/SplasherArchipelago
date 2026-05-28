@@ -1,4 +1,6 @@
-﻿namespace SplasherArchipelago.Data.Items {
+﻿using System;
+
+namespace SplasherArchipelago.Data.Items {
     static class Essence {
         private const uint max = 700;
         private static uint ammount = 0;
@@ -8,6 +10,7 @@
             if (ammount <= max) {
                 var ret = ammount;
                 ammount = 0;
+
                 return ret;
             }
 

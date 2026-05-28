@@ -1,6 +1,7 @@
 ﻿using Archipelago.MultiClient.Net;
 using BepInEx;
 using HarmonyLib;
+using System;
 
 namespace SplasherArchipelago {
     [BepInPlugin(pluginId, "SplasherArchipelago", "0.0.1")]
@@ -8,7 +9,7 @@ namespace SplasherArchipelago {
         public const string pluginId = "com.frisk.splahser_archipelago";
 
         public void Awake() {
-            var connectResult = Network.ArchipelagoManager.Init();
+            var connectResult = Network.InternalArchipelagoManager.Init();
 
             if (connectResult is LoginFailure error) {
                 string msg = $"Failed to connect to server\n";
@@ -21,15 +22,17 @@ namespace SplasherArchipelago {
             }
 
             var success = (LoginSuccessful)connectResult;
-            Network.ArchipelagoManager.Slot = success.Slot;
+            Network.InternalArchipelagoManager.Slot = success.Slot;
 
             Data.Items.LevelKeys.UnlockAll();
 
             var harmony = new Harmony(pluginId);
             harmony.PatchAll();
+
             Logger.LogMessage("Archipelago Loaded !");
 
-            Network.ArchipelagoManager.ReceiveAllItems();
+            Network.InternalArchipelagoManager.ApplyOptions();
+            Network.InternalArchipelagoManager.ReceiveAllItems();
         }
     }
 }

@@ -1,11 +1,12 @@
 ﻿using Archipelago.MultiClient.Net.Models;
+using System;
 using System.Collections.Generic;
 
 namespace SplasherArchipelago.Network.Items {
     static class ItemManager {
         private static List<Item> OrderedItems() {
             var items = new List<Item> {
-                new Victory(), new Splasher(),
+                new Freedom(), new Splasher(),
                 new Powers.Water(), new Powers.Stickink(), new Powers.Bouncink(),
                 new Fillers.JobPromotion(),
                 new Traps.PaintSwap(), new Traps.BodyAches(), // new Traps.Antiwater(), 
@@ -18,7 +19,7 @@ namespace SplasherArchipelago.Network.Items {
 
             return items;
         }
-        private static List<Item> orderedItems = OrderedItems();
+        private static readonly List<Item> orderedItems = OrderedItems();
 
         internal static void Collect(ItemInfo item) {
             var id = item.ItemId - Util.BaseId;

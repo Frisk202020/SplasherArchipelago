@@ -1,4 +1,5 @@
 ﻿using Archipelago.MultiClient.Net.Models;
+using System;
 
 namespace SplasherArchipelago.Network.Items {
     class Essence : Item {
@@ -10,6 +11,7 @@ namespace SplasherArchipelago.Network.Items {
 
         public string Name() => $"Essence ({ammount})";
         public void Collect(ItemInfo info) {
+            Console.WriteLine($"collect essence {ammount}");
             Data.Items.Essence.Add(ammount);
         }
     }
