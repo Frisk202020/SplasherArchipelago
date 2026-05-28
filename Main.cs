@@ -9,7 +9,7 @@ namespace SplasherArchipelago {
         public const string pluginId = "com.frisk.splahser_archipelago";
 
         public void Awake() {
-            var connectResult = Network.InternalArchipelagoManager.Init();
+            var connectResult = Network.ArchipelagoManager.Init();
 
             if (connectResult is LoginFailure error) {
                 string msg = $"Failed to connect to server\n";
@@ -22,7 +22,7 @@ namespace SplasherArchipelago {
             }
 
             var success = (LoginSuccessful)connectResult;
-            Network.InternalArchipelagoManager.Slot = success.Slot;
+            Network.ArchipelagoManager.Slot = success.Slot;
 
             Data.Items.LevelKeys.UnlockAll();
 
@@ -31,8 +31,8 @@ namespace SplasherArchipelago {
 
             Logger.LogMessage("Archipelago Loaded !");
 
-            Network.InternalArchipelagoManager.ApplyOptions();
-            Network.InternalArchipelagoManager.ReceiveAllItems();
+            Network.ArchipelagoManager.ApplyOptions();
+            Network.ArchipelagoManager.ReceiveAllItems();
         }
     }
 }

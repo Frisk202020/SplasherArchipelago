@@ -89,7 +89,8 @@
     <Compile Include="Helpers\EachLevel.cs" />
     <Compile Include="Helpers\LevelHelper.cs" />
     <Compile Include="Main.cs" />
-    <Compile Include="Network\InternalArchipelagoManager.cs" />
+    <Compile Include="Network\FailableSession.cs" />
+    <Compile Include="Network\ArchipelagoManager.cs" />
     <Compile Include="Network\Items\Essence.cs" />
     <Compile Include="Network\Items\Fillers\Filler.cs" />
     <Compile Include="Network\Items\Fillers\JobPromotion.cs" />

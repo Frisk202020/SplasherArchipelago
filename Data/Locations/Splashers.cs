@@ -25,7 +25,7 @@ namespace SplasherArchipelago.Data.Locations {
             if (!guard(level, splasherId)) return;
 
             collected[level][splasherId] = true;
-            Network.InternalArchipelagoManager.Check(LocationType.Splasher, splashers_per_level * LevelByName.Id(level) + splasherId);
+            Network.ArchipelagoManager.Check(LocationType.Splasher, splashers_per_level * LevelByName.Id(level) + splasherId);
         }
 
         internal static void Check(int id) {

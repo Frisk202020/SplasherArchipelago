@@ -4,7 +4,7 @@
         internal static void Free() {
             if (IsFree) return;
 
-            Network.InternalArchipelagoManager.Victory();
+            Network.ArchipelagoManager.Victory();
             IsFree = true; 
         }
     }

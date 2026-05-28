@@ -7,19 +7,19 @@
         internal static void CheckWater() {
             if (checkedWater) return;
 
-            Network.InternalArchipelagoManager.Check(LocationType.Water, 0);
+            Network.ArchipelagoManager.Check(LocationType.Water, 0);
             checkedWater = true; 
         }
         internal static void CheckStickink() {
             if (checkedStickink) return;
 
-            Network.InternalArchipelagoManager.Check(LocationType.Stickink, 0);
+            Network.ArchipelagoManager.Check(LocationType.Stickink, 0);
             checkedStickink = true; 
         }
         internal static void CheckBouncink() {
             if (checkedBouncink) return;
 
-            Network.InternalArchipelagoManager.Check(LocationType.Bouncink, 0);
+            Network.ArchipelagoManager.Check(LocationType.Bouncink, 0);
             checkedBouncink = true; 
         }
 

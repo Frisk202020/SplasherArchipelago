@@ -16,7 +16,7 @@ namespace SplasherArchipelago.Data.Locations {
             if (!clears.ContainsKey(level)) return;
 
             clears[level] = true;
-            Network.InternalArchipelagoManager.Check(LocationType.Clear, LevelByName.Id(level));
+            Network.ArchipelagoManager.Check(LocationType.Clear, LevelByName.Id(level));
         }
 
         internal void Check(int id) {
