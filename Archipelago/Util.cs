@@ -1,5 +1,9 @@
-﻿namespace SplasherArchipelago {
-    internal static class Util {
+﻿using HarmonyLib;
+using SplasherArchipelago.Network;
+
+namespace SplasherArchipelago {
+    public static class Util {
+        public const string pluginId = "com.frisk.splahser_archipelago";
         internal const string Game = "Splasher";
         internal const long BaseId = 0xF4A201;
         internal const uint LevelCount = 22;
@@ -14,5 +18,15 @@
             "Toxink Avenger", "The Glados Principle", "Apocalink Now",
             "Good Luck Splasher"
         };
+
+        internal static Harmony harmony = new Harmony(pluginId);
+
+        public static bool Start() {
+            if (ArchipelagoManager.Start()) {
+                harmony.PatchAll();
+                return true;
+            }
+            return false;
+        }
     }
 }
