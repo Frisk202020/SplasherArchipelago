@@ -7,5 +7,19 @@
         internal static void UnlockWater() { HasWater = true;  }
         internal static void UnlockSticky() { HasSticky = true; }
         internal static void UnlockBouncy() { HasBouncy = true; }
+
+        internal static void UnlockProgressive() {
+            if (!HasWater) {
+                HasWater = true;
+                return;
+            }
+
+            if (!HasSticky) {
+                HasSticky = true;
+                return;
+            }
+
+            HasBouncy = true;
+        }
     }
 }

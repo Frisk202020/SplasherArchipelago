@@ -15,5 +15,7 @@ namespace SplasherArchipelago.Network.Items {
             Data.Items.Splashers.Add();
             collected.Add(item.LocationId);
         }
+
+        public bool CollectOnStart() { return true; }
     }
 }

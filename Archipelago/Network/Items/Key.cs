@@ -15,6 +15,8 @@ namespace SplasherArchipelago.Network.Items {
         }
 
         public string Name() => $"{levelName} : Entrance Key";
+
+        public bool CollectOnStart() { return true; }
         
         internal static void AddAll(List<Item> items) {
             for (uint i = 0; i < Util.Levels.Length; i++) {

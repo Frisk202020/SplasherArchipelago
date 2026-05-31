@@ -7,7 +7,5 @@ namespace SplasherArchipelago.Network.Items.Powers {
         }
 
         public override string Name() => $"Sticky Paint {base.Name()}";
-
-        internal Stickink() { }
     }
 }

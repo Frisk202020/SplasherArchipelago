@@ -1,6 +1,6 @@
 ﻿using HarmonyLib;
 
-namespace SplasherArchipelago.Patches.Controller {
+namespace SplasherArchipelago.Patches.Controller.Hub {
     [HarmonyPatch(typeof(GameData), "GetGameRescuedSplashersCount")]
     public class SplasherCount {
         public static bool Prefix(ref int __result) {

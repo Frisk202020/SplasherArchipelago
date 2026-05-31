@@ -2,8 +2,6 @@
 
 namespace SplasherArchipelago.Network.Items.Powers {
     class Bouncink : Power,Item {
-        public Bouncink() { }
-
         public override string Name() => $"Bouncy Paint {base.Name()}";
 
         public void Collect(ItemInfo _item) {

@@ -99,6 +99,7 @@
     <Compile Include="Network\Items\Key.cs" />
     <Compile Include="Network\Items\Powers\Bouncink.cs" />
     <Compile Include="Network\Items\Powers\Power.cs" />
+    <Compile Include="Network\Items\Powers\Progressive.cs" />
     <Compile Include="Network\Items\Powers\Stickink.cs" />
     <Compile Include="Network\Items\Powers\Water.cs" />
     <Compile Include="Network\Items\Splasher.cs" />
@@ -107,22 +108,24 @@
     <Compile Include="Network\Items\Traps\PaintSwap.cs" />
     <Compile Include="Network\Items\Freedom.cs" />
     <Compile Include="Network\Options\ArchipelagoOptions.cs" />
-    <Compile Include="Patches\Controller\Bell.cs" />
+    <Compile Include="Patches\Controller\Hub\Bell.cs" />
+    <Compile Include="Patches\Controller\Hub\SkipTutorial.cs" />
+    <Compile Include="Patches\Controller\Input\Button.cs" />
     <Compile Include="Patches\Controller\CheckpointGivePower.cs" />
     <Compile Include="Patches\Controller\Essence.cs" />
-    <Compile Include="Patches\Controller\PreventAutoSave.cs" />
-    <Compile Include="Patches\Controller\PreventSave.cs" />
+    <Compile Include="Patches\Controller\Save\PreventAutoSave.cs" />
+    <Compile Include="Patches\Controller\Save\PreventSave.cs" />
+    <Compile Include="Patches\Controller\Input\ButtonDown.cs" />
     <Compile Include="Patches\Location\ExitLevel.cs" />
     <Compile Include="Patches\Location\Power.cs" />
     <Compile Include="Patches\Location\Release.cs" />
-    <Compile Include="Patches\Setup\BossUnlock.cs" />
+    <Compile Include="Patches\Controller\Hub\BossUnlock.cs" />
     <Compile Include="Patches\Location\SplasherCollect.cs" />
-    <Compile Include="Patches\Controller\LevelStats.cs" />
+    <Compile Include="Patches\Controller\Hub\LevelStats.cs" />
     <Compile Include="Util.cs" />
-    <Compile Include="Patches\Controller\Fire.cs" />
-    <Compile Include="Patches\Setup\InitializePowers.cs" />
+    <Compile Include="Patches\Controller\InitializePowers.cs" />
     <Compile Include="Patches\UI\PowersUI.cs" />
-    <Compile Include="Patches\Controller\SplasherCount.cs" />
+    <Compile Include="Patches\Controller\Hub\SplasherCount.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

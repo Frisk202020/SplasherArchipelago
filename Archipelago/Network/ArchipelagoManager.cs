@@ -18,8 +18,7 @@ namespace SplasherArchipelago.Network {
             if (session is null) {
                 try {
                     Parse();
-                }
-                catch (Exception ex) {
+                } catch (Exception ex) {
                     Console.WriteLine($"Parse Error : check your connection file. Error is the following : {ex.Message}");
                     return false;
                 }
@@ -54,7 +53,6 @@ namespace SplasherArchipelago.Network {
             Console.WriteLine("Archipelago Loaded !");
 
             ApplyOptions();
-            ReceiveAllItems();
             RestoreCheckedLocations();
             return true;
         }
@@ -88,14 +86,6 @@ namespace SplasherArchipelago.Network {
             session.Execute((session) => {
                 var data = session.DataStorage.GetSlotData<ArchipelagoOptions>();
                 data.Apply();
-            });
-        }
-
-        private static void ReceiveAllItems() {
-            session.Execute((session) => {
-                foreach (var item in session.Items.AllItemsReceived) {
-                    Items.ItemManager.Collect(item);
-                }
             });
         }
 

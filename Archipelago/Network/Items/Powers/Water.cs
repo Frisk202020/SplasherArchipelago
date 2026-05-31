@@ -6,7 +6,5 @@ namespace SplasherArchipelago.Network.Items.Powers {
         public void Collect(ItemInfo _item) {
             Data.Items.Powers.UnlockWater();
         }
-
-        internal Water() { }
     }
 }

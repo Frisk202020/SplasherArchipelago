@@ -11,8 +11,10 @@ namespace SplasherArchipelago.Network.Items {
 
         public string Name() => $"Essence ({ammount})";
         public void Collect(ItemInfo info) {
-            Console.WriteLine($"collect essence {ammount}");
+            Console.WriteLine("collect essence");
             Data.Items.Essence.Add(ammount);
         }
+
+        public bool CollectOnStart() { return false; }
     }
 }

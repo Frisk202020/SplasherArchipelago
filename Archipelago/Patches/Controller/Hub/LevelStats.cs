@@ -1,6 +1,6 @@
 ﻿using HarmonyLib;
 
-namespace SplasherArchipelago.Patches.Setup {
+namespace SplasherArchipelago.Patches.Controller.Hub {
     [HarmonyPatch(typeof(GameData), "GetLevelData")]
     public static class LevelStats {
         private static void Patch(LevelData data, int index) {
