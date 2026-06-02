@@ -3,6 +3,16 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+# rust
+Proxy/target
+Proxy/*.ps1
+Proxy/Cargo.lock
+
+## Only for windows build
+Proxy/app.rc
+Proxy/icon.ico
+Proxy/build.rs
+
 # User-specific files
 *.rsuser
 *.suo

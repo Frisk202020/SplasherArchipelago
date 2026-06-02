@@ -89,7 +89,8 @@
     <Compile Include="Helpers\EachLevel.cs" />
     <Compile Include="Helpers\LevelHelper.cs" />
     <Compile Include="Main.cs" />
-    <Compile Include="Network\FailableSession.cs" />
+    <Compile Include="Network\Helpers\Address.cs" />
+    <Compile Include="Network\Helpers\FailableSession.cs" />
     <Compile Include="Network\ArchipelagoManager.cs" />
     <Compile Include="Network\Items\Essence.cs" />
     <Compile Include="Network\Items\Fillers\Filler.cs" />
@@ -108,6 +109,7 @@
     <Compile Include="Network\Items\Traps\PaintSwap.cs" />
     <Compile Include="Network\Items\Freedom.cs" />
     <Compile Include="Network\Options\ArchipelagoOptions.cs" />
+    <Compile Include="Network\Helpers\ProxyManager.cs" />
     <Compile Include="Patches\Controller\Hub\Bell.cs" />
     <Compile Include="Patches\Controller\Hub\SkipTutorial.cs" />
     <Compile Include="Patches\Controller\Input\Button.cs" />

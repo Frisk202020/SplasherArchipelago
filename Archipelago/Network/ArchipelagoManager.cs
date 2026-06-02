@@ -2,6 +2,7 @@
 using SplasherArchipelago.Data.Locations;
 using SplasherArchipelago.Network.Options;
 using System;
+using System.Diagnostics;
 using System.IO;
 
 namespace SplasherArchipelago.Network {
@@ -9,31 +10,33 @@ namespace SplasherArchipelago.Network {
         private static string domain = "archipelago.gg";
         private static int port = 0;
         private static string player = "Splasher";
-        private static Version version = new Version(0, 6, 7);
+        private static bool proxy = false;
+
+        private static readonly Version version = new Version(0, 6, 7);
         public static int? Slot = null;
 
-        private static FailableSession session;
+        private static Helpers.FailableSession session;
 
         internal static bool Start() {
             if (session is null) {
                 try {
                     Parse();
                 } catch (Exception ex) {
-                    Console.WriteLine($"Parse Error : check your connection file. Error is the following : {ex.Message}");
+                    Util.Error($"Failed to parse connection info : Check your connection file.\nDetails : {ex.Message}");
                     return false;
                 }
 
-                Console.WriteLine($"Attempting to connect to : {domain}:{port} as {player}");
-                var session = ArchipelagoSessionFactory.CreateSession(domain, port);
+                var targetAddress = new Helpers.Address { domain = domain, port = port };
+                var session = ArchipelagoSessionFactory.CreateSession(proxy ? $"ws://localhost:8080" : targetAddress.ToString());
 
                 session.Items.ItemReceived += (recvItemHelper) => {
                     Items.ItemManager.Collect(recvItemHelper.DequeueItem());
                 };
 
-                ArchipelagoManager.session = new FailableSession(session, player, version);
+                ArchipelagoManager.session = new Helpers.FailableSession(session, player, version, proxy ? targetAddress : null);
             }
 
-            var connectResult = session.Connect();
+            var connectResult = session.Connect(true);
 
             if (connectResult is LoginFailure error) {
                 string msg = $"Failed to connect to server\n";
@@ -42,7 +45,7 @@ namespace SplasherArchipelago.Network {
                     msg += $"{err}\n";
                 }
 
-                Console.WriteLine(msg);
+                Util.Error(msg);
                 return false;
             }
 
@@ -50,7 +53,7 @@ namespace SplasherArchipelago.Network {
             Slot = success.Slot;
 
             Data.Items.LevelKeys.UnlockAll();
-            Console.WriteLine("Archipelago Loaded !");
+            Util.Log("Archipelago Loaded !");
 
             ApplyOptions();
             RestoreCheckedLocations();
@@ -59,7 +62,7 @@ namespace SplasherArchipelago.Network {
 
         // naive implementation : need to integrate to game's UI
         private static void Parse() {
-            var sr = new StreamReader("connection.md");
+            var sr = new StreamReader("connection.yaml");
             var line = sr.ReadLine();
             while (line != null) {
                 var lineArr = line.Split(':');
@@ -75,6 +78,8 @@ namespace SplasherArchipelago.Network {
                             port = int.Parse(value); break;
                         case "slot":
                             player = value; break;
+                        case "proxy":
+                            proxy = value == "true"; break;
                     }
                 }
 
@@ -89,7 +94,7 @@ namespace SplasherArchipelago.Network {
             });
         }
 
-        private static void RestoreCheckedLocations() {
+        public static void RestoreCheckedLocations() {
             session.Execute((session) => {
                 foreach (var loc in session.Locations.AllLocationsChecked) {
                     int id = (int)(loc - Util.BaseId);

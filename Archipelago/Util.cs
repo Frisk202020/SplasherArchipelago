@@ -28,5 +28,17 @@ namespace SplasherArchipelago {
             }
             return false;
         }
+
+        public static void Log(string msg) {
+            UnityEngine.Debug.Log($"[Archipelago] {msg}");
+        }
+
+        public static void Warn(string msg) {
+            UnityEngine.Debug.LogWarning($"[Archipelago] {msg}");
+        }
+
+        public static void Error(string msg) {
+            UnityEngine.Debug.LogError($"[Archipelago] {msg}");
+        }
     }
 }

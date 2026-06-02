@@ -30,7 +30,6 @@ namespace SplasherArchipelago.Network.Items {
             var id = item.ItemId - Util.BaseId;
             if (id >= 0 && id < orderedItems.Count) {
                 var splasherItem = orderedItems[(int)id];
-                Console.WriteLine($"{splasherItem.Name()}, startup={isStartup}, collect={splasherItem.CollectOnStart()}");
                 if (isStartup && !splasherItem.CollectOnStart()) return;
 
                 splasherItem.Collect(item);

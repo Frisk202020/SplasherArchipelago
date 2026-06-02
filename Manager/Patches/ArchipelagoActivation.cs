@@ -10,7 +10,8 @@ namespace SplasherManager.Patches {
             }
             
             enabled = SplasherArchipelago.Util.Start();
-            Hub.Load();
+            if (enabled) Hub.Load();
+
             return false;
 
         }
