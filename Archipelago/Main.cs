@@ -1,4 +1,5 @@
 ﻿using BepInEx;
+using System;
 
 namespace SplasherArchipelago {
     [BepInPlugin(Util.pluginId, "SplasherArchipelago", "0.0.3")]

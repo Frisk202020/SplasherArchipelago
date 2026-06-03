@@ -17,9 +17,9 @@ namespace SplasherArchipelago.Network.Helpers {
         private static bool Start(Address address) {
             var process = new Process();
             process.StartInfo.FileName = "Proxy.exe";
-            process.StartInfo.UseShellExecute = false;
             process.StartInfo.Arguments = $"{address.domain} {address.port}";
             process.EnableRaisingEvents = true;
+            process.StartInfo.CreateNoWindow = true;
 
             Util.Log($"Launching the proxy to listen on {address}");
             try {
@@ -35,8 +35,14 @@ namespace SplasherArchipelago.Network.Helpers {
         public static void Drop() {
             if (_process is null) return;
 
-            _process.Close();
-            Clean();
+            try {
+                _process.Kill();
+                _process.WaitForExit();
+            } catch (Exception) {
+                Util.Error("Failed to terminate the proxy instance");
+            } finally {
+                Clean();
+            }            
         }
 
         private static void Clean() {
