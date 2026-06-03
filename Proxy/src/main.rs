@@ -31,30 +31,24 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         let target_address = remote_target.clone();
         let host_name = remote_host.to_string();
 
-        tokio::spawn(async move {
-            eprintln!("[Proxy] Game connected. Opening secure pipeline to Archipelago...");
+        eprintln!("[Proxy] Game connected. Opening secure pipeline to Archipelago...");
+        match TcpStream::connect(&target_address).await {
+            Ok(server_tcp) => {
+                match connector_clone.connect(&host_name, server_tcp).await {
+                    Ok(mut secure_server_stream) => {
+                        eprintln!("[Proxy] TLS 1.3 Handshake complete. Splicing streams.");
 
-            // 1. Open plain TCP connection to the archipelago server
-            match TcpStream::connect(&target_address).await {
-                Ok(server_tcp) => {
-                    // 2. Wrap the internet-facing TCP stream in TLS 1.3
-                    match connector_clone.connect(&host_name, server_tcp).await {
-                        Ok(mut secure_server_stream) => {
-                            eprintln!("[Proxy] TLS 1.3 Handshake complete. Splicing streams.");
-
-                            // 3. Blindly pass raw bytes back and forth with perfect integrity
-                            let _ = tokio::io::copy_bidirectional(
-                                &mut client_stream, 
-                                &mut secure_server_stream
-                            ).await;
-                            
-                            eprintln!("[Proxy] Pipeline closed cleanly.");
-                        }
-                        Err(e) => eprintln!("[Error][Proxy] Internet TLS Handshake Failed: {}", e),
+                        let _ = tokio::io::copy_bidirectional(
+                            &mut client_stream, 
+                            &mut secure_server_stream
+                        ).await;
+                        
+                        eprintln!("[Proxy] Pipeline closed.");
                     }
+                    Err(e) => eprintln!("[Error][Proxy] Internet TLS Handshake Failed: {}", e),
                 }
-                Err(e) => eprintln!("[Error][Proxy] Failed to physically connect to Archipelago server: {}", e),
             }
-        });
+            Err(e) => eprintln!("[Error][Proxy] Failed to physically connect to Archipelago server: {}", e),
+        }
     }
 }
