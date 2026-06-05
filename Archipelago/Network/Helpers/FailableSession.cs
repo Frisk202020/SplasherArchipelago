@@ -54,7 +54,8 @@ namespace SplasherArchipelago.Network.Helpers {
             switch (option) {
                 case Options.DeathLink.Normal: Data.DeathLink.Trigger = 4; break;
                 case Options.DeathLink.Brave: Data.DeathLink.Trigger = 2; break;
-                case Options.DeathLink.Legend: Data.DeathLink.EnableGodMode(); goto case Options.DeathLink.Insane;
+                case Options.DeathLink.SelfishLegend: Data.DeathLink.SetSelfish(); goto case Options.DeathLink.Insane;
+                case Options.DeathLink.Legend: Data.DeathLink.SetAbsoluteLegend(); goto case Options.DeathLink.Insane;
                 case Options.DeathLink.Insane: Data.DeathLink.Trigger = 0; break;
                 default: return;
             }

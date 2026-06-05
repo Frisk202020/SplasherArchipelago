@@ -4,6 +4,7 @@
         Normal = 1,
         Brave = 2,
         Insane = 3,
-        Legend = 4
+        SelfishLegend = 4,
+        Legend = 5
     }
 }

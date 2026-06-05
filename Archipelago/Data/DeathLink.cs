@@ -1,8 +1,15 @@
 ﻿namespace SplasherArchipelago.Data {
     internal static class DeathLink {
         internal static uint Trigger = 4;
-        internal static bool TriggerOnSplasherDeath { get; private set; } = false;
-        internal static void EnableGodMode() { TriggerOnSplasherDeath = true; }
+
+        private enum Legend {
+            None = 0,
+            Selfish = 1,
+            Absolute = 2
+        }
+        internal static void SetSelfish() { legend = Legend.Selfish;  }
+        internal static void SetAbsoluteLegend() { legend = Legend.Absolute; }
+        private static Legend legend = Legend.None;
 
         private static void Send() {
             Count = 0;
@@ -27,8 +34,9 @@
         }
 
         internal static void ReportSplasherDeath() {
-            if (TriggerOnSplasherDeath) {
-                Send();
+            switch(legend) {
+                case Legend.Absolute: ReceiveDeath = true; goto case Legend.Selfish;
+                case Legend.Selfish: Send(); break;
             }
         }
 
