@@ -1,4 +1,5 @@
 ﻿using Archipelago.MultiClient.Net;
+using Archipelago.MultiClient.Net.BounceFeatures.DeathLink;
 using Archipelago.MultiClient.Net.Enums;
 using Archipelago.MultiClient.Net.Exceptions;
 using System;
@@ -17,6 +18,8 @@ namespace SplasherArchipelago.Network.Helpers {
         // If the game is closed, locations are lost and need to be checked again
         private readonly Queue<Action<ArchipelagoSession>> pendingEvents = new Queue<Action<ArchipelagoSession>>();
         private readonly Address proxyTarget;
+
+        private DeathLinkService deathLinkService;
 
         public FailableSession(ArchipelagoSession session, string player, Version version, Address proxyTarget) {
             this.session = session;
@@ -38,6 +41,27 @@ namespace SplasherArchipelago.Network.Helpers {
                 requestSlotData: requestSlotData,
                 uuid: uuid
             );
+        }
+
+        public void ApplyOptions() {
+            var options = session.DataStorage.GetSlotData();
+
+            Data.Items.Splashers.Goal = (int)(long)options["splashers_goal"];
+            ApplyDeathLink((Options.DeathLink)(long)options["death_link"]);
+        }
+
+        private void ApplyDeathLink(Options.DeathLink option) {
+            switch (option) {
+                case Options.DeathLink.Normal: Data.DeathLink.Trigger = 4; break;
+                case Options.DeathLink.Brave: Data.DeathLink.Trigger = 2; break;
+                case Options.DeathLink.Legend: Data.DeathLink.EnableGodMode(); goto case Options.DeathLink.Insane;
+                case Options.DeathLink.Insane: Data.DeathLink.Trigger = 0; break;
+                default: return;
+            }
+
+            deathLinkService = session.CreateDeathLinkService();
+            deathLinkService.EnableDeathLink();
+            deathLinkService.OnDeathLinkReceived += Data.DeathLink.ReceiveDeathLink;
         }
 
         public void Execute(Action<ArchipelagoSession> callback) {
@@ -80,6 +104,11 @@ namespace SplasherArchipelago.Network.Helpers {
                     return;
                 }
             }
+        }
+
+        internal void SendDeathLink() {
+            if (deathLinkService is null) return; 
+            deathLinkService.SendDeathLink(new DeathLink(player));
         }
     }
 }

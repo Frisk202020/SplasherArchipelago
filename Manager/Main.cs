@@ -2,7 +2,7 @@
 using HarmonyLib;
 
 namespace SplasherManager {
-    [BepInPlugin(pluginId, "SplasherManager", "0.0.3")]
+    [BepInPlugin(pluginId, "SplasherManager", "0.0.4")]
     public class Main : BaseUnityPlugin {
         private const string pluginId = "com.frisk.splashermanager";
         private readonly Harmony harmony = new Harmony(pluginId);

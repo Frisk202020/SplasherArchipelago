@@ -77,6 +77,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\DeathLink.cs" />
     <Compile Include="Data\Items\Essence.cs" />
     <Compile Include="Data\Items\Freedom.cs" />
     <Compile Include="Data\Items\LevelKeys.cs" />
@@ -108,8 +109,11 @@
     <Compile Include="Network\Items\Traps\BodyAches.cs" />
     <Compile Include="Network\Items\Traps\PaintSwap.cs" />
     <Compile Include="Network\Items\Freedom.cs" />
-    <Compile Include="Network\Options\ArchipelagoOptions.cs" />
     <Compile Include="Network\Helpers\ProxyManager.cs" />
+    <Compile Include="Network\Options\DeathLink.cs" />
+    <Compile Include="Patches\Controller\Death\Die.cs" />
+    <Compile Include="Patches\Controller\Death\PlayerState.cs" />
+    <Compile Include="Patches\Controller\Death\SplasherDie.cs" />
     <Compile Include="Patches\Controller\Hub\Bell.cs" />
     <Compile Include="Patches\Controller\Hub\SkipTutorial.cs" />
     <Compile Include="Patches\Controller\Input\Button.cs" />

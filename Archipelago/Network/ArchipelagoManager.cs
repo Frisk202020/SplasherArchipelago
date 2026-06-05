@@ -1,8 +1,6 @@
 ﻿using Archipelago.MultiClient.Net;
 using SplasherArchipelago.Data.Locations;
-using SplasherArchipelago.Network.Options;
 using System;
-using System.Diagnostics;
 using System.IO;
 
 namespace SplasherArchipelago.Network {
@@ -88,10 +86,7 @@ namespace SplasherArchipelago.Network {
         }
 
         private static void ApplyOptions() {
-            session.Execute((session) => {
-                var data = session.DataStorage.GetSlotData<ArchipelagoOptions>();
-                data.Apply();
-            });
+            session.ApplyOptions();
         }
 
         public static void RestoreCheckedLocations() {
@@ -121,6 +116,10 @@ namespace SplasherArchipelago.Network {
 
         internal static void Check(LocationType loc, long id) {
             session.Execute(session => session.Locations.CompleteLocationChecks(Util.BaseId + (int)loc + id));
+        }
+
+        internal static void SendDeathLink() {
+            session.SendDeathLink();
         }
 
         internal static void Victory() {
