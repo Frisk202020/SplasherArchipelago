@@ -1,13 +1,13 @@
 ﻿using Archipelago.MultiClient.Net;
 using Archipelago.MultiClient.Net.BounceFeatures.DeathLink;
 using Archipelago.MultiClient.Net.Enums;
-using Archipelago.MultiClient.Net.Exceptions;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace SplasherArchipelago.Network.Helpers {
     class FailableSession {
-        private const uint AUTO_RETRY_COUNT = 2;
+        private const int TIMEOUT_MS = 5000;
 
         private readonly ArchipelagoSession session;
         private readonly string player;
@@ -18,8 +18,9 @@ namespace SplasherArchipelago.Network.Helpers {
         // If the game is closed, locations are lost and need to be checked again
         private readonly Queue<Action<ArchipelagoSession>> pendingEvents = new Queue<Action<ArchipelagoSession>>();
         private readonly Address proxyTarget;
+        private readonly BackgroundThread connexionThread;
 
-        private DeathLinkService deathLinkService;
+        private BackgroundThread deathLinkThread;
 
         public FailableSession(ArchipelagoSession session, string player, Version version, Address proxyTarget) {
             this.session = session;
@@ -27,13 +28,34 @@ namespace SplasherArchipelago.Network.Helpers {
             this.version = version;
             this.proxyTarget = proxyTarget;
 
+            session.Socket.SocketOpened += () => {
+                Util.Log("Connected to Archipelago !");
+            };
+            session.Socket.SocketClosed += (reason) =>{
+                Util.Warn($"Connexion closed{(string.IsNullOrEmpty(reason) ? "." : $": {reason}")}");
+                connexionThread.Execute();
+            };
+
+            connexionThread = new BackgroundThread("Connexion Worker", () => {
+                while (true) {
+                    if (Connect()) {
+                        return;
+                    }
+
+                    Thread.Sleep(TIMEOUT_MS);
+                }
+            });
         }
 
-        public LoginResult Connect(bool requestSlotData = false) {
-            if (proxyTarget != null && !ProxyManager.Init(proxyTarget)) return null;
+        public bool FirstConnection() {
+            return Connect(true);
+        }
+
+        private bool Connect(bool requestSlotData = false) {
+            if (proxyTarget != null && !ProxyManager.Init(proxyTarget)) return false;
 
             Util.Log($"Trying to connect to Archipelago Server");
-            return session.TryConnectAndLogin(
+            var res = session.TryConnectAndLogin(
                 game: Util.Game,
                 name: player,
                 itemsHandlingFlags: ItemsHandlingFlags.AllItems,
@@ -41,6 +63,29 @@ namespace SplasherArchipelago.Network.Helpers {
                 requestSlotData: requestSlotData,
                 uuid: uuid
             );
+
+            if (res is LoginFailure error) {
+                string msg = $"Failed to connect to server\n";
+                foreach (string err in error.Errors) {
+                    msg += $"{err}\n";
+                }
+
+                Util.Error(msg);
+                return false;
+            }
+
+            while (pendingEvents.Count > 0) {
+                var pending = pendingEvents.Dequeue();
+                try {
+                    pending(session);
+                }
+                catch {
+                    pendingEvents.Enqueue(pending);
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         public void ApplyOptions() {
@@ -60,56 +105,26 @@ namespace SplasherArchipelago.Network.Helpers {
                 default: return;
             }
 
-            deathLinkService = session.CreateDeathLinkService();
+            var deathLinkService = session.CreateDeathLinkService();
             deathLinkService.EnableDeathLink();
             deathLinkService.OnDeathLinkReceived += Data.DeathLink.ReceiveDeathLink;
+
+            deathLinkThread = new BackgroundThread("DeathLink Worker", () => Thread.Sleep(10000));
         }
 
         public void Execute(Action<ArchipelagoSession> callback) {
-            var success = false;
-            for (uint i = 0; i < AUTO_RETRY_COUNT; i++) {
-                try {
-                    callback(session);
-                    success = true;
-                    break;
-                } catch (ArchipelagoSocketClosedException) {
-                    var result = Connect();
-
-                    if (result is LoginSuccessful) {
-                        callback(session);
-                        return;
-                    }
-
-                    if (i < AUTO_RETRY_COUNT - 1) {
-                        Util.Warn("Failed to reconnect to server, attempting again in a moment...");
-                    }
-                } catch {
-                    pendingEvents.Enqueue(callback);
-                    Util.Error("Failed to reconnect to server, try to reconnect manually...");
-                    return;
-                }
-            }
-
-            if (!success) {
-                Util.Error("Failed to reconnect to server, try to reconnect manually...");
+            try {
+                callback(session);
+            } catch {
+                pendingEvents.Enqueue(callback);
                 return;
-            }
-
-            while (pendingEvents.Count > 0) {
-                var pending = pendingEvents.Dequeue();
-                try {
-                    pending(session);
-                } catch {
-                    pendingEvents.Enqueue(pending);
-                    Util.Error("Failed to check pending locations, try to reconnect manually...");
-                    return;
-                }
             }
         }
 
         internal void SendDeathLink() {
-            if (deathLinkService is null) return; 
-            deathLinkService.SendDeathLink(new DeathLink(player));
+            if (deathLinkThread is null) return;
+
+            deathLinkThread.Execute();
         }
     }
 }

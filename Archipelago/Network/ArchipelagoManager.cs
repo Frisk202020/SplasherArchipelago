@@ -11,7 +11,6 @@ namespace SplasherArchipelago.Network {
         private static bool proxy = false;
 
         private static readonly Version version = new Version(0, 6, 7);
-        public static int? Slot = null;
 
         private static Helpers.FailableSession session;
 
@@ -33,22 +32,7 @@ namespace SplasherArchipelago.Network {
 
                 ArchipelagoManager.session = new Helpers.FailableSession(session, player, version, proxy ? targetAddress : null);
             }
-
-            var connectResult = session.Connect(true);
-
-            if (connectResult is LoginFailure error) {
-                string msg = $"Failed to connect to server\n";
-                foreach (string err in error.Errors)
-                {
-                    msg += $"{err}\n";
-                }
-
-                Util.Error(msg);
-                return false;
-            }
-
-            var success = (LoginSuccessful)connectResult;
-            Slot = success.Slot;
+            if (!session.FirstConnection()) return false;
 
             Data.Items.LevelKeys.UnlockAll();
             Util.Log("Archipelago Loaded !");
@@ -108,10 +92,6 @@ namespace SplasherArchipelago.Network {
                     }
                 }
             });
-        }
-
-        internal static void Reconnect() {
-            session.Connect();
         }
 
         internal static void Check(LocationType loc, long id) {

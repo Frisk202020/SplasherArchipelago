@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using HarmonyLib.Tools;
 using SplasherArchipelago.Network;
 
 namespace SplasherArchipelago {
@@ -7,6 +8,8 @@ namespace SplasherArchipelago {
         internal const string Game = "Splasher";
         internal const long BaseId = 0xF4A201;
         internal const uint LevelCount = 22;
+
+        private static BepInEx.Logging.ManualLogSource logger = BepInEx.Logging.Logger.CreateLogSource("Archipelago");
 
         internal readonly static string[] Levels = {
             "Welcome to Inkorp", "Potatoes Ink", "Stick To The Plan",
@@ -30,15 +33,15 @@ namespace SplasherArchipelago {
         }
 
         public static void Log(string msg) {
-            UnityEngine.Debug.Log($"[Archipelago] {msg}");
+            logger.LogInfo(msg);
         }
 
         public static void Warn(string msg) {
-            UnityEngine.Debug.LogWarning($"[Archipelago] {msg}");
+            logger.LogWarning(msg);
         }
 
         public static void Error(string msg) {
-            UnityEngine.Debug.LogError($"[Archipelago] {msg}");
+            logger.LogError(msg);
         }
     }
 }

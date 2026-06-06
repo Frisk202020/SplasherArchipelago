@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading;
 
 namespace SplasherArchipelago.Network.Helpers {
     internal static class ProxyManager {
@@ -19,12 +20,14 @@ namespace SplasherArchipelago.Network.Helpers {
             process.StartInfo.FileName = "Proxy.exe";
             process.StartInfo.Arguments = $"{address.domain} {address.port}";
             process.EnableRaisingEvents = true;
-            process.StartInfo.CreateNoWindow = true;
+            process.StartInfo.UseShellExecute = false;
 
             Util.Log($"Launching the proxy to listen on {address}");
             try {
                 process.Start();
                 _process = process;
+                Thread.Sleep(1000); // let proxy open its connection
+
                 return true;
             } catch (Exception e) {
                 Util.Error($"Failed to start the process.\nDetails: {e.Message}");

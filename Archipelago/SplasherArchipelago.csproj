@@ -91,6 +91,7 @@
     <Compile Include="Helpers\LevelHelper.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Network\Helpers\Address.cs" />
+    <Compile Include="Network\Helpers\BackgroundThread.cs" />
     <Compile Include="Network\Helpers\FailableSession.cs" />
     <Compile Include="Network\ArchipelagoManager.cs" />
     <Compile Include="Network\Items\Essence.cs" />
@@ -114,7 +115,6 @@
     <Compile Include="Patches\Controller\Death\Die.cs" />
     <Compile Include="Patches\Controller\Death\PlayerState.cs" />
     <Compile Include="Patches\Controller\Death\SplasherDie.cs" />
-    <Compile Include="Patches\Controller\Hub\Bell.cs" />
     <Compile Include="Patches\Controller\Hub\SkipTutorial.cs" />
     <Compile Include="Patches\Controller\Input\Button.cs" />
     <Compile Include="Patches\Controller\CheckpointGivePower.cs" />

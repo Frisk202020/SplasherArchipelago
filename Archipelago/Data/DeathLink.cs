@@ -19,7 +19,6 @@
         public static bool ReceiveDeath { get; private set; } = false;
         private static uint Count = 0;
         internal static void AddDeath() {
-            Util.Log($"{Count} {Trigger}");
             if (ReceiveDeath) {
                 ReceiveDeath = false;
                 return;
