@@ -93,15 +93,17 @@ namespace SplasherArchipelago.Network.Helpers {
 
             Data.Items.Splashers.Goal = (int)(long)options["splashers_goal"];
             ApplyDeathLink((Options.DeathLink)(long)options["death_link"]);
+
+            if ((long)options["hero_mode"] == 1) {
+                Data.DeathLink.SetHero();
+            }
         }
 
         private void ApplyDeathLink(Options.DeathLink option) {
             switch (option) {
                 case Options.DeathLink.Normal: Data.DeathLink.Trigger = 4; break;
-                case Options.DeathLink.Brave: Data.DeathLink.Trigger = 2; break;
-                case Options.DeathLink.SelfishLegend: Data.DeathLink.SetSelfish(); goto case Options.DeathLink.Insane;
-                case Options.DeathLink.Legend: Data.DeathLink.SetAbsoluteLegend(); goto case Options.DeathLink.Insane;
-                case Options.DeathLink.Insane: Data.DeathLink.Trigger = 0; break;
+                case Options.DeathLink.Insane: Data.DeathLink.Trigger = 2; break;
+                case Options.DeathLink.Legend: Data.DeathLink.Trigger = 0; break;
                 default: return;
             }
 
@@ -109,7 +111,7 @@ namespace SplasherArchipelago.Network.Helpers {
             deathLinkService.EnableDeathLink();
             deathLinkService.OnDeathLinkReceived += Data.DeathLink.ReceiveDeathLink;
 
-            deathLinkThread = new BackgroundThread("DeathLink Worker", () => Thread.Sleep(10000));
+            deathLinkThread = new BackgroundThread("DeathLink Worker", () => deathLinkService.SendDeathLink(new DeathLink(player)));
         }
 
         public void Execute(Action<ArchipelagoSession> callback) {

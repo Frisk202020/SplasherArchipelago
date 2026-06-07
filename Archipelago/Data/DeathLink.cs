@@ -1,15 +1,9 @@
 ﻿namespace SplasherArchipelago.Data {
     internal static class DeathLink {
         internal static uint Trigger = 4;
+        private static bool hero = false;
 
-        private enum Legend {
-            None = 0,
-            Selfish = 1,
-            Absolute = 2
-        }
-        internal static void SetSelfish() { legend = Legend.Selfish;  }
-        internal static void SetAbsoluteLegend() { legend = Legend.Absolute; }
-        private static Legend legend = Legend.None;
+        internal static void SetHero() => hero = true;
 
         private static void Send() {
             Count = 0;
@@ -33,14 +27,15 @@
         }
 
         internal static void ReportSplasherDeath() {
-            switch(legend) {
-                case Legend.Absolute: ReceiveDeath = true; goto case Legend.Selfish;
-                case Legend.Selfish: Send(); break;
-            }
+            if (!hero) return;
+            
+            AddDeath();
+            ReceiveDeath = true;
         }
 
         internal static void ReceiveDeathLink(Archipelago.MultiClient.Net.BounceFeatures.DeathLink.DeathLink death) {
             Util.Log($"Died from {death.Source} ({death.Cause})");
+
             Count = 0;
             ReceiveDeath = true;
         }
