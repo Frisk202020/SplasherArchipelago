@@ -1,0 +1,9 @@
+[package]
+name = "Debug"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+archipelago_rs = "2.1.1"
+serde = { version = "1.0.228", features = ["derive"] }
+tokio = { version = "1.52.3", features = ["full"] }
