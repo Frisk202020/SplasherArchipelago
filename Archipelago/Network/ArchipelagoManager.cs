@@ -5,32 +5,27 @@ using System.IO;
 
 namespace SplasherArchipelago.Network {
     static class ArchipelagoManager {
-        private static string domain = "archipelago.gg";
-        private static int port = 0;
-        private static string player = "Splasher";
-        private static bool proxy = false;
-
         private static readonly Version version = new Version(0, 6, 7);
-
         private static Helpers.FailableSession session;
 
         internal static bool Start() {
             if (session is null) {
-                try {
-                    Parse();
-                } catch (Exception ex) {
-                    Util.Error($"Failed to parse connection info : Check your connection file.\nDetails : {ex.Message}");
-                    return false;
+                if (Shared.Config is null) {
+                    Shared.Parse();
+                    if (Shared.Config is null) return false;
                 }
 
-                var targetAddress = new Helpers.Address { domain = domain, port = port };
-                var session = ArchipelagoSessionFactory.CreateSession(proxy ? $"ws://localhost:8080" : targetAddress.ToString());
+                var targetAddress = new Helpers.Address { domain = Shared.Config.Address.Value, port = (int)Shared.Config.Port.Value };
+                var session = ArchipelagoSessionFactory.CreateSession(Shared.Config.Proxy.Value ? $"ws://localhost:8080" : targetAddress.ToString());
 
                 session.Items.ItemReceived += (recvItemHelper) => {
                     Items.ItemManager.Collect(recvItemHelper.DequeueItem());
                 };
 
-                ArchipelagoManager.session = new Helpers.FailableSession(session, player, version, proxy ? targetAddress : null);
+                ArchipelagoManager.session = new Helpers.FailableSession(
+                    session, Shared.Config.Slot.Value, version, 
+                    Shared.Config.Proxy.Value ? targetAddress : null
+                );
             }
             if (!session.FirstConnection()) return false;
 
@@ -40,33 +35,6 @@ namespace SplasherArchipelago.Network {
             ApplyOptions();
             RestoreCheckedLocations();
             return true;
-        }
-
-        // naive implementation : need to integrate to game's UI
-        private static void Parse() {
-            var sr = new StreamReader("connection.yaml");
-            var line = sr.ReadLine();
-            while (line != null) {
-                var lineArr = line.Split(':');
-
-                if (lineArr.Length > 1) {
-                    var name = lineArr[0].Trim(' ');
-                    var value = lineArr[1].Trim(' ');
-
-                    switch(name) {
-                        case "address":
-                            domain = value; break;
-                        case "port":
-                            port = int.Parse(value); break;
-                        case "slot":
-                            player = value; break;
-                        case "proxy":
-                            proxy = value == "true"; break;
-                    }
-                }
-
-                line = sr.ReadLine();
-            }
         }
 
         private static void ApplyOptions() {
@@ -86,9 +54,9 @@ namespace SplasherArchipelago.Network {
                         case LocationType.Bouncink: Powers.RestoreBouncink(); break;
                         case LocationType.Splasher: Splashers.Check(id - (int)LocationType.Splasher); break;
                         case LocationType.Clear: LocationOnEachLevel.Clears.Check(id - (int)LocationType.Clear); break;
-                        case LocationType.Bronze: LocationOnEachLevel.Bronzes.Check(id - (int)LocationType.Clear); break;
-                        case LocationType.Silver: LocationOnEachLevel.Silvers.Check(id - (int)LocationType.Clear); break;
-                        case LocationType.Gold: LocationOnEachLevel.Golds.Check(id - (int)LocationType.Clear); break;
+                        case LocationType.Bronze: LocationOnEachLevel.Bronzes.Check(id - (int)LocationType.Bronze); break;
+                        case LocationType.Silver: LocationOnEachLevel.Silvers.Check(id - (int)LocationType.Silver); break;
+                        case LocationType.Gold: LocationOnEachLevel.Golds.Check(id - (int)LocationType.Gold); break;
                     }
                 }
             });

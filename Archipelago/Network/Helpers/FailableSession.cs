@@ -54,7 +54,7 @@ namespace SplasherArchipelago.Network.Helpers {
         private bool Connect(bool requestSlotData = false) {
             if (proxyTarget != null && !ProxyManager.Init(proxyTarget)) return false;
 
-            Util.Log($"Trying to connect to Archipelago Server");
+            Util.Log($"Trying to connect to Archipelago Server...");
             var res = session.TryConnectAndLogin(
                 game: Util.Game,
                 name: player,

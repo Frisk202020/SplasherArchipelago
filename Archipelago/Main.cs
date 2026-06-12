@@ -2,7 +2,7 @@
 using System;
 
 namespace SplasherArchipelago {
-    [BepInPlugin(Util.pluginId, "SplasherArchipelago", "0.0.4")]
+    [BepInPlugin(Shared.pluginId, "SplasherArchipelago", "0.0.5")]
     public class Main : BaseUnityPlugin {
         public void Awake() {}
 

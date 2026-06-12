@@ -58,8 +58,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Time.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Patches\ArchipelagoActivation.cs" />
+    <Compile Include="Patches\SoundManager.cs" />
+    <Compile Include="Patches\TimeManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

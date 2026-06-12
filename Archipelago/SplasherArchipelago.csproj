@@ -115,6 +115,7 @@
     <Compile Include="Patches\Controller\Death\Die.cs" />
     <Compile Include="Patches\Controller\Death\PlayerState.cs" />
     <Compile Include="Patches\Controller\Death\SplasherDie.cs" />
+    <Compile Include="Patches\Controller\Hub\DoorLocked.cs" />
     <Compile Include="Patches\Controller\Hub\SkipTutorial.cs" />
     <Compile Include="Patches\Controller\Input\Button.cs" />
     <Compile Include="Patches\Controller\CheckpointGivePower.cs" />
@@ -126,8 +127,17 @@
     <Compile Include="Patches\Location\Power.cs" />
     <Compile Include="Patches\Location\Release.cs" />
     <Compile Include="Patches\Controller\Hub\BossUnlock.cs" />
+    <Compile Include="Patches\Location\Speedrun.cs" />
     <Compile Include="Patches\Location\SplasherCollect.cs" />
     <Compile Include="Patches\Controller\Hub\LevelStats.cs" />
+    <Compile Include="Public\Config.cs" />
+    <Compile Include="Public\Field\BoolField.cs" />
+    <Compile Include="Public\Field\ConfigField.cs" />
+    <Compile Include="Public\Field\FloatField.cs" />
+    <Compile Include="Public\Field\IField.cs" />
+    <Compile Include="Public\Field\StringField.cs" />
+    <Compile Include="Public\Field\UintField.cs" />
+    <Compile Include="Shared.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="Patches\Controller\InitializePowers.cs" />
     <Compile Include="Patches\UI\PowersUI.cs" />
