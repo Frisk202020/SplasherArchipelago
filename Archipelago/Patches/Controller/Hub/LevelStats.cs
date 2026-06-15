@@ -19,10 +19,12 @@ namespace SplasherArchipelago.Patches.Controller.Hub {
 
 
         public static bool Prefix(GameData __instance, string sceneName) {
+            if (GameManager.Mode > GameMode.TimeAttack) return true;
+
             var index = __instance.LevelMetaDataList.IndexOf(__instance.GetLevelMetaData(sceneName));
             var data = __instance.CurrentPlayerData.GetLevelData(index);
             Patch(data, index);
-        
+
             return true;
         }
     }

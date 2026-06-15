@@ -10,7 +10,11 @@ namespace SplasherManager.Patches {
             }
             
             enabled = SplasherArchipelago.Shared.Start();
-            if (enabled) Hub.Load();
+            if (enabled) {
+                GameData.Initialized = false;
+                GameData.Instance.InitializePlayerData();
+                Hub.Load();
+            }
 
             return false;
 

@@ -9,32 +9,37 @@ namespace SplasherArchipelago.Network {
         private static Helpers.FailableSession session;
 
         internal static bool Start() {
-            if (session is null) {
-                if (Shared.Config is null) {
-                    Shared.Parse();
-                    if (Shared.Config is null) return false;
+            try {
+                if (session is null) {
+                    if (Shared.Config is null) {
+                        Shared.Parse();
+                        if (Shared.Config is null) return false;
+                    }
+
+                    var targetAddress = new Helpers.Address { domain = Shared.Config.Address.Value, port = (int)Shared.Config.Port.Value };
+                    var session = ArchipelagoSessionFactory.CreateSession(Shared.Config.Proxy.Value ? $"ws://localhost:8080" : targetAddress.ToString());
+
+                    session.Items.ItemReceived += (recvItemHelper) => {
+                        Items.ItemManager.Collect(recvItemHelper.DequeueItem());
+                    };
+
+                    ArchipelagoManager.session = new Helpers.FailableSession(
+                        session, Shared.Config.Slot.Value, version,
+                        Shared.Config.Proxy.Value ? targetAddress : null
+                    );
                 }
+                if (!session.FirstConnection()) return false;
 
-                var targetAddress = new Helpers.Address { domain = Shared.Config.Address.Value, port = (int)Shared.Config.Port.Value };
-                var session = ArchipelagoSessionFactory.CreateSession(Shared.Config.Proxy.Value ? $"ws://localhost:8080" : targetAddress.ToString());
+                Data.Items.LevelKeys.UnlockAll();
+                Util.Log("Archipelago Loaded !");
 
-                session.Items.ItemReceived += (recvItemHelper) => {
-                    Items.ItemManager.Collect(recvItemHelper.DequeueItem());
-                };
-
-                ArchipelagoManager.session = new Helpers.FailableSession(
-                    session, Shared.Config.Slot.Value, version, 
-                    Shared.Config.Proxy.Value ? targetAddress : null
-                );
+                ApplyOptions();
+                RestoreCheckedLocations();
+                return true;
+            } catch (Exception e) {
+                Util.Error($"Failed to initialize Archipelago : {e.Message}");
+                return false;
             }
-            if (!session.FirstConnection()) return false;
-
-            Data.Items.LevelKeys.UnlockAll();
-            Util.Log("Archipelago Loaded !");
-
-            ApplyOptions();
-            RestoreCheckedLocations();
-            return true;
         }
 
         private static void ApplyOptions() {
@@ -57,6 +62,7 @@ namespace SplasherArchipelago.Network {
                         case LocationType.Bronze: LocationOnEachLevel.Bronzes.Check(id - (int)LocationType.Bronze); break;
                         case LocationType.Silver: LocationOnEachLevel.Silvers.Check(id - (int)LocationType.Silver); break;
                         case LocationType.Gold: LocationOnEachLevel.Golds.Check(id - (int)LocationType.Gold); break;
+                        case LocationType.Platinum: LocationOnEachLevel.Platinums.Check(id - (int)LocationType.Platinum); break;
                     }
                 }
             });

@@ -83,7 +83,7 @@
     <Compile Include="Data\Items\LevelKeys.cs" />
     <Compile Include="Data\Items\Powers.cs" />
     <Compile Include="Data\Items\Splashers.cs" />
-    <Compile Include="Data\Locations\Clears.cs" />
+    <Compile Include="Data\Locations\LocationOnEachLevel.cs" />
     <Compile Include="Data\Locations\LocationType.cs" />
     <Compile Include="Data\Locations\Powers.cs" />
     <Compile Include="Data\Locations\Splashers.cs" />
@@ -120,9 +120,11 @@
     <Compile Include="Patches\Controller\Input\Button.cs" />
     <Compile Include="Patches\Controller\CheckpointGivePower.cs" />
     <Compile Include="Patches\Controller\Essence.cs" />
-    <Compile Include="Patches\Controller\Save\PreventAutoSave.cs" />
-    <Compile Include="Patches\Controller\Save\PreventSave.cs" />
+    <Compile Include="Patches\Controller\Save\Delete.cs" />
+    <Compile Include="Patches\Controller\Save\Exists.cs" />
+    <Compile Include="Patches\Controller\Save\Load.cs" />
     <Compile Include="Patches\Controller\Input\ButtonDown.cs" />
+    <Compile Include="Patches\Controller\Save\Save.cs" />
     <Compile Include="Patches\Location\ExitLevel.cs" />
     <Compile Include="Patches\Location\Power.cs" />
     <Compile Include="Patches\Location\Release.cs" />

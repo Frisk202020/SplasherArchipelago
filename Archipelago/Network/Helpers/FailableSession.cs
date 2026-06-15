@@ -31,6 +31,9 @@ namespace SplasherArchipelago.Network.Helpers {
             session.Socket.SocketOpened += () => {
                 Util.Log("Connected to Archipelago !");
             };
+            session.Socket.ErrorReceived += (exception, message) => {
+                Util.Error($"Internal Error: {message}\n{exception}");
+            };
             session.Socket.SocketClosed += (reason) =>{
                 Util.Warn($"Connexion closed{(string.IsNullOrEmpty(reason) ? "." : $": {reason}")}");
                 connexionThread.Execute();
@@ -89,12 +92,13 @@ namespace SplasherArchipelago.Network.Helpers {
         }
 
         public void ApplyOptions() {
-            var options = session.DataStorage.GetSlotData();
+            var data = session.DataStorage.GetSlotData();
 
-            Data.Items.Splashers.Goal = (int)(long)options["splashers_goal"];
-            ApplyDeathLink((Options.DeathLink)(long)options["death_link"]);
+            Util.Seed = (string)data["seed"];
+            Data.Items.Splashers.Goal = (int)(long)data["splashers_goal"];
+            ApplyDeathLink((Options.DeathLink)(long)data["death_link"]);
 
-            if ((long)options["hero_mode"] == 1) {
+            if ((long)data["hero_mode"] == 1) {
                 Data.DeathLink.SetHero();
             }
         }

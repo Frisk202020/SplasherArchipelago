@@ -9,7 +9,8 @@ namespace SplasherArchipelago.Data.Locations {
         Clear = Splasher + Util.LevelCount * 7,
         Bronze = Clear + Util.LevelCount,
         Silver = Bronze + Util.LevelCount,
-        Gold = Silver + Util.LevelCount
+        Gold = Silver + Util.LevelCount,
+        Platinum = Gold + Util.LevelCount
     }
 
     static class LocationExtensions {

@@ -28,5 +28,8 @@
         internal static void Error(string msg) {
             logger.LogError(msg);
         }
+
+        internal static string Seed = "";
+        internal static string SaveFile() => $"Archipelago_{Seed}";
     }
 }
