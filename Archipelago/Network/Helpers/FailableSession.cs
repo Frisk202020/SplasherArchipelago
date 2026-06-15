@@ -19,6 +19,7 @@ namespace SplasherArchipelago.Network.Helpers {
         private readonly Queue<Action<ArchipelagoSession>> pendingEvents = new Queue<Action<ArchipelagoSession>>();
         private readonly Address proxyTarget;
         private readonly BackgroundThread connexionThread;
+        private bool firstConnectionDone = false;
 
         private BackgroundThread deathLinkThread;
 
@@ -30,13 +31,14 @@ namespace SplasherArchipelago.Network.Helpers {
 
             session.Socket.SocketOpened += () => {
                 Util.Log("Connected to Archipelago !");
+                if (!firstConnectionDone) firstConnectionDone = true;
             };
             session.Socket.ErrorReceived += (exception, message) => {
                 Util.Error($"Internal Error: {message}\n{exception}");
             };
             session.Socket.SocketClosed += (reason) =>{
                 Util.Warn($"Connexion closed{(string.IsNullOrEmpty(reason) ? "." : $": {reason}")}");
-                connexionThread.Execute();
+                if (firstConnectionDone) connexionThread.Execute();
             };
 
             connexionThread = new BackgroundThread("Connexion Worker", () => {
