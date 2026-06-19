@@ -1,5 +1,9 @@
 ﻿using HarmonyLib;
 
+/**
+ * Set a custom target splashers value for boss unlocks. Currently only the final level is customizable.
+ */
+
 namespace SplasherArchipelago.Patches.Controller.Hub {
     [HarmonyPatch(typeof(global::Hub), "Start")]
     public static class BossUnlock {

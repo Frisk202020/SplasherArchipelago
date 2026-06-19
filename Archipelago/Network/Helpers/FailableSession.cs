@@ -103,6 +103,12 @@ namespace SplasherArchipelago.Network.Helpers {
             if ((long)data["hero_mode"] == 1) {
                 Data.DeathLink.SetHero();
             }
+
+            if ((long)data["include_keys"] == 0) {
+                Data.Items.LevelKeys.UnlockAll();
+            } else {
+                
+            }
         }
 
         private void ApplyDeathLink(Options.DeathLink option) {

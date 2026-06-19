@@ -9,7 +9,5 @@ namespace SplasherArchipelago.Network.Items {
         public void Collect(ItemInfo _item) {
             Data.Items.Freedom.Free();
         }
-
-        public bool CollectOnStart() { return true; }
     }
 }

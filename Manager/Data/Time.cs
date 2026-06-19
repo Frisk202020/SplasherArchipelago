@@ -4,6 +4,7 @@ using UnityEngine;
 namespace SplasherManager.Data {
     internal static class Time {
         internal static float TimeScale = 3;
+
         private static readonly List<AudioSource> patchedAudio = new List<AudioSource>();
 
         internal static void PatchAudio(AudioSource source) {

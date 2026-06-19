@@ -1,6 +1,12 @@
 ﻿using HarmonyLib;
 using UnityEngine;
 
+/**
+ * Set the gun's appearance in accordance to unlocked powers.
+ * Currently this can only be progressive so it will display the state of highest progression power.
+ * This will require to add new sprites to behave properly.
+ */
+
 namespace SplasherArchipelago.Patches.UI {
     [HarmonyPatch(typeof(PlayerController), "Start")]
     public static class Powers {

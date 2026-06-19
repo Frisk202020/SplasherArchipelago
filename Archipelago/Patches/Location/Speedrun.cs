@@ -1,5 +1,9 @@
 ﻿using HarmonyLib;
 
+/**
+ * Detect a speedrun location.
+ */
+
 namespace SplasherArchipelago.Patches.Location {
     [HarmonyPatch(typeof(UIScorePanel), "Refresh")]
     public static class Speedrun {

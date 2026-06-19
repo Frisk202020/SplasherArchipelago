@@ -1,11 +1,18 @@
 ﻿using HarmonyLib;
 
+/**
+ * Set the actual unlock state of a level based of Archipelago data.
+ * If configuration requires to show level names, doors are marked as finished if unlocked.
+ */
+
 namespace SplasherArchipelago.Patches.Controller.Hub {
     [HarmonyPatch(typeof(GameData), "GetLevelData")]
-    public static class LevelStats {
+    public static class Door {
+        internal static bool ShowName = false;
+
         private static void Patch(LevelData data, int index) {
-            data.State = Data.Items.LevelKeys.IsLevelUnlocked(index)
-                ? Data.Locations.LocationOnEachLevel.Clears.IsCleared(index)
+            data.State = index == 0 || Data.Items.LevelKeys.IsLevelUnlocked(index - 1)
+                ? ShowName || Data.Locations.LocationOnEachLevel.Clears.IsCleared(index)
                     ? HubDoorState.Finished
                     : HubDoorState.Unlocked
                 : HubDoorState.Locked;

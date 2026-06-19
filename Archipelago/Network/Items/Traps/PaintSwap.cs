@@ -7,7 +7,5 @@ namespace SplasherArchipelago.Network.Items.Traps {
         }
 
         public string Name() => "Paint Swap";
-
-        public bool CollectOnStart() { return true; }
     }
 }

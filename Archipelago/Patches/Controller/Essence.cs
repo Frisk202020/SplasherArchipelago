@@ -1,5 +1,9 @@
 ﻿using HarmonyLib;
 
+/**
+ * Give some essence from Archipelago when reaching a checkpoint (adding to the usual 20).
+ */
+
 namespace SplasherArchipelago.Patches.Controller {
     [HarmonyPatch(typeof(StarManager), "OnCheckpoint")]
     public static class Essence {

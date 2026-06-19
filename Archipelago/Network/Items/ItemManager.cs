@@ -23,14 +23,16 @@ namespace SplasherArchipelago.Network.Items {
         }
         private static readonly List<Item> orderedItems = OrderedItems();
 
-        internal static void Collect(ItemInfo item, bool isStartup=false) {
-            if (collectedLocationIds.Contains(item.LocationId)) return;
-            collectedLocationIds.Add(item.LocationId);
+        internal static void Collect(ItemInfo item) {
+            // -1 is for cheat console
+            if (item.LocationId > -1) {
+                if (collectedLocationIds.Contains(item.LocationId)) return;
+                collectedLocationIds.Add(item.LocationId);
+            }
 
             var id = item.ItemId - Util.BaseId;
             if (id >= 0 && id < orderedItems.Count) {
                 var splasherItem = orderedItems[(int)id];
-                if (isStartup && !splasherItem.CollectOnStart()) return;
 
                 splasherItem.Collect(item);
             } 

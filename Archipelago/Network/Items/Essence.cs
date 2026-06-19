@@ -13,7 +13,5 @@ namespace SplasherArchipelago.Network.Items {
         public void Collect(ItemInfo info) {
             Data.Items.Essence.Add(ammount);
         }
-
-        public bool CollectOnStart() { return false; }
     }
 }

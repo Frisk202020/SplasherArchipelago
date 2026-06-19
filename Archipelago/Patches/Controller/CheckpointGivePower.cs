@@ -1,6 +1,9 @@
 ﻿using HarmonyLib;
-using System;
 using System.Reflection;
+
+/**
+ * Make the game believe powers are not unlocked when spawning a power unlock in a level because overwhise it will not spawn.
+ */
 
 namespace SplasherArchipelago.Patches.Controller {
     [HarmonyPatch]

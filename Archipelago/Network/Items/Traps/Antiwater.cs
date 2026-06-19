@@ -8,7 +8,5 @@ namespace SplasherArchipelago.Network.Items.Traps {
         }
 
         public string Name() => "Antiwater";
-
-        public bool CollectOnStart() { return false; }
     }
 }

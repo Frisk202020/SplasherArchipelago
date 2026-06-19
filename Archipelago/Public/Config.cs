@@ -13,6 +13,8 @@ namespace SplasherArchipelago.Public {
 
         #region QoL
         public readonly FloatField CutsceneSpeed = new FloatField();
+        public readonly BoolField EnableSpeedOnCredits = new BoolField();
+        public readonly BoolField ShowLevelTitle = new BoolField();
         #endregion
 
         private Config() { }
@@ -37,6 +39,8 @@ namespace SplasherArchipelago.Public {
 
                 if (missing.Length == 0) {
                     Util.Log("Config parsed successfully !");
+                    Shared.StartConfigEvents(config);
+
                     return config;
                 }
                 Util.Error($"Missing required fields : {string.Join(",", missing)}");

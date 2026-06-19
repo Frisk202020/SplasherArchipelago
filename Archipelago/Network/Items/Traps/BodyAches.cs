@@ -7,7 +7,5 @@ namespace SplasherArchipelago.Network.Items.Traps {
         }
 
         public string Name() => "Body Aches";
-
-        public bool CollectOnStart() { return true; }
     }
 }

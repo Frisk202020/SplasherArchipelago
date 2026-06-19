@@ -2,6 +2,10 @@
 using TSKGames.Save;
 using System;
 
+/**
+ * Use a save dedicated to the current Archipelago seed instead of the default one.
+ */
+
 namespace SplasherArchipelago.Patches.Controller.Save {
     [HarmonyPatch(
         declaringType: typeof(DataStore), 

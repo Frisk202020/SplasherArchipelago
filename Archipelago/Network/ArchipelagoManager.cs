@@ -16,6 +16,10 @@ namespace SplasherArchipelago.Network {
                         if (Shared.Config is null) return false;
                     }
 
+                    if (Shared.Config.ShowLevelTitle.Value) {
+                        Patches.Controller.Hub.Door.ShowName = true;    
+                    }
+
                     var targetAddress = new Helpers.Address { domain = Shared.Config.Address.Value, port = (int)Shared.Config.Port.Value };
                     var session = ArchipelagoSessionFactory.CreateSession(Shared.Config.Proxy.Value ? $"ws://localhost:8080" : targetAddress.ToString());
 
@@ -29,8 +33,6 @@ namespace SplasherArchipelago.Network {
                     );
                 }
                 if (!session.FirstConnection()) return false;
-
-                Data.Items.LevelKeys.UnlockAll();
                 Util.Log("Archipelago Loaded !");
 
                 ApplyOptions();

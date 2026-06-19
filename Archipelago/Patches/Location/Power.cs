@@ -1,5 +1,8 @@
 ﻿using HarmonyLib;
-using System;
+
+/**
+ * Detect a power unlock location.
+ */
 
 namespace SplasherArchipelago.Patches.Location {
     [HarmonyPatch(typeof(CheckpointNewPower), "CoroutineGivePower")]

@@ -4,8 +4,11 @@ using UnityEngine;
 namespace SplasherManager.Patches {
     [HarmonyPatch(typeof(GameManager), "LockControl", MethodType.Setter)]
     public static class TimeManager {
+        private static bool enabled = true;
+
         public static bool Prefix(LockControlType value) {
             if (
+                enabled &&
                 (Exit.Instance is null || !Exit.Instance.LevelEnded) &&
                 (value == LockControlType.NoInputs || value == LockControlType.FreezeAll)
             ) {
@@ -19,6 +22,11 @@ namespace SplasherManager.Patches {
             }
 
             return true;
+        }
+
+        internal static void Disable() {
+            enabled = false;
+            Data.Time.Clean();
         }
     }
 }

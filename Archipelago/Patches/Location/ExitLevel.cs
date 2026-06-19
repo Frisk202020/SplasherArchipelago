@@ -1,5 +1,9 @@
 ﻿using HarmonyLib;
 
+/**
+ * Detect a level clear location
+ */
+
 namespace SplasherArchipelago.Patches.Location {
     [HarmonyPatch(typeof(Exit), "ExitLevel")]
     public static class ExitLevel {

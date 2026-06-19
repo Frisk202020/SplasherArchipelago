@@ -116,7 +116,10 @@
     <Compile Include="Patches\Controller\Death\PlayerState.cs" />
     <Compile Include="Patches\Controller\Death\SplasherDie.cs" />
     <Compile Include="Patches\Controller\Hub\DoorLocked.cs" />
+    <Compile Include="Patches\Controller\Hub\UnlockLevelAnimation\RemainingUnlocks.cs" />
     <Compile Include="Patches\Controller\Hub\SkipTutorial.cs" />
+    <Compile Include="Patches\Controller\Hub\UnlockLevelAnimation\UnlockingLevel.cs" />
+    <Compile Include="Patches\Controller\Hub\UnlockLevelAnimation\UnlockMoreLevels.cs" />
     <Compile Include="Patches\Controller\Input\Button.cs" />
     <Compile Include="Patches\Controller\CheckpointGivePower.cs" />
     <Compile Include="Patches\Controller\Essence.cs" />
@@ -131,7 +134,7 @@
     <Compile Include="Patches\Controller\Hub\BossUnlock.cs" />
     <Compile Include="Patches\Location\Speedrun.cs" />
     <Compile Include="Patches\Location\SplasherCollect.cs" />
-    <Compile Include="Patches\Controller\Hub\LevelStats.cs" />
+    <Compile Include="Patches\Controller\Hub\Door.cs" />
     <Compile Include="Public\Config.cs" />
     <Compile Include="Public\Field\BoolField.cs" />
     <Compile Include="Public\Field\ConfigField.cs" />

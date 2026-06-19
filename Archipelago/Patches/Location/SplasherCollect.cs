@@ -1,4 +1,9 @@
 ﻿using HarmonyLib;
+
+/**
+ * Detect a splasher location.
+ */
+
 namespace SplasherArchipelago.Patches.Location {
     [HarmonyPatch(typeof(Splasher), "OnCheckpoint")]
     public static class SplasherCollect {

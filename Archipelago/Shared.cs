@@ -6,7 +6,23 @@ namespace SplasherArchipelago {
     public static class Shared {
         public const string pluginId = "com.frisk.splahser_archipelago";
 
-        private static Harmony harmony = new Harmony(pluginId);
+        public delegate void VoidHandler();
+        public static event VoidHandler CreditsEvent;
+
+        public delegate void ConfigHandler(Config config);
+        public static event ConfigHandler OnConfigParsed;
+
+        internal static void StartCreditsEvents() {
+            if (CreditsEvent is null) return;
+            CreditsEvent();
+        }
+
+        internal static void StartConfigEvents(Config config) {
+            if (OnConfigParsed is null) return;
+            OnConfigParsed(config);
+        }
+
+        private static readonly Harmony harmony = new Harmony(pluginId);
         public static bool Start() {
             if (ArchipelagoManager.Start()) {
                 harmony.PatchAll();
