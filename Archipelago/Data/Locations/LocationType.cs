@@ -14,6 +14,16 @@ namespace SplasherArchipelago.Data.Locations {
     }
 
     static class LocationExtensions {
+        internal static LocationType? ToLocation(this Medal medal) {
+            switch (medal) {
+                case Medal.Bronze: return LocationType.Bronze;
+                case Medal.Silver: return LocationType.Silver;
+                case Medal.Gold: return LocationType.Gold;
+                case Medal.Dev: return LocationType.Platinum;
+                default: return null;
+            }
+        }
+
         internal static LocationType FindRange(long id) {
             var variants = Enum.GetValues(typeof(LocationType));
             var n = variants.Length - 1;

@@ -93,7 +93,8 @@ namespace SplasherArchipelago.Network.Helpers {
             return true;
         }
 
-        public void ApplyOptions() {
+        // returns slot data to apply options that needs save loaded later
+        public Dictionary<string, object> ApplyOptions() {
             var data = session.DataStorage.GetSlotData();
 
             Util.Seed = (string)data["seed"];
@@ -104,11 +105,7 @@ namespace SplasherArchipelago.Network.Helpers {
                 Data.DeathLink.SetHero();
             }
 
-            if ((long)data["include_keys"] == 0) {
-                Data.Items.LevelKeys.UnlockAll();
-            } else {
-                
-            }
+            return data;
         }
 
         private void ApplyDeathLink(Options.DeathLink option) {

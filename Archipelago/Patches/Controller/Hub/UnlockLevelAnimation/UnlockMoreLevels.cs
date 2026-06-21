@@ -11,17 +11,20 @@ namespace SplasherArchipelago.Patches.Controller.Hub.UnlockLevelAnimation {
     public static class UnlockMoreLevels {
         [HarmonyTargetMethod]
         public static MethodBase Target() {
-            return AccessTools.Method(typeof(global::Door).GetNestedType("<CoroutineUnlockFlip>c__Iterator1", BindingFlags.NonPublic), "MoveNext");
+            return AccessTools.Method(typeof(Door).GetNestedType("<CoroutineUnlockFlip>c__Iterator1", BindingFlags.NonPublic), "MoveNext");
         }
 
         [HarmonyPostfix]
         public static void Postfix(bool __result) {
             if (__result) return;
 
-            var pending = RemainingUnlocks.GetNextUnlock();
-            if (pending is null) return;
+            var pending = Data.Items.LevelKeys.GetPendingUnlock();
+            if (pending is null) {
+                GameData.Instance.SavePlayerData();
+                return;
+            }
 
-            pending.StartCoroutine("CoroutineUnlockFlip");
+            DoorReference.StartUnlock(pending.Value);
         }
     }
 }

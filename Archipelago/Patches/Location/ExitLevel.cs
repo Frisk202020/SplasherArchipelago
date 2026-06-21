@@ -1,23 +1,23 @@
 ﻿using HarmonyLib;
+using SplasherArchipelago.Helpers;
 
 /**
  * Detect a level clear location
  */
 
 namespace SplasherArchipelago.Patches.Location {
-    [HarmonyPatch(typeof(Exit), "ExitLevel")]
+    [HarmonyPatch(typeof(Exit), "CoroutineEndLevel")]
     public static class ExitLevel {
         public static bool Prefix() {
             var name = GameData.Instance.CurrentLevelMetaData.LevelName;
+            Data.Locations.Clears.Check(GameData.Instance.CurrentLevelData, (int)LevelByName.Id(name));
 
-            if (!Data.Locations.LocationOnEachLevel.Clears.IsCleared(GameData.Instance.CurrentLevelMetaData.LevelName)) {
-                Data.Locations.LocationOnEachLevel.Clears.Clear(name);
-            }
+            if (GameManager.Mode != GameMode.Standard) return true;
 
-            var rescued = GameData.Instance.CurrentLevelData.RescuedSplashers;
-            for (int i = 0; i < rescued.Length; i++) {
-                if (rescued[i]) {
-                    Data.Locations.Splashers.Rescue(name, i);
+            for (int i = 0; i < VictimeManager.SplasherCount; i++) {
+                var splasher = VictimeManager.Instance.splashers[i];
+                if (splasher.Rescued || splasher.AlreadySaved) {
+                    Data.Locations.Splashers.Check(name, i);
                 }
             }
 

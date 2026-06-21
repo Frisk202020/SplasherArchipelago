@@ -83,7 +83,8 @@
     <Compile Include="Data\Items\LevelKeys.cs" />
     <Compile Include="Data\Items\Powers.cs" />
     <Compile Include="Data\Items\Splashers.cs" />
-    <Compile Include="Data\Locations\LocationOnEachLevel.cs" />
+    <Compile Include="Data\Locations\Clears.cs" />
+    <Compile Include="Data\Locations\Speedrun.cs" />
     <Compile Include="Data\Locations\LocationType.cs" />
     <Compile Include="Data\Locations\Powers.cs" />
     <Compile Include="Data\Locations\Splashers.cs" />
@@ -116,7 +117,8 @@
     <Compile Include="Patches\Controller\Death\PlayerState.cs" />
     <Compile Include="Patches\Controller\Death\SplasherDie.cs" />
     <Compile Include="Patches\Controller\Hub\DoorLocked.cs" />
-    <Compile Include="Patches\Controller\Hub\UnlockLevelAnimation\RemainingUnlocks.cs" />
+    <Compile Include="Patches\Controller\Hub\MatchingMedal.cs" />
+    <Compile Include="Patches\Controller\Hub\UnlockLevelAnimation\DoorReference.cs" />
     <Compile Include="Patches\Controller\Hub\SkipTutorial.cs" />
     <Compile Include="Patches\Controller\Hub\UnlockLevelAnimation\UnlockingLevel.cs" />
     <Compile Include="Patches\Controller\Hub\UnlockLevelAnimation\UnlockMoreLevels.cs" />
@@ -127,6 +129,7 @@
     <Compile Include="Patches\Controller\Save\Exists.cs" />
     <Compile Include="Patches\Controller\Save\Load.cs" />
     <Compile Include="Patches\Controller\Input\ButtonDown.cs" />
+    <Compile Include="Patches\Controller\Save\OnPlayerDataLoaded.cs" />
     <Compile Include="Patches\Controller\Save\Save.cs" />
     <Compile Include="Patches\Location\ExitLevel.cs" />
     <Compile Include="Patches\Location\Power.cs" />
@@ -134,7 +137,6 @@
     <Compile Include="Patches\Controller\Hub\BossUnlock.cs" />
     <Compile Include="Patches\Location\Speedrun.cs" />
     <Compile Include="Patches\Location\SplasherCollect.cs" />
-    <Compile Include="Patches\Controller\Hub\Door.cs" />
     <Compile Include="Public\Config.cs" />
     <Compile Include="Public\Field\BoolField.cs" />
     <Compile Include="Public\Field\ConfigField.cs" />

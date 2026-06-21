@@ -11,9 +11,7 @@ namespace SplasherArchipelago.Patches.Location {
             if (!__instance.Rescued) return true;
 
             var name = GameData.Instance.CurrentLevelMetaData.LevelName;
-            if (!Data.Locations.Splashers.IsRescued(name, ___index)) {
-                Data.Locations.Splashers.Rescue(name, ___index);
-            }
+            Data.Locations.Splashers.Check(name, ___index);
             return true;
         }
     }

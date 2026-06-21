@@ -1,36 +1,32 @@
 ﻿using SplasherArchipelago.Helpers;
-using System.Collections.Generic;
 
 namespace SplasherArchipelago.Data.Locations {
     static class Splashers {
         private const int splashers_per_level = 7;
 
-        private static Dictionary<LocalizedString, bool[]> collected = EachLevel<bool[]>.Init(() => new bool[splashers_per_level]);
-
-        private static bool guard(LocalizedString level, int splasherId) {
-            return collected.ContainsKey(level) && splasherId >= 0 && splasherId < splashers_per_level && !collected[level][splasherId];
+        internal static void Check(LocalizedString level, int splasherId) {
+            var levelId = (int)LevelByName.Id(level);
+            if (MarkRescued(levelId, splasherId))
+                Network.ArchipelagoManager.Check(LocationType.Splasher, splashers_per_level * levelId + splasherId);
         }
 
-        internal static bool IsRescued(LocalizedString level, int splasherId) {
-            if (!guard(level, splasherId)) return false;
-            return collected[level][splasherId];
+        private static bool MarkRescued(int levelId, int splasherId) {
+            var data = GameData.Instance.CurrentPlayerData.LevelDataList[levelId];
+            if (data.ActualRescuedSplashers[splasherId]) return false;
+
+            data.ActualRescuedSplashers[splasherId] = true;
+            GameData.Instance.SavePlayerData();
+
+            return true;
         }
 
-        internal static bool[] RescuedForLevel(LocalizedString level) {
-            if (!collected.ContainsKey(level)) return new bool[splashers_per_level];
-            return collected[level];
-        }
+        internal static void Restore(int id) {
+            var splasherLocationId = id - (int)LocationType.Splasher;
 
-        internal static void Rescue(LocalizedString level, int splasherId) {
-            if (!guard(level, splasherId)) return;
+            var levelId = splasherLocationId / splashers_per_level;
+            var splasherId = splasherLocationId % splashers_per_level;
 
-            collected[level][splasherId] = true;
-            Network.ArchipelagoManager.Check(LocationType.Splasher, splashers_per_level * LevelByName.Id(level) + splasherId);
-        }
-
-        internal static void Check(int id) {
-            var level = GameData.Instance.LevelMetaDataList[id / splashers_per_level].LevelName;
-            collected[level][id % splashers_per_level] = true;
+            MarkRescued(levelId, splasherId);
         }
     }
 }

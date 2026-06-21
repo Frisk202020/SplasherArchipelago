@@ -3,14 +3,38 @@
 namespace SplasherArchipelago.Data.Items {
     class LevelKeys {
         private const int Levels = 21; // lvl 1 is always unlocked
-        private static bool[] Keys { get; } = new bool[Levels];
+        private readonly static Queue<int> pendingUnlocks = new Queue<int>();
 
-        private static Queue<int> pendingUnlocks = new Queue<int>();
+        internal static bool ShowName = false;
+
+        private static bool SetState(LevelData data) {
+            if (data.State == HubDoorState.Locked)
+                data.State = HubDoorState.Unlocked;
+
+            return false;
+        }
+
+        internal static void UnlockFirst() {
+            SetState(GameData.Instance.CurrentPlayerData.LevelDataList[0]);
+        }
 
         internal static void Unlock(int id) {
-            if (id < Levels && !Keys[id]) {
-                Keys[id] = true;
-                pendingUnlocks.Enqueue(id);
+            if (id >= Levels) return;
+
+            var inGameId = id + 1;
+            var data = GameData.Instance.CurrentPlayerData.LevelDataList[inGameId];
+            if (!SetState(data)) return;
+
+            if (
+                Hub.IsLoaded &&
+                Hub.Instance != null &&
+                Hub.Instance.doors != null &&
+                GameManager.LockControl == LockControlType.None &&
+                !PlayerCamera.Instance.IgnoreZoneContraints
+            ) {
+                Patches.Controller.Hub.UnlockLevelAnimation.DoorReference.StartUnlock(inGameId);
+            } else {
+                pendingUnlocks.Enqueue(inGameId);
             }
         }
 
@@ -21,23 +45,11 @@ namespace SplasherArchipelago.Data.Items {
             return x;
         }
 
-        internal static HashSet<int> PendingUnlockSet() {
-            var set = new HashSet<int>();
-            while (pendingUnlocks.Count > 0) {
-                set.Add(pendingUnlocks.Dequeue());
-            }
-
-            return set;
-        }
-
         internal static void UnlockAll() {
-            for (int i = 0; i < Levels; i++) {
-                Keys[i] = true;
+            var levels = GameData.Instance.CurrentPlayerData.LevelDataList;
+            foreach (var level in levels) {
+                SetState(level);
             }
-        }
-
-        internal static bool IsLevelUnlocked(int id) {
-            return id >= 0 && id < Levels && Keys[id];
         }
     }
 }

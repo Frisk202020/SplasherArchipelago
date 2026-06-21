@@ -4,7 +4,8 @@ using System.Collections.Generic;
 
 namespace SplasherArchipelago.Network.Items {
     static class ItemManager {
-        private static readonly HashSet<long> collectedLocationIds = new HashSet<long>(); 
+        private static readonly HashSet<long> collectedLocationIds = new HashSet<long>();
+        private static readonly Queue<ItemInfo> pending = new Queue<ItemInfo>();
 
         private static List<Item> OrderedItems() {
             var items = new List<Item> {
@@ -22,6 +23,16 @@ namespace SplasherArchipelago.Network.Items {
             return items;
         }
         private static readonly List<Item> orderedItems = OrderedItems();
+
+        internal static void Enqueue(ItemInfo item) {
+            pending.Enqueue(item);
+        }
+
+        internal static void CollectPending() {
+            while (pending.Count > 0) {
+                Collect(pending.Dequeue());
+            }
+        }
 
         internal static void Collect(ItemInfo item) {
             // -1 is for cheat console

@@ -10,7 +10,7 @@ namespace SplasherArchipelago.Patches.Controller.Hub.UnlockLevelAnimation {
     public static class UnlockingLevel {
         public static bool Prefix() {
             var pending = Data.Items.LevelKeys.GetPendingUnlock();
-            global::Hub.UnlockingLevel = pending is null ? string.Empty : GameData.Instance.LevelMetaDataList[pending.Value + 1].SceneName;
+            global::Hub.UnlockingLevel = pending is null ? string.Empty : GameData.Instance.LevelMetaDataList[pending.Value].SceneName;
             return true;
         }
     }

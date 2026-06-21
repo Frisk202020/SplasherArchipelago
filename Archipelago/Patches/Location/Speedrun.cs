@@ -13,13 +13,7 @@ namespace SplasherArchipelago.Patches.Location {
         }
 
         public static void Postfix(LevelMetaData lmd, Medal __result) {
-            System.Console.WriteLine(__result);
-            switch (__result) {
-                case Medal.Bronze: Data.Locations.LocationOnEachLevel.Bronzes.Clear(lmd.LevelName); break;
-                case Medal.Silver: Data.Locations.LocationOnEachLevel.Silvers.Clear(lmd.LevelName); goto case Medal.Bronze;
-                case Medal.Gold: Data.Locations.LocationOnEachLevel.Golds.Clear(lmd.LevelName); goto case Medal.Silver;
-                case Medal.Dev: Data.Locations.LocationOnEachLevel.Platinums.Clear(lmd.LevelName); goto case Medal.Gold;
-            }
+            Data.Locations.Speedrun.Check(__result, lmd.LevelName);
         }
     }
 }
