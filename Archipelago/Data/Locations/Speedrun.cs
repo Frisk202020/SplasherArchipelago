@@ -27,33 +27,30 @@ namespace SplasherArchipelago.Data.Locations {
 
         private static void TryMutate(
             LocationType loc, 
-            LocalizedString level, 
-            bool sendCheck
+            LocalizedString level
          ) {
             var dict = byLocationType[loc];
             if (dict[level]) return;
 
             dict[level] = true;
-
-            if (sendCheck) 
-                Network.ArchipelagoManager.Check(loc, LevelByName.Id(level));
+            Network.ArchipelagoManager.Check(loc, LevelByName.Id(level));
         }
 
-        private static void UpdateScores(LocationType? loc, LocalizedString level, bool sendCheck) {
+        private static void UpdateScores(LocationType? loc, LocalizedString level) {
             switch(loc) {
-                case LocationType.Platinum: TryMutate(LocationType.Platinum, level, sendCheck); goto case LocationType.Gold;
-                case LocationType.Gold: TryMutate(LocationType.Gold, level, sendCheck); goto case LocationType.Silver;
-                case LocationType.Silver: TryMutate(LocationType.Silver, level, sendCheck); goto case LocationType.Bronze;
-                case LocationType.Bronze: TryMutate(LocationType.Bronze, level, sendCheck); break;
+                case LocationType.Platinum: TryMutate(LocationType.Platinum, level); goto case LocationType.Gold;
+                case LocationType.Gold: TryMutate(LocationType.Gold, level); goto case LocationType.Silver;
+                case LocationType.Silver: TryMutate(LocationType.Silver, level); goto case LocationType.Bronze;
+                case LocationType.Bronze: TryMutate(LocationType.Bronze, level); break;
             }
         }
 
         internal static void Check(Medal medal, LocalizedString level) {
-            UpdateScores(medal.ToLocation(), level, true);
+            UpdateScores(medal.ToLocation(), level);
         }
 
         internal static void Restore(LocationType loc, int id) {
-            UpdateScores(loc, GameData.Instance.LevelMetaDataList[id - (int)loc].LevelName, false);
+            UpdateScores(loc, GameData.Instance.LevelMetaDataList[id - (int)loc].LevelName);
         }
     }
 }
