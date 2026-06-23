@@ -49,7 +49,6 @@ namespace SplasherArchipelago.Network {
 
                     session.Locations.CheckedLocationsUpdated += (recvLocHelper) => {
                         foreach(var loc in recvLocHelper) {
-                            Util.Warn($"Restore {loc}");
                             Restore(loc);
                         }
                     };

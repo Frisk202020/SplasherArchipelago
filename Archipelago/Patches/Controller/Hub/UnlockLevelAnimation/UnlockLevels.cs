@@ -8,7 +8,7 @@ using System.Reflection;
 
 namespace SplasherArchipelago.Patches.Controller.Hub.UnlockLevelAnimation {
     [HarmonyPatch]
-    public static class UnlockMoreLevels {
+    public static class UnlockLevels {
         [HarmonyTargetMethod]
         public static MethodBase Target() {
             return AccessTools.Method(typeof(Door).GetNestedType("<CoroutineUnlockFlip>c__Iterator1", BindingFlags.NonPublic), "MoveNext");

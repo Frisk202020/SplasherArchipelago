@@ -7,15 +7,11 @@ namespace SplasherArchipelago.Data.Items {
 
         internal static bool ShowName = false;
 
-        private static bool SetState(LevelData data) {
+        internal static void UnlockFirst() {
+            var data = GameData.Instance.CurrentPlayerData.LevelDataList[0];
+
             if (data.State == HubDoorState.Locked)
                 data.State = HubDoorState.Unlocked;
-
-            return false;
-        }
-
-        internal static void UnlockFirst() {
-            SetState(GameData.Instance.CurrentPlayerData.LevelDataList[0]);
         }
 
         internal static void Unlock(int id) {
@@ -23,12 +19,11 @@ namespace SplasherArchipelago.Data.Items {
 
             var inGameId = id + 1;
             var data = GameData.Instance.CurrentPlayerData.LevelDataList[inGameId];
-            if (!SetState(data)) return;
+            if (data.State != HubDoorState.Locked) return;
 
             if (
                 Hub.IsLoaded &&
-                Hub.Instance != null &&
-                Hub.Instance.doors != null &&
+                HubState.DoorsLoaded &&
                 GameManager.LockControl == LockControlType.None &&
                 !PlayerCamera.Instance.IgnoreZoneContraints
             ) {
@@ -48,7 +43,8 @@ namespace SplasherArchipelago.Data.Items {
         internal static void UnlockAll() {
             var levels = GameData.Instance.CurrentPlayerData.LevelDataList;
             foreach (var level in levels) {
-                SetState(level);
+                if (level.State == HubDoorState.Locked)
+                    level.State = HubDoorState.Unlocked;
             }
         }
     }

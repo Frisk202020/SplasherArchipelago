@@ -88,6 +88,7 @@
     <Compile Include="Data\Locations\LocationType.cs" />
     <Compile Include="Data\Locations\Powers.cs" />
     <Compile Include="Data\Locations\Splashers.cs" />
+    <Compile Include="Data\HubState.cs" />
     <Compile Include="Helpers\EachLevel.cs" />
     <Compile Include="Helpers\LevelHelper.cs" />
     <Compile Include="Main.cs" />
@@ -120,8 +121,8 @@
     <Compile Include="Patches\Controller\Hub\MatchingMedal.cs" />
     <Compile Include="Patches\Controller\Hub\UnlockLevelAnimation\DoorReference.cs" />
     <Compile Include="Patches\Controller\Hub\SkipTutorial.cs" />
-    <Compile Include="Patches\Controller\Hub\UnlockLevelAnimation\UnlockingLevel.cs" />
-    <Compile Include="Patches\Controller\Hub\UnlockLevelAnimation\UnlockMoreLevels.cs" />
+    <Compile Include="Patches\Controller\Hub\UnlockLevelAnimation\NotifyHubLoading.cs" />
+    <Compile Include="Patches\Controller\Hub\UnlockLevelAnimation\UnlockLevels.cs" />
     <Compile Include="Patches\Controller\Input\Button.cs" />
     <Compile Include="Patches\Controller\CheckpointGivePower.cs" />
     <Compile Include="Patches\Controller\Essence.cs" />
