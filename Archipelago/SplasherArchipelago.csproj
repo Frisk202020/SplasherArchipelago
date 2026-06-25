@@ -113,6 +113,7 @@
     <Compile Include="Network\Items\Traps\PaintSwap.cs" />
     <Compile Include="Network\Items\Freedom.cs" />
     <Compile Include="Network\Helpers\ProxyManager.cs" />
+    <Compile Include="Network\Items\ZoneKey.cs" />
     <Compile Include="Network\Options\DeathLink.cs" />
     <Compile Include="Patches\Controller\Death\Die.cs" />
     <Compile Include="Patches\Controller\Death\PlayerState.cs" />

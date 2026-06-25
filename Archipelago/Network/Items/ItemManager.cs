@@ -19,6 +19,7 @@ namespace SplasherArchipelago.Network.Items {
                 items.Add(new Essence(n));
             }
             Key.AddAll(items);
+            ZoneKey.AddAll(items);
 
             return items;
         }
