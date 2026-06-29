@@ -97,7 +97,7 @@ namespace SplasherArchipelago.Network.Helpers {
         public Dictionary<string, object> ApplyOptions() {
             var data = session.DataStorage.GetSlotData();
 
-            Util.Seed = (string)data["seed"];
+            Shared.Seed = (string)data["seed"];
             Data.Items.Splashers.Goal = (int)(long)data["splashers_goal"];
             ApplyDeathLink((Options.DeathLink)(long)data["death_link"]);
 

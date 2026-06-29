@@ -1,10 +1,20 @@
 ﻿using HarmonyLib;
 using SplasherArchipelago.Network;
 using SplasherArchipelago.Public;
+using System;
+using System.Collections.Generic;
 
 namespace SplasherArchipelago {
     public static class Shared {
         public const string pluginId = "com.frisk.splahser_archipelago";
+        public readonly static Version version = new Version(0, 0, 6);
+
+        public const string VANILLA_FILE = "Save1";
+
+        internal static string Seed = "";
+        public static string SaveFile() => $"Archipelago_{Seed}";
+        public static string SaveFileExtension() => SaveFile() + "_Extension";
+
 
         public delegate void VoidHandler();
         public static event VoidHandler CreditsEvent;

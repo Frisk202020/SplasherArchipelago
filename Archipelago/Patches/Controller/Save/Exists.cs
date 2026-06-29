@@ -14,7 +14,9 @@ namespace SplasherArchipelago.Patches.Controller.Save {
     )]
     public static class Exists {
         public static bool Prefix(ref string AutoSaveFilename) {
-            AutoSaveFilename = Util.SaveFile();
+            if (AutoSaveFilename != Shared.VANILLA_FILE) return true;
+
+            AutoSaveFilename = Shared.SaveFile();
             return true;
         }
     }

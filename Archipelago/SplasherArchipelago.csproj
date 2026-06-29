@@ -89,8 +89,11 @@
     <Compile Include="Data\Locations\Powers.cs" />
     <Compile Include="Data\Locations\Splashers.cs" />
     <Compile Include="Helpers\AnimationTracker.cs" />
+    <Compile Include="Data\SaveData.cs" />
     <Compile Include="Helpers\EachLevel.cs" />
+    <Compile Include="Helpers\Save\GameSaver.cs" />
     <Compile Include="Helpers\LevelHelper.cs" />
+    <Compile Include="Helpers\Save\SaveDataExtension.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Network\Helpers\Address.cs" />
     <Compile Include="Network\Helpers\BackgroundThread.cs" />

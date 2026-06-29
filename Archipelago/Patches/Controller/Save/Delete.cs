@@ -9,7 +9,7 @@ namespace SplasherArchipelago.Patches.Controller.Save {
     [HarmonyPatch(typeof(DataStore), "DeleteAutoSave")]
     public static class Delete {
         public static bool Prefix(ref string AutoSaveFilename) {
-            AutoSaveFilename = Util.SaveFile();
+            AutoSaveFilename = Shared.SaveFile();
             return true;
         }
     }

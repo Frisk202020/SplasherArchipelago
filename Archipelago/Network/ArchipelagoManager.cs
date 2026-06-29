@@ -62,6 +62,8 @@ namespace SplasherArchipelago.Network {
                 Util.Log("Archipelago Loaded !");
 
                 slotData = ApplyOptions();
+                Data.SaveData.Init();
+
                 return true;
             } catch (Exception e) {
                 Util.Error($"Failed to initialize Archipelago : {e.Message}");

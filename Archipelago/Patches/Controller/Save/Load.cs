@@ -9,7 +9,9 @@ namespace SplasherArchipelago.Patches.Controller.Save {
     [HarmonyPatch(typeof(DataStore), "LoadAutoSave")]
     public static class Load {
         public static bool Prefix(ref string AutoSaveFilename) {
-            AutoSaveFilename = Util.SaveFile();
+            if (AutoSaveFilename != Shared.VANILLA_FILE) return true;
+
+            AutoSaveFilename = Shared.SaveFile();
             return true;
         }
     }
