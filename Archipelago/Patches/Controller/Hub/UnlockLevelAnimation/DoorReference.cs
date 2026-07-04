@@ -14,8 +14,12 @@ namespace SplasherArchipelago.Patches.Controller.Hub.UnlockLevelAnimation {
         private static readonly Dictionary<string, Door> doors = new Dictionary<string, Door>();
         private static readonly MethodInfo StateSetter = AccessTools.DeclaredPropertySetter(typeof(Door), "State");
 
-        private static int DoorsLoaded = 0;
+        internal static int? UnlockOccuring = null;
 
+        internal static void SetDoorState(int id, HubDoorState state) {
+            SetDoorState(doors[GameData.Instance.LevelMetaDataList[id].SceneName], state);
+        }
+        
         private static void SetDoorState(Door door, HubDoorState state) {
             StateSetter.Invoke(door, new object[] { state });
             GameData.Instance.GetLevelData(door.levelMetaData.SceneName).State = state;
@@ -25,8 +29,6 @@ namespace SplasherArchipelago.Patches.Controller.Hub.UnlockLevelAnimation {
         }
 
         public static bool Prefix(Door __instance) {
-            Data.HubState.DoorsLoaded = true;
-
             // cancel vanilla unlocks (will re-unlocked if key actually in queue
             if (
                 global::Hub.UnlockingLevel == __instance.levelMetaData.SceneName &&
@@ -44,24 +46,21 @@ namespace SplasherArchipelago.Patches.Controller.Hub.UnlockLevelAnimation {
         public static void Postfix(Door __instance, TextMesh ___txt2) {
              if (Data.Items.LevelKeys.ShowName && __instance.State != HubDoorState.Finished)
                 ___txt2.text = $"{GameActor.GD.GetLevelNumber(__instance.levelMetaData)} - {__instance.levelMetaData.LevelName.GetString()}";
-
-            // check if all doors are loaded for this hub loading sequence
-            DoorsLoaded++;
-            DoorsLoaded %= 22;
-            if (DoorsLoaded != 0) return;
-
-
-            var pending = Data.Items.LevelKeys.GetPendingUnlock();
-            if (pending is null) return;
-
-            StartUnlock(pending.Value);
         }
 
-        public static void StartUnlock(int id) {
-            var key = GameData.Instance.LevelMetaDataList[id].SceneName;
+        public static void TryUnlock() {
+            if (UnlockOccuring != null) return;
+
+            var id = Data.Items.LevelKeys.GetPendingUnlock();
+            if (id is null) return;
+
+            var key = GameData.Instance.LevelMetaDataList[id.Value].SceneName;
             if (!doors.ContainsKey(key)) return;
 
-            var door = doors[GameData.Instance.LevelMetaDataList[id].SceneName];
+            UnlockOccuring = id.Value;
+            GameManager.LockControl = LockControlType.NoInputs;
+
+            var door = doors[GameData.Instance.LevelMetaDataList[id.Value].SceneName];
             SetDoorState(door, HubDoorState.Unlocked);
             door.StartCoroutine("CoroutineUnlockFlip");
         }

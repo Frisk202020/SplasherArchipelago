@@ -21,16 +21,7 @@ namespace SplasherArchipelago.Data.Items {
             var data = GameData.Instance.CurrentPlayerData.LevelDataList[inGameId];
             if (data.State != HubDoorState.Locked) return;
 
-            if (
-                Hub.IsLoaded &&
-                HubState.DoorsLoaded &&
-                GameManager.LockControl == LockControlType.None &&
-                !PlayerCamera.Instance.IgnoreZoneContraints
-            ) {
-                Patches.Controller.Hub.UnlockLevelAnimation.DoorReference.StartUnlock(inGameId);
-            } else {
-                pendingUnlocks.Enqueue(inGameId);
-            }
+            pendingUnlocks.Enqueue(inGameId);
         }
 
         internal static int? GetPendingUnlock() {
