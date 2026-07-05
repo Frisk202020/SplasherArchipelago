@@ -52,7 +52,7 @@ namespace SplasherArchipelago.Data {
                     DataStore.LoadAutoSave(Shared.SaveFileExtension());
                     return;
                 }
-                Util.Warn("Archipelago Save Not Found");
+                Util.Warn("Archipelago Save Not Found -- Expecting if starting a new Multiworld");
             });
         }
     }

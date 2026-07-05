@@ -4,7 +4,7 @@ using UnityEngine;
 namespace SplasherManager.Patches {
     [HarmonyPatch(typeof(GameManager), "LockControl", MethodType.Setter)]
     public static class TimeManager {
-        private static bool enabled = true;
+        private static bool enabled = false;
 
         public static bool Prefix(LockControlType value) {
             if (
