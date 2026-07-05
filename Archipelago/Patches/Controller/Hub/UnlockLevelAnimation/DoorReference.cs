@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using SplasherArchipelago.Data;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
@@ -13,20 +14,7 @@ namespace SplasherArchipelago.Patches.Controller.Hub.UnlockLevelAnimation {
     public static class DoorReference {
         private static readonly Dictionary<string, Door> doors = new Dictionary<string, Door>();
         private static readonly MethodInfo StateSetter = AccessTools.DeclaredPropertySetter(typeof(Door), "State");
-
-        internal static int? UnlockOccuring = null;
-
-        internal static void SetDoorState(int id, HubDoorState state) {
-            SetDoorState(doors[GameData.Instance.LevelMetaDataList[id].SceneName], state);
-        }
-        
-        private static void SetDoorState(Door door, HubDoorState state) {
-            StateSetter.Invoke(door, new object[] { state });
-            GameData.Instance.GetLevelData(door.levelMetaData.SceneName).State = state;
-
-            if (state == HubDoorState.Locked)
-                GameData.Instance.SavePlayerData();
-        }
+        internal static PendingKeyUnlock UnlockOccuring = null;
 
         public static bool Prefix(Door __instance) {
             // cancel vanilla unlocks (will re-unlocked if key actually in queue
@@ -34,7 +22,7 @@ namespace SplasherArchipelago.Patches.Controller.Hub.UnlockLevelAnimation {
                 global::Hub.UnlockingLevel == __instance.levelMetaData.SceneName &&
                 GameData.Instance.GetLevelData(__instance.levelMetaData.SceneName).State == HubDoorState.Unlocked
             ) {
-                SetDoorState(__instance, HubDoorState.Locked);
+                SaveData.SetDoorState(__instance, HubDoorState.Locked, false, true);
                 global::Hub.UnlockingLevel = string.Empty;
             }
                  
@@ -48,20 +36,31 @@ namespace SplasherArchipelago.Patches.Controller.Hub.UnlockLevelAnimation {
                 ___txt2.text = $"{GameActor.GD.GetLevelNumber(__instance.levelMetaData)} - {__instance.levelMetaData.LevelName.GetString()}";
         }
 
+        private static void SetCorrectMode(bool isSpeedrun) {
+            if (isSpeedrun && GameManager.Mode == GameMode.Standard) {
+                GameManager.Mode = GameMode.TimeAttack;
+            } else if (!isSpeedrun && GameManager.Mode == GameMode.TimeAttack) {
+                GameManager.Mode = GameMode.Standard;
+            } else return;
+
+            AccessTools.Method(typeof(HubHUD), "PlayChangeModeFeedback").Invoke(HubHUD.Instance, new object[] {});
+        }
+
         public static void TryUnlock() {
             if (UnlockOccuring != null) return;
 
-            var id = Data.Items.LevelKeys.GetPendingUnlock();
-            if (id is null) return;
+            var unlock = Data.Items.LevelKeys.GetPendingUnlock();
+            if (unlock is null || SaveData.GetDoorState(unlock.id, unlock.isSpeedrun) != HubDoorState.Locked) return;
 
-            var key = GameData.Instance.LevelMetaDataList[id.Value].SceneName;
+            var key = GameData.Instance.LevelMetaDataList[unlock.id].SceneName;
             if (!doors.ContainsKey(key)) return;
 
-            UnlockOccuring = id.Value;
+            UnlockOccuring = unlock;
+            SetCorrectMode(unlock.isSpeedrun);
             GameManager.LockControl = LockControlType.NoInputs;
 
-            var door = doors[GameData.Instance.LevelMetaDataList[id.Value].SceneName];
-            SetDoorState(door, HubDoorState.Unlocked);
+            var door = doors[GameData.Instance.LevelMetaDataList[unlock.id].SceneName];
+            SaveData.SetDoorState(door, HubDoorState.Unlocked, unlock.isSpeedrun, true);
             door.StartCoroutine("CoroutineUnlockFlip");
         }
     }

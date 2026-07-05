@@ -88,6 +88,7 @@
     <Compile Include="Data\Locations\LocationType.cs" />
     <Compile Include="Data\Locations\Powers.cs" />
     <Compile Include="Data\Locations\Splashers.cs" />
+    <Compile Include="Data\PendingKeyUnlock.cs" />
     <Compile Include="Helpers\AnimationTracker.cs" />
     <Compile Include="Data\SaveData.cs" />
     <Compile Include="Helpers\EachLevel.cs" />
@@ -122,7 +123,9 @@
     <Compile Include="Patches\Controller\Death\PlayerState.cs" />
     <Compile Include="Patches\Controller\Death\SplasherDie.cs" />
     <Compile Include="Patches\Controller\Hub\DoorLocked.cs" />
+    <Compile Include="Patches\Controller\Hub\DoorState.cs" />
     <Compile Include="Patches\Controller\Hub\MatchingMedal.cs" />
+    <Compile Include="Patches\Controller\Hub\UnlockLevelAnimation\ChangeMode.cs" />
     <Compile Include="Patches\Controller\Hub\UnlockLevelAnimation\DoorReference.cs" />
     <Compile Include="Patches\Controller\Hub\SkipTutorial.cs" />
     <Compile Include="Patches\Controller\Hub\UnlockLevelAnimation\TitleTracker.cs" />

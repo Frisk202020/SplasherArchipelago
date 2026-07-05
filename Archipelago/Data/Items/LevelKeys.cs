@@ -3,7 +3,7 @@
 namespace SplasherArchipelago.Data.Items {
     class LevelKeys {
         private const int Levels = 21; // lvl 1 is always unlocked
-        private readonly static Queue<int> pendingUnlocks = new Queue<int>();
+        private readonly static Queue<PendingKeyUnlock> pendingUnlocks = new Queue<PendingKeyUnlock>();
 
         internal static bool ShowName = false;
 
@@ -14,17 +14,16 @@ namespace SplasherArchipelago.Data.Items {
                 data.State = HubDoorState.Unlocked;
         }
 
-        internal static void Unlock(int id) {
+        internal static void Unlock(int id, bool speedrun) {
             if (id >= Levels) return;
 
             var inGameId = id + 1;
-            var data = GameData.Instance.CurrentPlayerData.LevelDataList[inGameId];
-            if (data.State != HubDoorState.Locked) return;
+            if (SaveData.GetDoorState(inGameId, speedrun) != HubDoorState.Locked) return;
 
-            pendingUnlocks.Enqueue(inGameId);
+            pendingUnlocks.Enqueue(new PendingKeyUnlock(inGameId, speedrun));
         }
 
-        internal static int? GetPendingUnlock() {
+        internal static PendingKeyUnlock GetPendingUnlock() {
             if (pendingUnlocks.Count == 0) return null;
             
             var x = pendingUnlocks.Dequeue();

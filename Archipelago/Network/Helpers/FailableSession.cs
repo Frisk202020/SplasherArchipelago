@@ -105,6 +105,10 @@ namespace SplasherArchipelago.Network.Helpers {
                 Data.DeathLink.SetHero();
             }
 
+            if ((long)data["include_speedrun_keys"] == 1) {
+                Data.SaveData.EnableTimeAttackDoors = true;
+            }
+
             return data;
         }
 

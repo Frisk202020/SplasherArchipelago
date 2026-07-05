@@ -18,8 +18,11 @@ namespace SplasherArchipelago.Network.Items {
             foreach (uint n in new uint[] { 1, 10, 25, 50 }) {
                 items.Add(new Essence(n));
             }
-            Key.AddAll(items);
-            ZoneKey.AddAll(items);
+
+            Key.AddAll(items, false);
+            ZoneKey.AddAll(items, false);
+            Key.AddAll(items, true);
+            ZoneKey.AddAll(items, true);
 
             return items;
         }

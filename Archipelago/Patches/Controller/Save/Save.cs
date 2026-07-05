@@ -19,7 +19,7 @@ namespace SplasherArchipelago.Patches.Controller.Save {
             if (AutoSaveFilename == Shared.SaveFileExtension()) return;
 
             DataStore.AutoSaveSilently(
-                new Helpers.Save.GameSaver(Data.SaveData.data),
+                Data.SaveData.Saver,
                 Shared.SaveFileExtension()
             );
 
