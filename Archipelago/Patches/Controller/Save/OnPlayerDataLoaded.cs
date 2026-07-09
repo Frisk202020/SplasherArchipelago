@@ -1,10 +1,10 @@
 ﻿using HarmonyLib;
 
 namespace SplasherArchipelago.Patches.Controller.Save {
-    [HarmonyPatch(typeof(GameData), "CurrentPlayerData", MethodType.Setter)]
+    [HarmonyPatch(typeof(GameData), "RefreshLevelData")]
     public static class OnPlayerDataLoaded {
-        public static void Postfix(PlayerSaveData value) {
-            if (value != null && !Network.ArchipelagoManager.SaveLoaded) Network.ArchipelagoManager.FinalizeSaveLoading();
+        public static void Postfix(GameData __instance) {
+            if (__instance.CurrentPlayerData != null && !Network.ArchipelagoManager.SaveLoaded) Network.ArchipelagoManager.FinalizeSaveLoading();
         }
     }
 }
