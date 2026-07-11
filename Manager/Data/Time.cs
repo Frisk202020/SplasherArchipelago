@@ -1,26 +1,25 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
+using Manager.Patches.Cutscene;
 
 namespace Manager.Data {
     internal static class Time {
         internal static float TimeScale = 1;
         internal static bool SpeedOnCredits = false;
 
-        private static readonly List<AudioSource> patchedAudio = new List<AudioSource>();
-
-        internal static void PatchAudio(AudioSource source) {
-            patchedAudio.Add(source);
-            source.pitch = TimeScale;
+        private static void Clean() {
+            UnityEngine.Time.timeScale = 1;
+            AudioManager.Instance?.SetMusicPitch(1);
         }
 
-        internal static void Clean() {
-            UnityEngine.Time.timeScale = 1;
-            foreach(var audio in patchedAudio) {
-                if (audio == null) continue;
-                audio.pitch = 1;
-            }
+        internal static void TryAccelerate(HashSet<string> whitelist, Trigger trigger) {
+            if (TimeScale <= 1 || !whitelist.Contains(trigger.name)) return;
 
-            patchedAudio.Clear();
+            UnityEngine.Time.timeScale = TimeScale;
+            AudioManager.Instance?.SetMusicPitch(TimeScale);
+
+            var tracker = Core.Static.PersistentObject().AddComponent<TrackDestroy>();
+            tracker.Resolve = () => Clean();
+            tracker.Track();
         }
     }
 }

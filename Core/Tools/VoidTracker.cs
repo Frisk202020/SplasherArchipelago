@@ -10,11 +10,9 @@ namespace Core.Tools {
         public void Track() => StartCoroutine(TrackerRoutine());
 
         private IEnumerator TrackerRoutine() {
-            System.Console.WriteLine("Start routine");
             yield return null;
 
             while (!IsResolved()) yield return null;
-            System.Console.WriteLine("End routine");
             Resolve?.Invoke();
         }
     }

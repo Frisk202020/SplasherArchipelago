@@ -60,9 +60,9 @@
   <ItemGroup>
     <Compile Include="Data\Time.cs" />
     <Compile Include="Main.cs" />
-    <Compile Include="Patches\Cutscene\Start.cs" />
+    <Compile Include="Patches\Cutscene\OnStart.cs" />
+    <Compile Include="Patches\Cutscene\OnTriggerEnter.cs" />
     <Compile Include="Patches\Cutscene\TrackDestroy.cs" />
-    <Compile Include="Patches\SoundManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

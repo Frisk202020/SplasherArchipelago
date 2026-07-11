@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Core {
     public static class Static {
@@ -8,6 +9,15 @@ namespace Core {
         public const string VersionStr = "0.0.7";
         public static readonly Version Version = new Version(0, 0, 7);
         public const string VanillaSave = "Save1";
+        private static GameObject persistentObject;
+        public static GameObject PersistentObject() {
+            if (persistentObject is null) {
+                persistentObject = new GameObject("ArchipelagoPersist");
+                UnityEngine.Object.DontDestroyOnLoad(persistentObject);
+            }
+
+            return persistentObject;
+        }
         #endregion
 
         #region Logger
