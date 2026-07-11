@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace SplasherArchipelago.Helpers {
+namespace Archipelago.Helpers {
     internal class AnimationTracker : MonoBehaviour {
         internal Action ResolveAction;
 
@@ -12,8 +12,7 @@ namespace SplasherArchipelago.Helpers {
             yield return null;
             while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1) yield return null;
 
-            if (ResolveAction != null)
-                ResolveAction();
+            ResolveAction?.Invoke();
         }
     }
 }

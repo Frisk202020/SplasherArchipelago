@@ -4,7 +4,7 @@
  * Detect a splasher location.
  */
 
-namespace SplasherArchipelago.Patches.Location {
+namespace Archipelago.Patches.Location {
     [HarmonyPatch(typeof(GameActor), "NoReset", MethodType.Setter)]
     public static class SplasherCollect {
         public static bool Prefix(GameActor __instance, bool value) {

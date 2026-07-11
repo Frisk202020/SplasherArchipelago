@@ -1,4 +1,4 @@
-﻿namespace SplasherArchipelago.Data.Locations {
+﻿namespace Archipelago.Data.Locations {
     internal static class Clears {
         private static bool Update(LevelData current) {
             if (current.State != HubDoorState.Finished) {

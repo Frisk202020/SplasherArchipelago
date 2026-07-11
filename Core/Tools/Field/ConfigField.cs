@@ -1,4 +1,4 @@
-﻿namespace SplasherArchipelago.Public.Field {
+﻿namespace Core.Tools.Field {
     public abstract class ConfigField<T> : IField {
         private bool isSet = false;
 

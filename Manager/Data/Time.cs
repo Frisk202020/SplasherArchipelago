@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace SplasherManager.Data {
+namespace Manager.Data {
     internal static class Time {
-        internal static float TimeScale = 3;
+        internal static float TimeScale = 1;
+        internal static bool SpeedOnCredits = false;
 
         private static readonly List<AudioSource> patchedAudio = new List<AudioSource>();
 

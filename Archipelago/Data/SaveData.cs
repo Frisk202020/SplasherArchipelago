@@ -2,7 +2,7 @@
 using System.Reflection;
 using TSKGames.Save;
 
-namespace SplasherArchipelago.Data {
+namespace Archipelago.Data {
     internal static class SaveData {
         internal static bool EnableTimeAttackDoors = false;
         private static Helpers.Save.SaveDataExtension data = new Helpers.Save.SaveDataExtension();
@@ -36,24 +36,24 @@ namespace SplasherArchipelago.Data {
 
         internal static void Init() {
             DataStore.OnAutosaveLoad += (save, savename) => {
-                if (savename != Shared.SaveFileExtension()) return;
+                if (savename != Util.SaveFileExtension()) return;
 
                 var s = save.Read<Helpers.Save.GameSaver>();
                 if (s is null) {
-                    Util.Warn("Save not found. Using a new one...");
+                    Core.Static.Warn("Save not found. Using a new one...");
                     return;
                 }
 
                 data = s.data;
-                Util.Log("Archipelago Save Loaded");
+                Core.Static.Log("Archipelago Save Loaded");
             };
 
-            DataStore.AutoSaveExist(Shared.SaveFileExtension(), delegate (string filename, bool exist) {
+            DataStore.AutoSaveExist(Util.SaveFileExtension(), delegate (string filename, bool exist) {
                 if (exist) {
-                    DataStore.LoadAutoSave(Shared.SaveFileExtension());
+                    DataStore.LoadAutoSave(Util.SaveFileExtension());
                     return;
                 }
-                Util.Warn("Archipelago Save Not Found -- Expecting if starting a new Multiworld");
+                Core.Static.Warn("Archipelago Save Not Found -- Expecting if starting a new Multiworld");
             });
         }
     }

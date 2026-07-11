@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SplasherArchipelago.Data.Items {
+namespace Archipelago.Data.Items {
     class LevelKeys {
         private const int Levels = 21; // lvl 1 is always unlocked
         private readonly static Queue<PendingKeyUnlock> pendingUnlocks = new Queue<PendingKeyUnlock>();

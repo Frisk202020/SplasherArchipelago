@@ -1,6 +1,6 @@
 ﻿using Archipelago.MultiClient.Net.Models;
 
-namespace SplasherArchipelago.Network.Items.Traps {
+namespace Archipelago.Network.Items.Traps {
     class Antiwater : Item {
         public void Collect(ItemInfo _item) {
             //! TODO : see if possible to implement Antiwater power (see game files) 

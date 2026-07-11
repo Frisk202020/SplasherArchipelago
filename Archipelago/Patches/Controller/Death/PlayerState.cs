@@ -4,7 +4,7 @@
  * Kill the player if possible (because of deathlink or splasher death in hero mode).
  */
 
-namespace SplasherArchipelago.Patches.Controller.Death {
+namespace Archipelago.Patches.Controller.Death {
     [HarmonyPatch(typeof(PlayerController), "State", MethodType.Getter)]
     public static class PlayerState {
         public static void Postfix(PlayerController __instance) {

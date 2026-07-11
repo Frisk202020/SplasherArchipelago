@@ -1,6 +1,6 @@
-﻿using SplasherArchipelago.Helpers;
+﻿using Archipelago.Helpers;
 
-namespace SplasherArchipelago.Data.Locations {
+namespace Archipelago.Data.Locations {
     static class Splashers {
         private const int splashers_per_level = 7;
 

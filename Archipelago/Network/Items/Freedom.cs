@@ -1,6 +1,6 @@
 ﻿using Archipelago.MultiClient.Net.Models;
 
-namespace SplasherArchipelago.Network.Items {
+namespace Archipelago.Network.Items {
     class Freedom : Item {
         internal Freedom() { }
 

@@ -1,5 +1,5 @@
 ﻿using HarmonyLib;
-using SplasherArchipelago.Data;
+using Archipelago.Data;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
@@ -9,7 +9,7 @@ using UnityEngine;
  * Vanilla enforces very much that only one door should unlock, so we need some setup to make it happen.
  */
 
-namespace SplasherArchipelago.Patches.Controller.Hub.UnlockLevelAnimation {
+namespace Archipelago.Patches.Controller.Hub.UnlockLevelAnimation {
     [HarmonyPatch(typeof(Door), "Start")]
     public static class DoorReference {
         private static readonly Dictionary<string, Door> doors = new Dictionary<string, Door>();

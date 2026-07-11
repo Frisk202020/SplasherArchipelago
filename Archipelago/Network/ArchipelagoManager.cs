@@ -1,12 +1,13 @@
 ﻿using Archipelago.MultiClient.Net;
-using SplasherArchipelago.Data.Locations;
+using Archipelago.Data.Locations;
 using System;
 using System.Collections.Generic;
 
-namespace SplasherArchipelago.Network {
+namespace Archipelago.Network {
     static class ArchipelagoManager {
         private static readonly Version version = new Version(0, 6, 7);
         private static Helpers.FailableSession session;
+        private static bool enabled = false;
 
         private static Dictionary<string, object> slotData;
 
@@ -24,51 +25,52 @@ namespace SplasherArchipelago.Network {
             Items.ItemManager.CollectPending();
         }
 
-        internal static bool Start() {
-            try {
-                if (session is null) {
-                    if (Shared.Config is null) {
-                        Shared.Parse();
-                        if (Shared.Config is null) return false;
-                    }
+        private static void InitSession(Core.Tools.Config conf) {
+            Data.Items.LevelKeys.ShowName = conf.ShowLevelTitle.Value;
+            
+            var targetAddress = new Helpers.Address { domain = conf.Address.Value, port = (int)conf.Port.Value };
+            var session = ArchipelagoSessionFactory.CreateSession(conf.Proxy.Value ? $"ws://localhost:8080" : targetAddress.ToString());
 
-                    if (Shared.Config.ShowLevelTitle.Value) {
-                        Data.Items.LevelKeys.ShowName = true;    
-                    }
-
-                    var targetAddress = new Helpers.Address { domain = Shared.Config.Address.Value, port = (int)Shared.Config.Port.Value };
-                    var session = ArchipelagoSessionFactory.CreateSession(Shared.Config.Proxy.Value ? $"ws://localhost:8080" : targetAddress.ToString());
-
-                    session.Items.ItemReceived += (recvItemHelper) => {
-                        if (SaveLoaded) {
-                            Items.ItemManager.Collect(recvItemHelper.DequeueItem());
-                        } else {
-                            Items.ItemManager.Enqueue(recvItemHelper.DequeueItem());
-                        }
-                    };
-
-                    session.Locations.CheckedLocationsUpdated += (recvLocHelper) => {
-                        foreach(var loc in recvLocHelper) {
-                            Restore(loc);
-                        }
-                    };
-
-                    ArchipelagoManager.session = new Helpers.FailableSession(
-                        session, Shared.Config.Slot.Value, version,
-                        Shared.Config.Proxy.Value ? targetAddress : null
-                    );
+            session.Items.ItemReceived += (recvItemHelper) => {
+                if (SaveLoaded) {
+                    Items.ItemManager.Collect(recvItemHelper.DequeueItem());
+                } else {
+                    Items.ItemManager.Enqueue(recvItemHelper.DequeueItem());
                 }
+            };
+
+            session.Locations.CheckedLocationsUpdated += (recvLocHelper) => {
+                foreach(var loc in recvLocHelper) {
+                    Restore(loc);
+                }
+            };
+
+            ArchipelagoManager.session = new Helpers.FailableSession(
+                session, conf.Slot.Value, version,
+                conf.Proxy.Value ? targetAddress : null
+            );
+        }
+
+        internal static bool Start(Core.Tools.Config conf) {
+            if (enabled) return true;
+            if (session is null) InitSession(conf);
+
+            try {
                 if (!session.FirstConnection()) return false;
-                Util.Log("Archipelago Loaded !");
-
-                slotData = ApplyOptions();
-                Data.SaveData.Init();
-
-                return true;
             } catch (Exception e) {
-                Util.Error($"Failed to initialize Archipelago : {e.Message}");
+                Core.Static.Log($"Failed to initialize Archipelago : {e.Message}");
                 return false;
             }
+
+            enabled = true;
+            slotData = ApplyOptions();
+            Data.SaveData.Init();
+
+            Util.Harmony.PatchAll();           
+            GameData.Initialized = false;
+            GameData.Instance.InitializePlayerData();
+            Hub.Load();
+            return true;
         }
 
         private static Dictionary<string, object> ApplyOptions() {

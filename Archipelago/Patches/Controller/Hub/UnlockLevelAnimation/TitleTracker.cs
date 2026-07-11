@@ -1,6 +1,6 @@
 ﻿using HarmonyLib;
 
-namespace SplasherArchipelago.Patches.Controller.Hub.UnlockLevelAnimation {
+namespace Archipelago.Patches.Controller.Hub.UnlockLevelAnimation {
     [HarmonyPatch(typeof(HUD), "PlayShowUp")]
     public static class TitleTracker {
         public static void Postfix(HUD __instance) {

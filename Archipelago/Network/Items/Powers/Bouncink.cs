@@ -1,6 +1,6 @@
 ﻿using Archipelago.MultiClient.Net.Models;
 
-namespace SplasherArchipelago.Network.Items.Powers {
+namespace Archipelago.Network.Items.Powers {
     class Bouncink : Power,Item {
         public override string Name() => $"Bouncy Paint {base.Name()}";
 

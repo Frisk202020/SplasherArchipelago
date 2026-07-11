@@ -4,7 +4,7 @@ using System.Text;
 using TSKGames.Save;
 using UnityEngine;
 
-namespace SplasherArchipelago.Helpers.Save {
+namespace Archipelago.Helpers.Save {
     public class GameSaver : IGameSaveFile {
         public SaveDataExtension data;
 
@@ -12,7 +12,7 @@ namespace SplasherArchipelago.Helpers.Save {
         public GameSaver(SaveDataExtension data) { this.data = data; }
 
         private static int VersionToInt() {
-            return Shared.version.Major * 100 + Shared.version.Minor * 10 + Shared.version.Build;
+            return Core.Static.Version.Major * 100 + Core.Static.Version.Minor * 10 + Core.Static.Version.Build;
         }
 
         public override void Read() {
@@ -33,7 +33,7 @@ namespace SplasherArchipelago.Helpers.Save {
                 data = JsonUtility.FromJson<SaveDataExtension>(Encoding.UTF8.GetString(bytes));
             } catch {
                 data = null;
-                Util.Error("Failed to read save extension");
+                Core.Static.Error("Failed to read save extension");
             }
         }
 

@@ -1,4 +1,4 @@
-﻿namespace SplasherArchipelago.Network.Options {
+﻿namespace Archipelago.Network.Options {
     internal enum DeathLink : int {
         None = 0,
         Normal = 1,

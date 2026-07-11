@@ -4,7 +4,7 @@
  * Detect a power unlock location.
  */
 
-namespace SplasherArchipelago.Patches.Location {
+namespace Archipelago.Patches.Location {
     [HarmonyPatch(typeof(CheckpointNewPower), "CoroutineGivePower")]
     public static class Power {
         public static bool Prefix(CheckpointNewPower __instance) {

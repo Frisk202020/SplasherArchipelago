@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 
-namespace SplasherArchipelago.Network.Helpers {
+namespace Archipelago.Network.Helpers {
     internal class BackgroundThread {
         private readonly string name;
         private readonly Action action;
@@ -17,7 +17,7 @@ namespace SplasherArchipelago.Network.Helpers {
 
         internal void Execute() {
             if (!available) {
-                Util.Warn($"Aborted : {name} is busy.");
+                Core.Static.Warn($"Aborted : {name} is busy.");
                 return;
             }
 

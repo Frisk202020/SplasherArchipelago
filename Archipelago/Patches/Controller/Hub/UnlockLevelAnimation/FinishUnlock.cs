@@ -6,7 +6,7 @@ using System.Reflection;
  * This patch just captures the end of the coroutine.
  */
 
-namespace SplasherArchipelago.Patches.Controller.Hub.UnlockLevelAnimation {
+namespace Archipelago.Patches.Controller.Hub.UnlockLevelAnimation {
     [HarmonyPatch]
     public static class FinishUnlock {
         [HarmonyTargetMethod]

@@ -3,7 +3,7 @@ using HarmonyLib;
 /**
  * Redirect behavior of Time Attack doors if needed.
  */
-namespace SplasherArchipelago.Patches.Controller.Hub {
+namespace Archipelago.Patches.Controller.Hub {
     [HarmonyPatch(typeof(Door), "State", MethodType.Getter)]
     public static class GetDoorState {
         public static bool Prefix(Door __instance, ref HubDoorState __result) {

@@ -7,8 +7,8 @@
     <ProjectGuid>{E81DDE2E-2247-4592-AF59-8011DA448518}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SplasherArchipelago</RootNamespace>
-    <AssemblyName>SplasherArchipelago</AssemblyName>
+    <RootNamespace>Archipelago</RootNamespace>
+    <AssemblyName>Archipelago</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -139,6 +139,7 @@
     <Compile Include="Patches\Controller\Save\Load.cs" />
     <Compile Include="Patches\Controller\Input\ButtonDown.cs" />
     <Compile Include="Patches\Controller\Save\OnPlayerDataLoaded.cs" />
+    <Compile Include="Patches\Controller\Save\OnSaveLoad.cs" />
     <Compile Include="Patches\Controller\Save\Save.cs" />
     <Compile Include="Patches\Location\ExitLevel.cs" />
     <Compile Include="Patches\Location\Power.cs" />
@@ -146,14 +147,6 @@
     <Compile Include="Patches\Controller\Hub\BossUnlock.cs" />
     <Compile Include="Patches\Location\Speedrun.cs" />
     <Compile Include="Patches\Location\SplasherCollect.cs" />
-    <Compile Include="Public\Config.cs" />
-    <Compile Include="Public\Field\BoolField.cs" />
-    <Compile Include="Public\Field\ConfigField.cs" />
-    <Compile Include="Public\Field\FloatField.cs" />
-    <Compile Include="Public\Field\IField.cs" />
-    <Compile Include="Public\Field\StringField.cs" />
-    <Compile Include="Public\Field\UintField.cs" />
-    <Compile Include="Shared.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="Patches\Controller\InitializePowers.cs" />
     <Compile Include="Patches\UI\PowersUI.cs" />
@@ -163,7 +156,12 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{57ae0233-d6da-40a1-bcef-d89a70cc33be}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy "$(TargetPath)" "C:\Program Files (x86)\Steam\steamapps\common\Splasher\BepInEx\plugins" /Y /I</PostBuildEvent>

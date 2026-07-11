@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SplasherArchipelago.Helpers {
+namespace Archipelago.Helpers {
     static class EachLevel<T> {
         internal static Dictionary<LocalizedString, T> Init(Func<T> get_default) {
             var data = new Dictionary<LocalizedString, T>();

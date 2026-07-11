@@ -4,7 +4,7 @@
  * Detect a speedrun location.
  */
 
-namespace SplasherArchipelago.Patches.Location {
+namespace Archipelago.Patches.Location {
     [HarmonyPatch(typeof(UIScorePanel), "Refresh")]
     public static class Speedrun {
         public static bool Prefix(ref bool showWorld) {

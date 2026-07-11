@@ -1,10 +1,12 @@
-﻿namespace SplasherArchipelago {
+﻿using HarmonyLib;
+
+namespace Archipelago {
     internal static class Util {
-        internal const string Game = "Splasher";
         internal const long BaseId = 0xF4A201;
         internal const uint LevelCount = 22;
+        internal const string PluginId = Core.Static.PluginIdRoot + ".archipelago";
 
-        private static BepInEx.Logging.ManualLogSource logger = BepInEx.Logging.Logger.CreateLogSource("Archipelago");
+        internal static Harmony Harmony = new Harmony(PluginId);
 
         internal readonly static string[] Levels = {
             "Welcome to Inkorp", "Potatoes Ink", "Stick To The Plan",
@@ -17,16 +19,8 @@
             "Good Luck Splasher"
         };
 
-        internal static void Log(string msg) {
-            logger.LogInfo(msg);
-        }
-
-        internal static void Warn(string msg) {
-            logger.LogWarning(msg);
-        }
-
-        internal static void Error(string msg) {
-            logger.LogError(msg);
-        }
+        internal static string Seed = "";
+        internal static string SaveFile() => $"Archipelago_{Seed}";
+        internal static string SaveFileExtension() => SaveFile() + "_Extension";
     }
 }

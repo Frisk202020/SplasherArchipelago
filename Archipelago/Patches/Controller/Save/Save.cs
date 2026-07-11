@@ -5,25 +5,25 @@ using TSKGames.Save;
  * Use a save dedicated to the current Archipelago seed instead of the default one.
  */
 
-namespace SplasherArchipelago.Patches.Controller.Save {
+namespace Archipelago.Patches.Controller.Save {
     [HarmonyPatch(typeof(DataStore), "AutoSaveSilently")]
     public static class Save {
         public static bool Prefix(ref string AutoSaveFilename) {
-            if (AutoSaveFilename != Shared.VANILLA_FILE) return true;
+            if (AutoSaveFilename != Core.Static.VanillaSave) return true;
 
-            AutoSaveFilename = Shared.SaveFile();
+            AutoSaveFilename = Util.SaveFile();
             return true;
         }
 
         public static void Postfix(string AutoSaveFilename) {
-            if (AutoSaveFilename == Shared.SaveFileExtension()) return;
+            if (AutoSaveFilename == Util.SaveFileExtension()) return;
 
             DataStore.AutoSaveSilently(
                 Data.SaveData.Saver,
-                Shared.SaveFileExtension()
+                Util.SaveFileExtension()
             );
 
-            Util.Log("Archipelago saved");
+            Core.Static.Log("Archipelago saved");
         }
     }
 }

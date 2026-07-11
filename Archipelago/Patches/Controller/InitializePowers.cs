@@ -5,7 +5,7 @@
  * This is easier to proceed that way because powers are very much enforced to be progressive in the game's code.
  */
 
-namespace SplasherArchipelago.Patches.Controller.Hub {
+namespace Archipelago.Patches.Controller.Hub {
     [HarmonyPatch(typeof(SauceMachine), "InitializePowers")]
     public static class InitializePowers {
         public static bool Prefix(SauceMachine __instance) {

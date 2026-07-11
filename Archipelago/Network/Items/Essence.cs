@@ -1,7 +1,7 @@
 ﻿using Archipelago.MultiClient.Net.Models;
 using System;
 
-namespace SplasherArchipelago.Network.Items {
+namespace Archipelago.Network.Items {
     class Essence : Item {
         private readonly uint ammount;
 

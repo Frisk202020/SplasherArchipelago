@@ -1,7 +1,7 @@
 ﻿using BepInEx;
 
-namespace SplasherArchipelago {
-    [BepInPlugin(Shared.pluginId, "SplasherArchipelago", "0.0.6")]
+namespace Archipelago {
+    [BepInPlugin(Util.PluginId, Core.Static.Game + "Archipelago", Core.Static.VersionStr)]
     public class Main : BaseUnityPlugin {
         public void Awake() {}
 

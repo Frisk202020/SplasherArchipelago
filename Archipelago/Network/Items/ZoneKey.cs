@@ -1,7 +1,7 @@
 ﻿using Archipelago.MultiClient.Net.Models;
 using System.Collections.Generic;
 
-namespace SplasherArchipelago.Network.Items {
+namespace Archipelago.Network.Items {
     internal class ZoneKey : Item {
         private readonly string name;
         private readonly uint[] keys;

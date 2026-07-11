@@ -1,4 +1,4 @@
-﻿namespace SplasherArchipelago.Data.Items {
+﻿namespace Archipelago.Data.Items {
     static class Splashers {
         internal static int BadEncounter { get; set; } = 0; // to implement in options
         internal static int Sncf { get; set; } = 0; // to implement in options

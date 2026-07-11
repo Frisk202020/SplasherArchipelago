@@ -1,4 +1,4 @@
-﻿namespace SplasherArchipelago.Data {
+﻿namespace Archipelago.Data {
     internal static class DeathLink {
         internal static uint Trigger = 4;
         private static bool hero = false;
@@ -34,7 +34,7 @@
         }
 
         internal static void ReceiveDeathLink(Archipelago.MultiClient.Net.BounceFeatures.DeathLink.DeathLink death) {
-            Util.Log($"Died from {death.Source} ({death.Cause})");
+            Core.Static.Log($"Died from {death.Source} ({death.Cause})");
 
             Count = 0;
             ReceiveDeath = true;

@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace SplasherArchipelago.Network.Items {
+namespace Archipelago.Network.Items {
     static class ItemManager {
         private static readonly HashSet<long> collectedLocationIds = new HashSet<long>();
         private static readonly Queue<ItemInfo> pending = new Queue<ItemInfo>();

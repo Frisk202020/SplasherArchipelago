@@ -1,7 +1,7 @@
 ﻿using Archipelago.MultiClient.Net.Models;
 using System.Collections.Generic;
 
-namespace SplasherArchipelago.Network.Items {
+namespace Archipelago.Network.Items {
     class Key : Item {
         private readonly uint id;
         private readonly string levelName;

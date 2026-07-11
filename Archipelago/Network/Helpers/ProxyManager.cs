@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Threading;
 
-namespace SplasherArchipelago.Network.Helpers {
+namespace Archipelago.Network.Helpers {
     internal static class ProxyManager {
         private static Process _process = null;
 
@@ -22,7 +22,7 @@ namespace SplasherArchipelago.Network.Helpers {
             process.EnableRaisingEvents = true;
             process.StartInfo.UseShellExecute = false;
 
-            Util.Log($"Launching the proxy to listen on {address}");
+            Core.Static.Log($"Launching the proxy to listen on {address}");
             try {
                 process.Start();
                 _process = process;
@@ -30,7 +30,7 @@ namespace SplasherArchipelago.Network.Helpers {
 
                 return true;
             } catch (Exception e) {
-                Util.Error($"Failed to start the process.\nDetails: {e.Message}");
+                Core.Static.Error($"Failed to start the process.\nDetails: {e.Message}");
                 return false;
             }
         }
@@ -42,7 +42,7 @@ namespace SplasherArchipelago.Network.Helpers {
                 _process.Kill();
                 _process.WaitForExit();
             } catch (Exception) {
-                Util.Error("Failed to terminate the proxy instance");
+                Core.Static.Error("Failed to terminate the proxy instance");
             } finally {
                 Clean();
             }            

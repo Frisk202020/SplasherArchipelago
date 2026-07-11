@@ -1,8 +1,8 @@
-﻿using SplasherArchipelago.Public.Field;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
+using Core.Tools.Field;
 
-namespace SplasherArchipelago.Public {
+namespace Core.Tools {
     public class Config {
         #region ConnectionInfo
         public readonly StringField Address = new StringField();
@@ -20,7 +20,7 @@ namespace SplasherArchipelago.Public {
         private Config() { }
 
         #region Parse Implementation
-        public static Config Parse() {
+        public static bool Parse() {
             try {
                 var config = new Config();
                 var sr = new StreamReader("connection.yaml");
@@ -38,17 +38,17 @@ namespace SplasherArchipelago.Public {
                     .ToArray();
 
                 if (missing.Length == 0) {
-                    Util.Log("Config parsed successfully !");
-                    Shared.StartConfigEvents(config);
+                    Static.Log("Config parsed successfully !");
+                    Static.StartConfigEvents(config);
 
-                    return config;
+                    return true;
                 }
-                Util.Error($"Missing required fields : {string.Join(",", missing)}");
+                Static.Error($"Missing required fields : {string.Join(",", missing)}");
             } catch (System.Exception e) {
-                Util.Error($"Failed to parse your config : {e}");
+                Static.Error($"Failed to parse your config : {e}");
             }
 
-            return null;
+            return false;
         }
         
         private void ParseLine(string line) {
@@ -59,13 +59,13 @@ namespace SplasherArchipelago.Public {
 
             var keyVal = lineByComment[0].Split(':');
             if (keyVal.Length != 2) {
-                Util.Warn($"Invalid key-value line : '{line}'");
+                Static.Warn($"Invalid key-value line : '{line}'");
                 return;
             }
 
             var field = typeof(Config).GetField(keyVal[0].Trim());
             if (field is null || !typeof(IField).IsAssignableFrom(field.FieldType)) {
-                Util.Warn($"Invalid key : {keyVal[0]}");
+                Static.Warn($"Invalid key : {keyVal[0]}");
                 return;
             }
 

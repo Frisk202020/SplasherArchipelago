@@ -1,4 +1,4 @@
-﻿namespace SplasherArchipelago.Data.Items {
+﻿namespace Archipelago.Data.Items {
     static class Freedom {
         internal static bool IsFree { get; private set; } = false;
         internal static void Free() {

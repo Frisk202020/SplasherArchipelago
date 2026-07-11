@@ -1,6 +1,6 @@
 ﻿using HarmonyLib;
 
-namespace SplasherArchipelago.Patches.Controller.Hub {
+namespace Archipelago.Patches.Controller.Hub {
     /**
      * Get the medal actual matching with locations (ignoring actual PB).
      * This is useful when a speedrun location is checked by another player finishing their game.

@@ -4,7 +4,7 @@ using HarmonyLib;
  * Force Flip
  */
 
-namespace SplasherArchipelago.Patches.Controller.Hub.UnlockLevelAnimation {
+namespace Archipelago.Patches.Controller.Hub.UnlockLevelAnimation {
     [HarmonyPatch(typeof(HubHUD), "PlayChangeModeFeedback")]
     public static class ChangeModeFeedback {
         public static void Postfix() {

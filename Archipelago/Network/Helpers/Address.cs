@@ -1,4 +1,4 @@
-﻿namespace SplasherArchipelago.Network.Helpers {
+﻿namespace Archipelago.Network.Helpers {
     internal class Address {
         public string domain;
         public int port;

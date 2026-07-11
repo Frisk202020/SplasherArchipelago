@@ -1,6 +1,6 @@
 ﻿using HarmonyLib;
 
-namespace SplasherArchipelago.Patches.Controller.Save {
+namespace Archipelago.Patches.Controller.Save {
     [HarmonyPatch(typeof(GameData), "RefreshLevelData")]
     public static class OnPlayerDataLoaded {
         public static void Postfix(GameData __instance) {

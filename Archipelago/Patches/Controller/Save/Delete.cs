@@ -5,11 +5,11 @@ using TSKGames.Save;
  * Use a save dedicated to the current Archipelago seed instead of the default one.
  */
 
-namespace SplasherArchipelago.Patches.Controller.Save {
+namespace Archipelago.Patches.Controller.Save {
     [HarmonyPatch(typeof(DataStore), "DeleteAutoSave")]
     public static class Delete {
         public static bool Prefix(ref string AutoSaveFilename) {
-            AutoSaveFilename = Shared.SaveFile();
+            AutoSaveFilename = Util.SaveFile();
             return true;
         }
     }

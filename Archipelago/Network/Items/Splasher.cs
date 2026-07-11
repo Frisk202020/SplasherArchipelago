@@ -1,7 +1,7 @@
 ﻿using Archipelago.MultiClient.Net.Models;
 using System.Collections.Generic;
 
-namespace SplasherArchipelago.Network.Items {
+namespace Archipelago.Network.Items {
     class Splasher : Item {
         private HashSet<long> collected = new HashSet<long>();
 

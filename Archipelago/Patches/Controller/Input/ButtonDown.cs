@@ -5,7 +5,7 @@ using TSKGames.Inputs;
  * Prevent use of paint gun buttons if not unlocked.
  */
 
-namespace SplasherArchipelago.Patches.Controller.Input {
+namespace Archipelago.Patches.Controller.Input {
     [HarmonyPatch(typeof(InputGamePadMgr), "GetButtonDown")]
     public static class ButtonDown {
         public static bool Prefix(InputGamepadButton button) {

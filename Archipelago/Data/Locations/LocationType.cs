@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SplasherArchipelago.Data.Locations {
+namespace Archipelago.Data.Locations {
     enum LocationType : uint {
         Water = 0,
         Stickink = 1,

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SplasherArchipelago.Helpers.Save {
+namespace Archipelago.Helpers.Save {
     [Serializable]
     public class SaveDataExtension {
         public HubDoorState[] TimeAttackState;

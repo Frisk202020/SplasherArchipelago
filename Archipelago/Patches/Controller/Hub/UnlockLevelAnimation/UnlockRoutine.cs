@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace SplasherArchipelago.Patches.Controller.Hub.UnlockLevelAnimation {
+namespace Archipelago.Patches.Controller.Hub.UnlockLevelAnimation {
     internal class UnlockRoutine : MonoBehaviour {
         public void StartRoutine() => StartCoroutine(Routine());
         

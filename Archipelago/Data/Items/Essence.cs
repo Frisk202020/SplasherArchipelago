@@ -1,4 +1,4 @@
-﻿namespace SplasherArchipelago.Data.Items {
+﻿namespace Archipelago.Data.Items {
     static class Essence {
         public const uint MAX = 700;
         private static uint ammount = 0;

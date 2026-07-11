@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SplasherArchipelago.Helpers {
+namespace Archipelago.Helpers {
     static class LevelByName {
         private static Dictionary<LocalizedString, int> Init() {
             var data = new Dictionary<LocalizedString, int>();

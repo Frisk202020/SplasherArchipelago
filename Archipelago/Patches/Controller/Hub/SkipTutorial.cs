@@ -4,7 +4,7 @@
  * Skip the intro cutscene to rather spawn in the Hub on a new save.
  */
 
-namespace SplasherArchipelago.Patches.Controller.Hub {
+namespace Archipelago.Patches.Controller.Hub {
     [HarmonyPatch(typeof(global::Hub), "IsFirstLevelFinished", MethodType.Getter)]
     public static class SkipTutorial {
         public static bool Prefix(ref bool __result) {

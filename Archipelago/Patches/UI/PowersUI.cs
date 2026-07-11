@@ -7,7 +7,7 @@ using UnityEngine;
  * This will require to add new sprites to behave properly.
  */
 
-namespace SplasherArchipelago.Patches.UI {
+namespace Archipelago.Patches.UI {
     [HarmonyPatch(typeof(PlayerController), "Start")]
     public static class Powers {
         public static void Postfix(PlayerController __instance, Animator ___backpackAnimator) {

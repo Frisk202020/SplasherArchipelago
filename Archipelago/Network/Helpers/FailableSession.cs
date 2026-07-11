@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 
-namespace SplasherArchipelago.Network.Helpers {
+namespace Archipelago.Network.Helpers {
     class FailableSession {
         private const int TIMEOUT_MS = 5000;
 
@@ -30,14 +30,14 @@ namespace SplasherArchipelago.Network.Helpers {
             this.proxyTarget = proxyTarget;
 
             session.Socket.SocketOpened += () => {
-                Util.Log("Connected to Archipelago !");
+                Core.Static.Log("Connected to Archipelago !");
                 if (!firstConnectionDone) firstConnectionDone = true;
             };
             session.Socket.ErrorReceived += (exception, message) => {
-                Util.Error($"Internal Error: {message}\n{exception}");
+                Core.Static.Error($"Internal Error: {message}\n{exception}");
             };
             session.Socket.SocketClosed += (reason) =>{
-                Util.Warn($"Connexion closed{(string.IsNullOrEmpty(reason) ? "." : $": {reason}")}");
+                Core.Static.Warn($"Connexion closed{(string.IsNullOrEmpty(reason) ? "." : $": {reason}")}");
                 if (firstConnectionDone) connexionThread.Execute();
             };
 
@@ -59,9 +59,9 @@ namespace SplasherArchipelago.Network.Helpers {
         private bool Connect(bool requestSlotData = false) {
             if (proxyTarget != null && !ProxyManager.Init(proxyTarget)) return false;
 
-            Util.Log($"Trying to connect to Archipelago Server...");
+            Core.Static.Log($"Trying to connect to Archipelago Server...");
             var res = session.TryConnectAndLogin(
-                game: Util.Game,
+                game: Core.Static.Game,
                 name: player,
                 itemsHandlingFlags: ItemsHandlingFlags.AllItems,
                 version: version,
@@ -75,7 +75,7 @@ namespace SplasherArchipelago.Network.Helpers {
                     msg += $"{err}\n";
                 }
 
-                Util.Error(msg);
+                Core.Static.Error(msg);
                 return false;
             }
 
@@ -97,7 +97,7 @@ namespace SplasherArchipelago.Network.Helpers {
         public Dictionary<string, object> ApplyOptions() {
             var data = session.DataStorage.GetSlotData();
 
-            Shared.Seed = (string)data["seed"];
+            Util.Seed = (string)data["seed"];
             Data.Items.Splashers.Goal = (int)(long)data["splashers_goal"];
             ApplyDeathLink((Options.DeathLink)(long)data["death_link"]);
 

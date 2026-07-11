@@ -1,4 +1,4 @@
-﻿namespace SplasherArchipelago.Network.Items.Fillers {
+﻿namespace Archipelago.Network.Items.Fillers {
     class JobPromotion : Filler, Item {
         public string Name() => "Job Promotion";
     }

@@ -1,11 +1,11 @@
 ﻿using HarmonyLib;
-using SplasherArchipelago.Helpers;
+using Archipelago.Helpers;
 
 /**
  * Detect a level clear location
  */
 
-namespace SplasherArchipelago.Patches.Location {
+namespace Archipelago.Patches.Location {
     [HarmonyPatch(typeof(Exit), "CoroutineEndLevel")]
     public static class ExitLevel {
         public static bool Prefix() {

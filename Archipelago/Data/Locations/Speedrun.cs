@@ -1,7 +1,7 @@
-﻿using SplasherArchipelago.Helpers;
+﻿using Archipelago.Helpers;
 using System.Collections.Generic;
 
-namespace SplasherArchipelago.Data.Locations {
+namespace Archipelago.Data.Locations {
     internal static class Speedrun {
         private static readonly Dictionary<LocalizedString, bool> bronzes = EachLevel<bool>.Init(() => false);
         private static readonly Dictionary<LocalizedString, bool> silvers = EachLevel<bool>.Init(() => false);

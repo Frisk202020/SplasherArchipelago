@@ -1,4 +1,4 @@
-﻿namespace SplasherArchipelago.Data.Locations {
+﻿namespace Archipelago.Data.Locations {
     static class Powers {
         internal static bool checkedWater { get; private set; } = false;
         internal static bool checkedStickink { get; private set; } = false;
