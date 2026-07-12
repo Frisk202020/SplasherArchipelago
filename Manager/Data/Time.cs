@@ -11,9 +11,18 @@ namespace Manager.Data {
             AudioManager.Instance?.SetMusicPitch(1);
         }
 
-        internal static void TryAccelerate(HashSet<string> whitelist, Trigger trigger) {
-            if (TimeScale <= 1 || !whitelist.Contains(trigger.name)) return;
+        internal static void TryAccelerate(Dictionary<string, string> whitelist, Trigger trigger) {
+            var scene = GameData.Instance.CurrentLevelMetaData.SceneName;
+            if (
+                TimeScale <= 1 || 
+                !whitelist.ContainsKey(scene) ||  
+                trigger.name != whitelist[scene]
+            ) return;
 
+            Accelerate();
+        }
+
+        internal static void Accelerate() {
             UnityEngine.Time.timeScale = TimeScale;
             AudioManager.Instance?.SetMusicPitch(TimeScale);
 

@@ -4,9 +4,11 @@ using HarmonyLib;
 namespace Manager.Patches.Cutscene {
     [HarmonyPatch(typeof(Trigger), "Start")]
     public static class OnStart {
-        private static readonly HashSet<string> Cutscenes = new HashSet<string> {
-            "Docteur_PorteSplasher",
-            "Docteur_IntroBoss1", "Docteur_IntroBoss2", "Docteur_IntroBoss3"
+        private static readonly Dictionary<string, string> Cutscenes = new Dictionary<string, string> {
+            {"A1", "Docteur_PorteSplasher"},
+            {"A_Boss", "Docteur_IntroBoss1"}, 
+            {"B_Boss", "Docteur_IntroBoss2"}, 
+            {"C_Boss", "Docteur_IntroBoss3"}
         };
 
         public static bool Prefix(Trigger __instance) {
