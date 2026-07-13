@@ -2,6 +2,7 @@
 using Archipelago.Data.Locations;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Archipelago.Network {
     static class ArchipelagoManager {
@@ -63,10 +64,16 @@ namespace Archipelago.Network {
             }
 
             enabled = true;
+
+            var bundle = AssetBundle.LoadFromFile("BepInEx/assets/archipelago");
+            Data.UI.Animator.Load(bundle);
+            bundle.Unload(false);
+
             slotData = ApplyOptions();
+            Core.Static.DataStoreBlacklist.Add(Util.SaveFileExtension());
             Data.SaveData.Init();
 
-            Util.Harmony.PatchAll();           
+            Util.Harmony.PatchAll();
             GameData.Initialized = false;
             GameData.Instance.InitializePlayerData();
             Hub.Load();

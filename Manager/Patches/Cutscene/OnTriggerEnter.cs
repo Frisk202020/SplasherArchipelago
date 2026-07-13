@@ -11,7 +11,6 @@ namespace Manager.Patches.Cutscene {
         };
 
         public static bool Prefix(Trigger __instance) {
-            Core.Static.Error(__instance.name);
             Data.Time.TryAccelerate(Cutscenes, __instance);
             return true;
         }

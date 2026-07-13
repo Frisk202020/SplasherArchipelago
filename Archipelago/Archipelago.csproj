@@ -89,6 +89,7 @@
     <Compile Include="Data\Locations\Powers.cs" />
     <Compile Include="Data\Locations\Splashers.cs" />
     <Compile Include="Data\PendingKeyUnlock.cs" />
+    <Compile Include="Data\UI\Animator.cs" />
     <Compile Include="Helpers\AnimationTracker.cs" />
     <Compile Include="Data\SaveData.cs" />
     <Compile Include="Helpers\EachLevel.cs" />
@@ -139,7 +140,6 @@
     <Compile Include="Patches\Controller\Save\Load.cs" />
     <Compile Include="Patches\Controller\Input\ButtonDown.cs" />
     <Compile Include="Patches\Controller\Save\OnPlayerDataLoaded.cs" />
-    <Compile Include="Patches\Controller\Save\OnSaveLoad.cs" />
     <Compile Include="Patches\Controller\Save\Save.cs" />
     <Compile Include="Patches\Location\ExitLevel.cs" />
     <Compile Include="Patches\Location\Power.cs" />
@@ -149,7 +149,7 @@
     <Compile Include="Patches\Location\SplasherCollect.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="Patches\Controller\InitializePowers.cs" />
-    <Compile Include="Patches\UI\PowersUI.cs" />
+    <Compile Include="Patches\UI\Backpack.cs" />
     <Compile Include="Patches\Controller\Hub\SplasherCount.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

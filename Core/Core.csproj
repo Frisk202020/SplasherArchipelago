@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="Patches\HubBell.cs" />
+    <Compile Include="Patches\OnSaveLoad.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools\Config.cs" />
     <Compile Include="Tools\Field\BoolField.cs" />

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Core {
@@ -18,6 +19,8 @@ namespace Core {
 
             return persistentObject;
         }
+
+        public static readonly HashSet<string> DataStoreBlacklist = new HashSet<string>();
         #endregion
 
         #region Logger

@@ -4,6 +4,8 @@ using Core.Tools.Field;
 
 namespace Core.Tools {
     public class Config {
+        public static Config Instance;
+
         #region ConnectionInfo
         public readonly StringField Address = new StringField();
         public readonly UintField Port = new UintField();
@@ -21,6 +23,8 @@ namespace Core.Tools {
 
         #region Parse Implementation
         public static bool Parse() {
+            if (Instance != null) return true;
+
             try {
                 var config = new Config();
                 var sr = new StreamReader("connection.yaml");
@@ -40,6 +44,7 @@ namespace Core.Tools {
                 if (missing.Length == 0) {
                     Static.Log("Config parsed successfully !");
                     Static.StartConfigEvents(config);
+                    Instance = config;
 
                     return true;
                 }
