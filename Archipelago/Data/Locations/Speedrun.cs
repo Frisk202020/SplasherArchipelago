@@ -3,12 +3,19 @@ using System.Collections.Generic;
 
 namespace Archipelago.Data.Locations {
     internal static class Speedrun {
+        internal static Medal HighestRequiredMedal { get; private set; } = Medal.None;
+        private static LocationType HighestRequiredLocation = 0;
+        internal static void SetHighestMedal(Medal medal) {
+            HighestRequiredMedal = medal;
+            HighestRequiredLocation = medal.ToLocation() ?? 0;
+        }
+
         private static readonly Dictionary<LocalizedString, bool> bronzes = EachLevel<bool>.Init(() => false);
         private static readonly Dictionary<LocalizedString, bool> silvers = EachLevel<bool>.Init(() => false);
         private static readonly Dictionary<LocalizedString, bool> golds = EachLevel<bool>.Init(() => false);
         private static readonly Dictionary<LocalizedString, bool> platinums = EachLevel<bool>.Init(() => false);
 
-        private static Dictionary<LocationType, Dictionary<LocalizedString, bool>> byLocationType = new Dictionary<LocationType, Dictionary<LocalizedString, bool>> {
+        private static readonly Dictionary<LocationType, Dictionary<LocalizedString, bool>> byLocationType = new Dictionary<LocationType, Dictionary<LocalizedString, bool>> {
             { LocationType.Bronze, bronzes },
             { LocationType.Silver, silvers },
             { LocationType.Gold, golds },
@@ -29,6 +36,8 @@ namespace Archipelago.Data.Locations {
             LocationType loc, 
             LocalizedString level
          ) {
+            if (loc > HighestRequiredLocation) return;   
+
             var dict = byLocationType[loc];
             if (dict[level]) return;
 

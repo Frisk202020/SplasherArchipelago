@@ -149,6 +149,7 @@
     <Compile Include="Patches\Location\SplasherCollect.cs" />
     <Compile Include="Patches\UI\CheckpointGivePower.cs" />
     <Compile Include="Patches\UI\Jauge.cs" />
+    <Compile Include="Patches\UI\PlatinumDoor.cs" />
     <Compile Include="Patches\UI\ScoreOver.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="Patches\Controller\InitializePowers.cs" />

@@ -98,7 +98,10 @@ namespace Archipelago.Network.Helpers {
             var data = session.DataStorage.GetSlotData();
 
             Util.Seed = (string)data["seed"];
+
             Data.Items.Splashers.Goal = (int)(long)data["splashers_goal"];
+            Data.Locations.Speedrun.SetHighestMedal((Medal)(long)data["include_medals"]);
+
             ApplyDeathLink((Options.DeathLink)(long)data["death_link"]);
 
             if ((long)data["hero_mode"] == 1) {
