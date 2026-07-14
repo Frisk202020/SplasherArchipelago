@@ -1,7 +1,6 @@
 ﻿using HarmonyLib;
 using Archipelago.Data;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
 
 /**
@@ -13,7 +12,6 @@ namespace Archipelago.Patches.Controller.Hub.UnlockLevelAnimation {
     [HarmonyPatch(typeof(Door), "Start")]
     public static class DoorReference {
         private static readonly Dictionary<string, Door> doors = new Dictionary<string, Door>();
-        private static readonly MethodInfo StateSetter = AccessTools.DeclaredPropertySetter(typeof(Door), "State");
         internal static PendingKeyUnlock UnlockOccuring = null;
 
         public static bool Prefix(Door __instance) {
@@ -32,7 +30,7 @@ namespace Archipelago.Patches.Controller.Hub.UnlockLevelAnimation {
         }
 
         public static void Postfix(Door __instance, TextMesh ___txt2) {
-             if (Data.Items.LevelKeys.ShowName && __instance.State != HubDoorState.Finished)
+            if (Data.Items.LevelKeys.ShowName && __instance.State != HubDoorState.Finished)
                 ___txt2.text = $"{GameActor.GD.GetLevelNumber(__instance.levelMetaData)} - {__instance.levelMetaData.LevelName.GetString()}";
         }
 

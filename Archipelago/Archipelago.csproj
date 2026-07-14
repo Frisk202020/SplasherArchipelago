@@ -123,6 +123,7 @@
     <Compile Include="Patches\Controller\Death\Die.cs" />
     <Compile Include="Patches\Controller\Death\PlayerState.cs" />
     <Compile Include="Patches\Controller\Death\SplasherDie.cs" />
+    <Compile Include="Patches\Controller\Hub\PatchLeds.cs" />
     <Compile Include="Patches\Controller\Hub\DoorLocked.cs" />
     <Compile Include="Patches\Controller\Hub\DoorState.cs" />
     <Compile Include="Patches\Controller\Hub\MatchingMedal.cs" />
