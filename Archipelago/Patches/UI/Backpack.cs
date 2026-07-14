@@ -11,7 +11,7 @@ using UnityEngine;
 namespace Archipelago.Patches.UI {
     [HarmonyPatch(typeof(PlayerController), "Start")]
     public static class Backpack {
-        private static FieldInfo backpack = AccessTools.DeclaredField(typeof(PlayerController), "backpackAnimator");
+        private static readonly FieldInfo backpack = AccessTools.DeclaredField(typeof(PlayerController), "backpackAnimator");
 
         public static void Postfix(Animator ___backpackAnimator) {
             if (___backpackAnimator == null) return;

@@ -2,12 +2,12 @@
 using System.Reflection;
 
 /**
- * Make the game believe powers are not unlocked when spawning a power unlock in a level because overwhise it will not spawn.
+ * Make the game believe powers are not unlocked when spawning a power unlock in a level because otherwise it will not spawn.
  */
 
 namespace Archipelago.Patches.Controller {
     [HarmonyPatch]
-    public static class CheckpointGivePower {
+    public static class CheckpointEnablePower {
         private static void SetAll(bool x) {
             PlayerController.Instance.Machine.water = x;
             PlayerController.Instance.Machine.stickyPaint = x;
@@ -26,9 +26,8 @@ namespace Archipelago.Patches.Controller {
         }
 
         [HarmonyPostfix]
-        public static void Postfix() {
+        public static void Postfix(bool __result) {
             SetAll(true);
-            return;
         }
     }
 }
