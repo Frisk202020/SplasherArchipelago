@@ -22,7 +22,7 @@ namespace SplasherArchipelago.Patches.Controller.Hub.UnlockLevelAnimation {
                 global::Hub.UnlockingLevel == __instance.levelMetaData.SceneName &&
                 GameData.Instance.GetLevelData(__instance.levelMetaData.SceneName).State == HubDoorState.Unlocked
             ) {
-                SaveData.SetDoorState(__instance, HubDoorState.Locked, false, true);
+                SaveData.SetDoorState(__instance, HubDoorState.Locked, false, false);
                 global::Hub.UnlockingLevel = string.Empty;
             }
                  

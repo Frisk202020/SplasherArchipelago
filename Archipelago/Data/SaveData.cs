@@ -8,7 +8,7 @@ namespace SplasherArchipelago.Data {
         private static Helpers.Save.SaveDataExtension data = new Helpers.Save.SaveDataExtension();
         internal static Helpers.Save.GameSaver Saver => new Helpers.Save.GameSaver(data);
 
-        private static MethodInfo DoorSetter = AccessTools.DeclaredPropertySetter(typeof(Door), "State");
+        private static readonly MethodInfo DoorSetter = AccessTools.DeclaredPropertySetter(typeof(Door), "State");
 
         internal static HubDoorState GetDoorState(Door door, bool speedrun) {
             return EnableTimeAttackDoors && speedrun 
@@ -22,8 +22,9 @@ namespace SplasherArchipelago.Data {
                 : GameData.Instance.GetLevelData(Helpers.LevelByName.Scene(id)).State;
         }
 
-        internal static void SetDoorState(Door door, HubDoorState state, bool speedrun, bool setOnDoorInstance) {
-            if (setOnDoorInstance) DoorSetter.Invoke(door, new object[] { state });
+        internal static void SetDoorState(Door door, HubDoorState state, bool speedrun, bool setOnData) {
+            DoorSetter.Invoke(door, new object[] { state });
+            if (!setOnData) return;
 
             if (EnableTimeAttackDoors && speedrun) {
                 data.TimeAttackState[Helpers.LevelByName.Id(door.levelMetaData.LevelName)] = state;
