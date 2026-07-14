@@ -6,7 +6,6 @@ namespace Core {
     public class Main : BaseUnityPlugin {
         private const string pluginId = Static.PluginIdRoot + ".core";
         public void Awake() {
-            Static.Log("Sta");
             var harmony = new Harmony(pluginId);
             harmony.PatchAll();
         }

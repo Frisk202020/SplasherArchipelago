@@ -15,7 +15,7 @@ namespace Archipelago.Network.Items {
                 new Traps.PaintSwap(), new Traps.BodyAches(), // new Traps.Antiwater(), 
             };
 
-            foreach (uint n in new uint[] { 1, 10, 25, 50 }) {
+            foreach (int n in new int[] { 1, 2, 5 }) {
                 items.Add(new Essence(n));
             }
 

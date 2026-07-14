@@ -78,7 +78,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\DeathLink.cs" />
-    <Compile Include="Data\Items\Essence.cs" />
     <Compile Include="Data\Items\Freedom.cs" />
     <Compile Include="Data\Items\LevelKeys.cs" />
     <Compile Include="Data\Items\Powers.cs" />
@@ -135,7 +134,6 @@
     <Compile Include="Patches\Controller\Hub\UnlockLevelAnimation\UnlockRoutine.cs" />
     <Compile Include="Patches\Controller\Input\Button.cs" />
     <Compile Include="Patches\Controller\CheckpointGivePower.cs" />
-    <Compile Include="Patches\Controller\Essence.cs" />
     <Compile Include="Patches\Controller\Save\Delete.cs" />
     <Compile Include="Patches\Controller\Save\Exists.cs" />
     <Compile Include="Patches\Controller\Save\Load.cs" />
@@ -148,6 +146,7 @@
     <Compile Include="Patches\Controller\Hub\BossUnlock.cs" />
     <Compile Include="Patches\Location\Speedrun.cs" />
     <Compile Include="Patches\Location\SplasherCollect.cs" />
+    <Compile Include="Patches\UI\ScoreOver.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="Patches\Controller\InitializePowers.cs" />
     <Compile Include="Patches\UI\Backpack.cs" />
