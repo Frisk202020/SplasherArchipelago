@@ -67,6 +67,7 @@ namespace Archipelago.Network {
 
             var bundle = AssetBundle.LoadFromFile("BepInEx/assets/archipelago");
             Data.UI.Animator.Load(bundle);
+            Data.UI.Sprites.Load(bundle);
             bundle.Unload(false);
 
             slotData = ApplyOptions();
