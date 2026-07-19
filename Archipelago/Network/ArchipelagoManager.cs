@@ -71,7 +71,7 @@ namespace Archipelago.Network {
             Data.UI.Sprites.Load(bundle);
             bundle.Unload(false);
 
-            slotData = ApplyOptions();
+            slotData = ApplyOptions(conf);
             Core.Static.DataStoreBlacklist.Add(Util.SaveFileExtension());
             Data.SaveData.Init();
 
@@ -82,8 +82,8 @@ namespace Archipelago.Network {
             return true;
         }
 
-        private static Dictionary<string, object> ApplyOptions() {
-            return session.ApplyOptions();
+        private static Dictionary<string, object> ApplyOptions(Core.Tools.Config conf) {
+            return session.ApplyOptions(conf);
         }
 
         private static void Restore(long locId) {

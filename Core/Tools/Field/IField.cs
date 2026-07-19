@@ -2,5 +2,6 @@
     public interface IField {
         void Parse(string value);
         bool IsSet();
+        bool HasDefault();
     }
 }

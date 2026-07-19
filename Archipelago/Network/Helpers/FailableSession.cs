@@ -97,7 +97,7 @@ namespace Archipelago.Network.Helpers {
         }
 
         // returns slot data to apply options that needs save loaded later
-        public Dictionary<string, object> ApplyOptions() {
+        public Dictionary<string, object> ApplyOptions(Core.Tools.Config conf) {
             var data = session.DataStorage.GetSlotData();
 
             Util.Seed = (string)data["seed"];
@@ -105,9 +105,24 @@ namespace Archipelago.Network.Helpers {
             Data.Items.Splashers.Goal = (int)(long)data["splashers_goal"];
             Data.Locations.Speedrun.SetHighestMedal((Medal)(long)data["include_medals"]);
 
-            ApplyDeathLink((Options.DeathLink)(long)data["death_link"]);
+            var deathLink = conf.DeathLinkOverride.Value > 0 
+                ? conf.DeathLinkOverride.Value
+                : (long)data["death_link"];
+            if (deathLink > 0) ApplyDeathLink((uint)(deathLink-1));
+            
+            bool? heroOverride = null;
+            switch (conf.HeroModeOverride.Value) {
+                case "true": heroOverride = true; break;
+                case "false": heroOverride = false; break;
+                case "":
+                case "null": break;
+                default: Core.Static.Warn($"Unrecognized Hero Override option : {conf.HeroModeOverride.Value}"); break;
+            }
 
-            if ((long)data["hero_mode"] == 1) {
+            if (
+                heroOverride == true ||
+                (heroOverride == null && (long)data["hero_mode"] == 1)
+            ) {
                 Data.DeathLink.SetHero();
             }
 
@@ -120,13 +135,8 @@ namespace Archipelago.Network.Helpers {
             return data;
         }
 
-        private void ApplyDeathLink(Options.DeathLink option) {
-            switch (option) {
-                case Options.DeathLink.Normal: Data.DeathLink.Trigger = 4; break;
-                case Options.DeathLink.Insane: Data.DeathLink.Trigger = 2; break;
-                case Options.DeathLink.Legend: Data.DeathLink.Trigger = 0; break;
-                default: return;
-            }
+        private void ApplyDeathLink(uint trigger) {
+            Data.DeathLink.Trigger = trigger;
 
             var deathLinkService = session.CreateDeathLinkService();
             deathLinkService.EnableDeathLink();

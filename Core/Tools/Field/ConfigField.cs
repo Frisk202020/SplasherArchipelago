@@ -1,6 +1,15 @@
 ﻿namespace Core.Tools.Field {
     public abstract class ConfigField<T> : IField {
-        private bool isSet = false;
+        private bool isSet = false;  
+        private bool hasDefault = false;
+        private T defaultBinding;
+
+        public T DefaultBinding { 
+            get { return defaultBinding; }
+            set { hasDefault = true; defaultBinding = value; _value = defaultBinding; }
+        }
+
+        public bool HasDefault() => hasDefault;
 
         private T _value;
         public T Value {

@@ -10,14 +10,19 @@ namespace Core.Tools {
         public readonly StringField Address = new StringField();
         public readonly UintField Port = new UintField();
         public readonly StringField Slot = new StringField();
-        public readonly StringField Password = new StringField();
+        public readonly StringField Password = new StringField { DefaultBinding = "" };
         public readonly BoolField Proxy = new BoolField();
         #endregion
 
         #region QoL
-        public readonly FloatField CutsceneSpeed = new FloatField();
-        public readonly BoolField EnableSpeedOnCredits = new BoolField();
-        public readonly BoolField ShowLevelTitle = new BoolField();
+        public readonly FloatField CutsceneSpeed = new FloatField { DefaultBinding = 1 };
+        public readonly BoolField EnableSpeedOnCredits = new BoolField { DefaultBinding = false };
+        public readonly BoolField ShowLevelTitle = new BoolField { DefaultBinding = true };
+        #endregion
+
+        #region Overrides
+        public readonly UintField DeathLinkOverride = new UintField { DefaultBinding = 0 };
+        public readonly StringField HeroModeOverride = new StringField { DefaultBinding = null };
         #endregion
 
         private Config() { }
@@ -38,8 +43,14 @@ namespace Core.Tools {
 
                 var missing = typeof(Config)
                     .GetFields()
-                    .Where(f => typeof(IField).IsAssignableFrom(f.FieldType) && !((IField)f.GetValue(config)).IsSet())
-                    .Select(f => f.Name)
+                    .Select(f => new { 
+                        name = f.Name, 
+                        obj = typeof(IField).IsAssignableFrom(f.FieldType) 
+                            ? (IField)f.GetValue(config)
+                            : null
+                    })
+                    .Where(f => f.obj != null && !f.obj.IsSet() && !f.obj.HasDefault())
+                    .Select(f => f.name)
                     .ToArray();
 
                 if (missing.Length == 0) {
