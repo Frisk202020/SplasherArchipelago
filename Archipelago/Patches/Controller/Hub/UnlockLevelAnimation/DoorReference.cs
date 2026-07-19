@@ -12,7 +12,7 @@ namespace Archipelago.Patches.Controller.Hub.UnlockLevelAnimation {
     [HarmonyPatch(typeof(Door), "Start")]
     public static class DoorReference {
         private static readonly Dictionary<string, Door> doors = new Dictionary<string, Door>();
-        internal static PendingKeyUnlock UnlockOccuring = null;
+        internal static PendingKeyUnlock UnlockOccurring = null;
 
         public static bool Prefix(Door __instance) {
             // cancel vanilla unlocks (will re-unlocked if key actually in queue
@@ -20,7 +20,7 @@ namespace Archipelago.Patches.Controller.Hub.UnlockLevelAnimation {
                 global::Hub.UnlockingLevel == __instance.levelMetaData.SceneName &&
                 GameData.Instance.GetLevelData(__instance.levelMetaData.SceneName).State == HubDoorState.Unlocked
             ) {
-                SaveData.SetDoorState(__instance, HubDoorState.Locked, false, false);
+                SaveData.SetDoorState(__instance, HubDoorState.Locked, false, true);
                 global::Hub.UnlockingLevel = string.Empty;
             }
                  
@@ -45,7 +45,7 @@ namespace Archipelago.Patches.Controller.Hub.UnlockLevelAnimation {
         }
 
         public static void TryUnlock() {
-            if (UnlockOccuring != null) return;
+            if (UnlockOccurring != null) return;
 
             var unlock = Data.Items.LevelKeys.GetPendingUnlock();
             if (unlock is null || SaveData.GetDoorState(unlock.id, unlock.isSpeedrun) != HubDoorState.Locked) return;
@@ -53,7 +53,7 @@ namespace Archipelago.Patches.Controller.Hub.UnlockLevelAnimation {
             var key = GameData.Instance.LevelMetaDataList[unlock.id].SceneName;
             if (!doors.ContainsKey(key)) return;
 
-            UnlockOccuring = unlock;
+            UnlockOccurring = unlock;
             SetCorrectMode(unlock.isSpeedrun);
             GameManager.LockControl = LockControlType.NoInputs;
 

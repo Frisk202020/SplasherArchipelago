@@ -1,9 +1,28 @@
 ﻿namespace Archipelago.Data {
     internal class PendingKeyUnlock {
-        public readonly int id;
-        public readonly bool isSpeedrun;
+        internal enum KeyMode {
+            None,
+            Zone,
+            Level
+        }
 
-        public PendingKeyUnlock(int id, bool isSpeedrun) {
+        internal static KeyMode Mode = KeyMode.None;
+        internal static bool SpeedrunKeys { private get; set; } = false;
+
+        internal static string KeyItemName(LocalizedString lvlName, bool isSpeedrun) {
+            var isZone = Mode == KeyMode.Zone;
+            var itemName = isZone
+                ? Network.Items.ZoneKey.FindZone(Helpers.LevelByName.Id(lvlName))
+                : lvlName.GetString();
+
+            if (SpeedrunKeys && isSpeedrun) itemName += " Time Attack";
+            return itemName + (isZone ? " - Zone Keys" : " - Entrance Key");        
+        }
+
+        internal readonly int id;
+        internal readonly bool isSpeedrun;
+
+        internal PendingKeyUnlock(int id, bool isSpeedrun) {
             this.id = id;
             this.isSpeedrun = isSpeedrun;
         }

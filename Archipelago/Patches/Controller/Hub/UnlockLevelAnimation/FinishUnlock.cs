@@ -19,7 +19,7 @@ namespace Archipelago.Patches.Controller.Hub.UnlockLevelAnimation {
             if (__result) return;
 
             GameData.Instance.SavePlayerData();
-            DoorReference.UnlockOccuring = null;
+            DoorReference.UnlockOccurring = null;
             GameManager.LockControl = LockControlType.None;
         }
     }

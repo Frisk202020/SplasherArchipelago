@@ -4,9 +4,10 @@
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
 # rust
-Proxy/target
 Proxy/*.ps1
-Proxy/Cargo.lock
+**/Cargo.lock
+**/target
+Archipelago/Languages/output
 
 ## Only for windows build
 Proxy/app.rc
@@ -44,7 +45,8 @@ bld/
 [Ll]ogs/
 
 # Visual Studio 2015/2017 cache/options directory
-.vs/
+**/.vs/
+**/.vscode/
 
 # Visual Studio 2017 auto generated files
 Generated\ Files/

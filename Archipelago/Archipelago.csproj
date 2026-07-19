@@ -31,7 +31,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <RunPostBuildEvent>Always</RunPostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="0Harmony">
@@ -93,6 +93,7 @@
     <Compile Include="Helpers\AnimationTracker.cs" />
     <Compile Include="Data\SaveData.cs" />
     <Compile Include="Helpers\EachLevel.cs" />
+    <Compile Include="Helpers\Language.cs" />
     <Compile Include="Helpers\Save\GameSaver.cs" />
     <Compile Include="Helpers\LevelHelper.cs" />
     <Compile Include="Helpers\Save\SaveDataExtension.cs" />
@@ -148,6 +149,8 @@
     <Compile Include="Patches\Location\Speedrun.cs" />
     <Compile Include="Patches\Location\SplasherCollect.cs" />
     <Compile Include="Patches\UI\CheckpointGivePower.cs" />
+    <Compile Include="Patches\UI\DoorLockedText.cs" />
+    <Compile Include="Patches\UI\HUDDoorUpdate.cs" />
     <Compile Include="Patches\UI\Jauge.cs" />
     <Compile Include="Patches\UI\PlatinumDoor.cs" />
     <Compile Include="Patches\UI\ScoreOver.cs" />
@@ -169,6 +172,6 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy "$(TargetPath)" "C:\Program Files (x86)\Steam\steamapps\common\Splasher\BepInEx\plugins" /Y /I</PostBuildEvent>
+    <PostBuildEvent>xcopy "$(TargetPath)" "C:\Program Files (x86)\Steam\steamapps\common\Splasher\BepInEx\plugins" /I /Y</PostBuildEvent>
   </PropertyGroup>
 </Project>

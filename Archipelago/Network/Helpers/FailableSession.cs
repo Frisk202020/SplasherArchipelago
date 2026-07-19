@@ -108,8 +108,10 @@ namespace Archipelago.Network.Helpers {
                 Data.DeathLink.SetHero();
             }
 
-            if ((long)data["include_keys"] > 0 && (long)data["include_speedrun_keys"] == 1) {
+            Data.PendingKeyUnlock.Mode = (Data.PendingKeyUnlock.KeyMode)(long)data["include_keys"];
+            if (Data.PendingKeyUnlock.Mode > 0 && (long)data["include_speedrun_keys"] == 1) {
                 Data.SaveData.EnableTimeAttackDoors = true;
+                Data.PendingKeyUnlock.SpeedrunKeys = true;
             }
 
             return data;

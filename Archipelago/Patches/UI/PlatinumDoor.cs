@@ -29,6 +29,11 @@ namespace Archipelago.Patches.UI {
         }
 
         public static void Postfix(Door __instance) {
+            __instance.newTxt.SetActive(__instance.State == HubDoorState.Unlocked && GameManager.Mode == GameMode.Standard);
+            if (__instance.newTxt.activeInHierarchy) {
+                HubHUD.Instance.newDoorPosition = __instance.newTxt.transform.position;
+            }
+
             var isPlatinum = IsDoorPlatinum(__instance);
             var sprites = isPlatinum
                     ? GameActor.GD.HubData.DoorReskin_Golden
