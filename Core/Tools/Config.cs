@@ -10,6 +10,7 @@ namespace Core.Tools {
         public readonly StringField Address = new StringField();
         public readonly UintField Port = new UintField();
         public readonly StringField Slot = new StringField();
+        public readonly StringField Password = new StringField();
         public readonly BoolField Proxy = new BoolField();
         #endregion
 

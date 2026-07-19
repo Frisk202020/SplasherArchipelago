@@ -47,7 +47,8 @@ namespace Archipelago.Network {
             };
 
             ArchipelagoManager.session = new Helpers.FailableSession(
-                session, conf.Slot.Value, version,
+                session, conf.Slot.Value, 
+                conf.Password.Value, version,
                 conf.Proxy.Value ? targetAddress : null
             );
         }

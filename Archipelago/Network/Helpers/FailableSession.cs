@@ -11,6 +11,7 @@ namespace Archipelago.Network.Helpers {
 
         private readonly ArchipelagoSession session;
         private readonly string player;
+        private readonly string password;
         private readonly Version version;
         private readonly string uuid = Guid.NewGuid().ToString();
 
@@ -23,11 +24,12 @@ namespace Archipelago.Network.Helpers {
 
         private BackgroundThread deathLinkThread;
 
-        public FailableSession(ArchipelagoSession session, string player, Version version, Address proxyTarget) {
+        public FailableSession(ArchipelagoSession session, string player, string password, Version version, Address proxyTarget) {
             this.session = session;
             this.player = player;
             this.version = version;
             this.proxyTarget = proxyTarget;
+            this.password = string.IsNullOrEmpty(password) ? null : password;
 
             session.Socket.SocketOpened += () => {
                 Core.Static.Log("Connected to Archipelago !");
@@ -66,7 +68,8 @@ namespace Archipelago.Network.Helpers {
                 itemsHandlingFlags: ItemsHandlingFlags.AllItems,
                 version: version,
                 requestSlotData: requestSlotData,
-                uuid: uuid
+                uuid: uuid,
+                password: password
             );
 
             if (res is LoginFailure error) {
