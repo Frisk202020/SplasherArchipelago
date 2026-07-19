@@ -51,6 +51,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Time.cs" />
+    <Compile Include="Patches\Cutscene\OnStart.cs" />
+    <Compile Include="Patches\Cutscene\OnTriggerEnter.cs" />
+    <Compile Include="Patches\Cutscene\TrackDestroy.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Patches\HubBell.cs" />
     <Compile Include="Patches\OnSaveLoad.cs" />

@@ -1,5 +1,4 @@
 <Solution>
   <Project Path="Archipelago/Archipelago.csproj" Id="e81dde2e-2247-4592-af59-8011da448518" />
   <Project Path="Core/Core.csproj" Id="57ae0233-d6da-40a1-bcef-d89a70cc33be" />
-  <Project Path="Manager/Manager.csproj" Id="38a67b37-16d6-46da-9301-9859be094213" />
 </Solution>

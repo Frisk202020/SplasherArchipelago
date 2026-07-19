@@ -16,7 +16,7 @@ namespace Core.Tools {
 
         #region QoL
         public readonly FloatField CutsceneSpeed = new FloatField { DefaultBinding = 1 };
-        public readonly BoolField EnableSpeedOnCredits = new BoolField { DefaultBinding = false };
+        public readonly FloatField UnlockAnimationSpeed = new FloatField { DefaultBinding = 1 };
         public readonly BoolField ShowLevelTitle = new BoolField { DefaultBinding = true };
         #endregion
 

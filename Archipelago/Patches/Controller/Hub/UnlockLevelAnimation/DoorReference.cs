@@ -56,6 +56,7 @@ namespace Archipelago.Patches.Controller.Hub.UnlockLevelAnimation {
             UnlockOccurring = unlock;
             SetCorrectMode(unlock.isSpeedrun);
             GameManager.LockControl = LockControlType.NoInputs;
+            Core.Data.Time.Accelerate(Core.Data.Time.UnlockScale);
 
             var door = doors[GameData.Instance.LevelMetaDataList[unlock.id].SceneName];
             SaveData.SetDoorState(door, HubDoorState.Unlocked, unlock.isSpeedrun, true);
