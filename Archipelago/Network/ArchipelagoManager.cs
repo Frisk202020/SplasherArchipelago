@@ -135,6 +135,10 @@ namespace Archipelago.Network {
             session.SendDeathLink();
         }
 
+        internal static Queue<Helpers.HintInfo> GetPendingHints() {
+            return session.GetPendingHints();
+        }
+
         internal static void Victory() {
             session.Execute(session => session.SetGoalAchieved());
         }

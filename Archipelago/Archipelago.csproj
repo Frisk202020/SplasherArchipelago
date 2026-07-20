@@ -102,6 +102,7 @@
     <Compile Include="Network\Helpers\BackgroundThread.cs" />
     <Compile Include="Network\Helpers\FailableSession.cs" />
     <Compile Include="Network\ArchipelagoManager.cs" />
+    <Compile Include="Network\Helpers\HintInfo.cs" />
     <Compile Include="Network\Items\Essence.cs" />
     <Compile Include="Network\Items\Fillers\Filler.cs" />
     <Compile Include="Network\Items\Fillers\JobPromotion.cs" />

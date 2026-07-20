@@ -5,6 +5,7 @@ namespace Archipelago {
         internal const long BaseId = 0xF4A201;
         internal const uint LevelCount = 22;
         internal const string PluginId = Core.Static.PluginIdRoot + ".archipelago";
+        internal const string FALLBACK_CATEGORY = "ArchipelagoFallbacks";
 
         internal static Harmony Harmony = new Harmony(PluginId);
 

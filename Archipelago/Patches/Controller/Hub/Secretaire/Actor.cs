@@ -1,5 +1,7 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using System.Reflection;
+using Archipelago.Network.Helpers;
 using HarmonyLib;
 using UnityEngine;
 
@@ -14,6 +16,7 @@ namespace Archipelago.Patches.Controller.Hub.Secretaire {
         internal bool Angry { get; private set; } = false;
         internal Coroutine displaying;
         private bool firstSentence = true;
+        private Queue<HintInfo> hints;
 
         private readonly static FieldInfo bubbleAccess = AccessTools.DeclaredField(typeof(HubSecretaire), "buble");
         private readonly static FieldInfo audioSource = AccessTools.DeclaredField(typeof(HubSecretaire), "audioSource");
@@ -26,6 +29,7 @@ namespace Archipelago.Patches.Controller.Hub.Secretaire {
         public override void ResetActor() {}
 
         private void Awake() {
+            hints = Network.ArchipelagoManager.GetPendingHints();
             Instance = this;
         }
 
@@ -54,6 +58,23 @@ namespace Archipelago.Patches.Controller.Hub.Secretaire {
                         ? Helpers.Language.Get(CATEGORY, id, new[] { completion.ToString() })
                         : Helpers.Language.Get(CATEGORY, "finished"); 
                     break;
+
+                case "hint":
+                    var hint = hints.Dequeue();
+                    var item = hint.item ?? Helpers.Language.Get(Util.FALLBACK_CATEGORY, "unknown_item");
+
+                    self.bubleText.text = hint.local
+                        ? Helpers.Language.Get(CATEGORY, "hint_local", new[] { item, hint.location })
+                        : Helpers.Language.Get(
+                            CATEGORY, "hint", 
+                            new[] { 
+                                item, 
+                                hint.player ?? Helpers.Language.Get(Util.FALLBACK_CATEGORY, "unknown_player"), 
+                                hint.location 
+                            }
+                        );
+                    break;
+
                 case null: self.bubleText.text = ANGRY_TEXT; break;
                 default: self.bubleText.text = Helpers.Language.Get(CATEGORY, id); break;
             }
@@ -102,6 +123,11 @@ namespace Archipelago.Patches.Controller.Hub.Secretaire {
         private string GetStringId() {
             if (!Network.ArchipelagoManager.Connected())
                 return "disconnected";
+
+            if (hints.Count > 0) {
+                firstSentence = false;
+                return "hint";
+            }
 
             if (firstSentence) {
                 firstSentence = false;

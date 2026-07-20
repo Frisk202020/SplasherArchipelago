@@ -3,6 +3,7 @@ using Archipelago.MultiClient.Net.BounceFeatures.DeathLink;
 using Archipelago.MultiClient.Net.Enums;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 
 namespace Archipelago.Network.Helpers {
@@ -22,6 +23,7 @@ namespace Archipelago.Network.Helpers {
         private readonly BackgroundThread connexionThread;
         private bool firstConnectionDone = false;
         internal bool Connected { get; private set; } = false;
+        private int slot;
 
         private BackgroundThread deathLinkThread;
 
@@ -85,6 +87,7 @@ namespace Archipelago.Network.Helpers {
                 return false;
             }
 
+            slot = session.ConnectionInfo.Slot;
             while (pendingEvents.Count > 0) {
                 var pending = pendingEvents.Dequeue();
                 try {
@@ -99,8 +102,26 @@ namespace Archipelago.Network.Helpers {
             return true;
         }
 
+        internal Queue<HintInfo> GetPendingHints() {
+            var hints = session.DataStorage.GetHints();
+            if (hints is null) return new Queue<HintInfo>();
+
+            return new Queue<HintInfo>(
+                hints.Where(hint => !hint.Found && hint.FindingPlayer == slot).Select(hint => {
+                    var receiver = session.Players.AllPlayers.FirstOrDefault(x => x.Slot == hint.ReceivingPlayer);
+                    
+                    return new HintInfo(
+                        session.Locations.GetLocationNameFromId(hint.LocationId),  
+                        receiver?.Name, 
+                        receiver is null ? null : session.Items.GetItemName(hint.ItemId, receiver.Game),
+                        hint.ReceivingPlayer == slot
+                    );
+                })
+            );
+        }
+
         // returns slot data to apply options that needs save loaded later
-        public Dictionary<string, object> ApplyOptions(Core.Tools.Config conf) {
+        internal Dictionary<string, object> ApplyOptions(Core.Tools.Config conf) {
             var data = session.DataStorage.GetSlotData();
             Util.Seed = (string)data["seed"];
 
