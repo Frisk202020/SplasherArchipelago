@@ -9,14 +9,22 @@ namespace Archipelago.Network {
         private static readonly Version version = new Version(0, 6, 7);
         private static Helpers.FailableSession session;
         private static bool enabled = false;
+        internal static bool Connected() => session.Connected;
+        
 
-        private static Dictionary<string, object> slotData;
+        private static long include_keys = 0;
+        private static long LocationCount = 0;
+        private static readonly HashSet<long> Visited = new HashSet<long>();
+        internal static double Completion() {
+            double comp = 100 * Visited.Count / LocationCount;
+            return Math.Truncate(comp);
+        }
 
         internal static bool SaveLoaded { get; private set; } = false;
         internal static void FinalizeSaveLoading() {
             SaveLoaded = true;
 
-            if ((long)slotData["include_keys"] == 0) {
+            if (include_keys == 0) {
                 Data.Items.LevelKeys.UnlockAll();
             } else {
                 Data.Items.LevelKeys.UnlockFirst();
@@ -71,7 +79,10 @@ namespace Archipelago.Network {
             Data.UI.Sprites.Load(bundle);
             bundle.Unload(false);
 
-            slotData = ApplyOptions(conf);
+            var slotData = ApplyOptions(conf);
+            include_keys = (long)slotData["include_keys"];
+            LocationCount = (long)slotData["location_count"];
+
             Core.Static.DataStoreBlacklist.Add(Util.SaveFileExtension());
             Data.SaveData.Init();
 
@@ -90,6 +101,7 @@ namespace Archipelago.Network {
             int id = (int)(locId - Util.BaseId);
             if (id < 0) return;
 
+            Visited.Add(id);
             var type = LocationExtensions.FindRange(id);
             switch (type) {
                 case LocationType.Water: Powers.RestoreWater(); break;
@@ -113,7 +125,10 @@ namespace Archipelago.Network {
         }
 
         internal static void Check(LocationType loc, long id) {
-            session.Execute(session => session.Locations.CompleteLocationChecks(Util.BaseId + (int)loc + id));
+            session.Execute(session => {
+                session.Locations.CompleteLocationChecks(Util.BaseId + (int)loc + id);
+                Visited.Add(id);
+            });
         }
 
         internal static void SendDeathLink() {

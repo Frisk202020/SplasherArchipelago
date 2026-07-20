@@ -3,17 +3,18 @@
         internal static string Get(string category, string id, string[] wildcards = null) {
             var str = LanguageMgr.GetStringById($"{category}.{id}").Split(new[] { '*' });
             var placeholders = str.Length - 1;
+            var nWild = (wildcards?.Length) ?? 0;
 
             if (
-                (wildcards == null && str.Length != 0) ||
-                wildcards.Length != placeholders
+                (wildcards == null && placeholders != 0) ||
+                nWild != placeholders
             ) {
-                Core.Static.Error($"Expected {wildcards.Length} wildcards, got {placeholders} for {category}.{id}");
+                Core.Static.Error($"Expected {nWild} wildcards, got {placeholders} for {category}.{id}");
                 return null;
             }
 
             var result = str[0];
-            for (var i = 0; i < wildcards.Length; i++) {
+            for (var i = 0; i < nWild; i++) {
                 result += wildcards[i];
                 result += str[i+1];
             }

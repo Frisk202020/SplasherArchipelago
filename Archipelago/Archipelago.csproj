@@ -127,6 +127,9 @@
     <Compile Include="Patches\Controller\Hub\DoorLocked.cs" />
     <Compile Include="Patches\Controller\Hub\DoorState.cs" />
     <Compile Include="Patches\Controller\Hub\MatchingMedal.cs" />
+    <Compile Include="Patches\Controller\Hub\Secretaire\Actor.cs" />
+    <Compile Include="Patches\Controller\Hub\Secretaire\Inject.cs" />
+    <Compile Include="Patches\Controller\Hub\Secretaire\Trigger.cs" />
     <Compile Include="Patches\Controller\Hub\UnlockLevelAnimation\ChangeMode.cs" />
     <Compile Include="Patches\Controller\Hub\UnlockLevelAnimation\DoorReference.cs" />
     <Compile Include="Patches\Controller\Hub\SkipTutorial.cs" />

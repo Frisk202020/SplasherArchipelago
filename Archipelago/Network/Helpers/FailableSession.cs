@@ -21,6 +21,7 @@ namespace Archipelago.Network.Helpers {
         private readonly Address proxyTarget;
         private readonly BackgroundThread connexionThread;
         private bool firstConnectionDone = false;
+        internal bool Connected { get; private set; } = false;
 
         private BackgroundThread deathLinkThread;
 
@@ -33,6 +34,7 @@ namespace Archipelago.Network.Helpers {
 
             session.Socket.SocketOpened += () => {
                 Core.Static.Log("Connected to Archipelago !");
+                Connected = true;
                 if (!firstConnectionDone) firstConnectionDone = true;
             };
             session.Socket.ErrorReceived += (exception, message) => {
@@ -40,6 +42,7 @@ namespace Archipelago.Network.Helpers {
             };
             session.Socket.SocketClosed += (reason) =>{
                 Core.Static.Warn($"Connexion closed{(string.IsNullOrEmpty(reason) ? "." : $": {reason}")}");
+                Connected = false;
                 if (firstConnectionDone) connexionThread.Execute();
             };
 
@@ -99,7 +102,6 @@ namespace Archipelago.Network.Helpers {
         // returns slot data to apply options that needs save loaded later
         public Dictionary<string, object> ApplyOptions(Core.Tools.Config conf) {
             var data = session.DataStorage.GetSlotData();
-
             Util.Seed = (string)data["seed"];
 
             Data.Items.Splashers.Goal = (int)(long)data["splashers_goal"];
