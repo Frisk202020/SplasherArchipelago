@@ -11,11 +11,14 @@ namespace Archipelago.Network.Items {
             var items = new List<Item> {
                 new Freedom(), new Splasher(), new Powers.Progressive(),
                 new Powers.Water(), new Powers.Stickink(), new Powers.Bouncink(),
-                new Fillers.JobPromotion(),
+                new Fillers.Nothing(), new Fillers.Nothing(), new Fillers.Nothing(),
                 new Traps.PaintSwap(), new Traps.BodyAches(), // new Traps.Antiwater(), 
             };
 
-            foreach (int n in new int[] { 1, 2, 5 }) {
+            foreach (int n in new int[] { 
+                1, 2, 5, 10, 15, 20, 25, 30, 40, 50,
+                -1, -2, -3, -5, -10, -15, -20, -25 
+            }) {
                 items.Add(new Essence(n));
             }
 

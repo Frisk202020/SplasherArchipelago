@@ -105,7 +105,7 @@
     <Compile Include="Network\Helpers\HintInfo.cs" />
     <Compile Include="Network\Items\Essence.cs" />
     <Compile Include="Network\Items\Fillers\Filler.cs" />
-    <Compile Include="Network\Items\Fillers\JobPromotion.cs" />
+    <Compile Include="Network\Items\Fillers\Nothing.cs" />
     <Compile Include="Network\Items\Item.cs" />
     <Compile Include="Network\Items\ItemManager.cs" />
     <Compile Include="Network\Items\Key.cs" />
