@@ -18,6 +18,7 @@ namespace Core.Tools {
         public readonly FloatField CutsceneSpeed = new FloatField { DefaultBinding = 1 };
         public readonly FloatField UnlockAnimationSpeed = new FloatField { DefaultBinding = 1 };
         public readonly BoolField ShowLevelTitle = new BoolField { DefaultBinding = true };
+        public readonly BoolField BlockSteamCloud = new BoolField { DefaultBinding = true };
         #endregion
 
         #region Overrides

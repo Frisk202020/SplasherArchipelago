@@ -121,6 +121,7 @@
     <Compile Include="Network\Items\Freedom.cs" />
     <Compile Include="Network\Helpers\ProxyManager.cs" />
     <Compile Include="Network\Items\ZoneKey.cs" />
+    <Compile Include="Patches\Controller\Achievements.cs" />
     <Compile Include="Patches\Controller\Death\Die.cs" />
     <Compile Include="Patches\Controller\Death\PlayerState.cs" />
     <Compile Include="Patches\Controller\Death\SplasherDie.cs" />
@@ -139,6 +140,7 @@
     <Compile Include="Patches\Controller\Hub\UnlockLevelAnimation\UnlockRoutine.cs" />
     <Compile Include="Patches\Controller\Input\Button.cs" />
     <Compile Include="Patches\Controller\CheckpointEnablePower.cs" />
+    <Compile Include="CorePatches\ForbidSteamCloud.cs" />
     <Compile Include="Patches\Controller\Save\Delete.cs" />
     <Compile Include="Patches\Controller\Save\Exists.cs" />
     <Compile Include="Patches\Controller\Save\Load.cs" />

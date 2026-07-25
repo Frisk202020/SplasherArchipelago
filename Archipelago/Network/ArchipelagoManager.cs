@@ -1,7 +1,10 @@
-﻿using Archipelago.MultiClient.Net;
-using Archipelago.Data.Locations;
+﻿using Archipelago.Data.Locations;
+using Archipelago.MultiClient.Net;
+using Archipelago.Network.Helpers;
+using HarmonyLib;
 using System;
 using System.Collections.Generic;
+using TSKGames.PlatformSpecific.Steam;
 using UnityEngine;
 
 namespace Archipelago.Network {
@@ -83,10 +86,12 @@ namespace Archipelago.Network {
             include_keys = (long)slotData["include_keys"];
             LocationCount = (long)slotData["location_count"];
 
+            CorePatches.ForbidSteamCloud.Block = conf.BlockSteamCloud.Value;
+            Util.Harmony.PatchAll();
+
             Core.Static.DataStoreBlacklist.Add(Util.SaveFileExtension());
             Data.SaveData.Init();
 
-            Util.Harmony.PatchAll();
             GameData.Initialized = false;
             GameData.Instance.InitializePlayerData();
             Hub.Load();
@@ -125,10 +130,10 @@ namespace Archipelago.Network {
         }
 
         internal static void Check(LocationType loc, long id) {
-            session.Execute(session => {
+            new BackgroundThread("Check", () => session.Execute(session => {
                 session.Locations.CompleteLocationChecks(Util.BaseId + (int)loc + id);
                 Visited.Add(id);
-            });
+            })).Execute();
         }
 
         internal static void SendDeathLink() {
