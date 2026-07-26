@@ -1,15 +1,11 @@
-﻿using System.Reflection;
-using Archipelago.Data;
+﻿using Archipelago.Data;
 using HarmonyLib;
 using UnityEngine;
 
-namespace Archipelago.Patches.Controller.Input {
+namespace Archipelago.Patches.Controller.Player {
     [HarmonyPatch(typeof(PlayerController), "CheckGround")]
     public static class Collisions {
         private static uint infection = 0;
-        private static readonly FieldInfo groundState = AccessTools.DeclaredField(typeof(PlayerController), "paint_Ground");
-        private static readonly FieldInfo groundCollider = AccessTools.DeclaredField(typeof(PlayerController), "groundCollider");
-        private static readonly MethodInfo trail = AccessTools.DeclaredPropertySetter(typeof(PlayerController), "CurrenTrailAnchor");
 
         public static void Postfix(PlayerController __instance) {
             if (__instance.State != PlayerState.Grounded || GameManager.LockControl != LockControlType.None) {
@@ -31,10 +27,10 @@ namespace Archipelago.Patches.Controller.Input {
                     break;
 
                 case PaintType.BouncyPaint:
-                    trail.Invoke(__instance, new object[] { TrailAnchor.Bottom });
+                    Fields.trail.Invoke(__instance, new object[] { TrailAnchor.Bottom });
 					__instance.Feedback_PlayJump(PaintType.BouncyPaint, __instance.transform.position);
 
-                    var collider = ((Collider)groundCollider.GetValue(__instance)).GetComponent<TilePaint>();
+                    var collider = ((Collider)Fields.groundCollider.GetValue(__instance)).GetComponent<TilePaint>();
                     if ((bool)collider) {
                         collider.AnimateBounce();
                     }
@@ -43,7 +39,7 @@ namespace Archipelago.Patches.Controller.Input {
                     break;
             }
   
-            groundState.SetValue(__instance, TrapController.FeetState);
+            Fields.groundState.SetValue(__instance, TrapController.FeetState);
             return;
         }
     }

@@ -3,8 +3,12 @@
         internal static bool HasWater { get; private set; } = false;
         internal static bool HasSticky { get; private set; } = false;
         internal static bool HasBouncy { get; private set; } = false;
+        internal static bool HasSpeed { get; private set; } = false;
 
-        internal static void UnlockWater() { HasWater = true;  }
+        internal static void UnlockProgressiveWater() { 
+            if (HasWater) HasSpeed = true;
+            else HasWater = true;
+        }
         internal static void UnlockSticky() { HasSticky = true; }
         internal static void UnlockBouncy() { HasBouncy = true; }
 

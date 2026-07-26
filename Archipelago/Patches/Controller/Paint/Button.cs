@@ -7,7 +7,7 @@ using TSKGames.Inputs;
  * Prevent use of paint gun buttons if not unlocked and swap paints if needed.
  */
 
-namespace Archipelago.Patches.Controller.Input {
+namespace Archipelago.Patches.Controller.Paint {
     [HarmonyPatch(typeof(PlayerController), "UpdateInputParameters")]
     public static class Button {
         private static InputGamepadButton GetButton() {
