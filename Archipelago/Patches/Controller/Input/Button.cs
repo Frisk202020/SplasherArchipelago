@@ -15,7 +15,7 @@ namespace Archipelago.Patches.Controller.Input {
                 if (InputGamePadMgr.GetButton(btn)) return TrapController.GetMapped(btn);
             }
 
-            return InputGamepadButton.None;
+            return TrapController.AlwaysShoot;
         }
 
         private static bool IsAllowed(InputGamepadButton button) {
@@ -30,7 +30,7 @@ namespace Archipelago.Patches.Controller.Input {
         public static void Postfix(PlayerController __instance) {
             var button = GetButton();    
             AccessTools.DeclaredField(typeof(PlayerController), "shootButtonPressed").SetValue(
-                __instance, IsAllowed(button) ? button : InputGamepadButton.None
+                __instance, IsAllowed(button) ? button : TrapController.AlwaysShoot
             );
         }
     }
