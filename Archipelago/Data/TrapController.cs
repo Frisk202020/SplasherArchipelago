@@ -9,6 +9,7 @@ namespace Archipelago.Data {
         private static readonly InputGamepadButton[] buttons = (InputGamepadButton[])Util.ShootButtons.Clone();
 
         internal static InputGamepadButton AlwaysShoot { get; private set; } = InputGamepadButton.None;
+        internal static PaintType FeetState { get; private set; } = PaintType.None;
 
         private static readonly Dictionary<InputGamepadButton, InputGamepadButton> Mapping = new Dictionary<InputGamepadButton, InputGamepadButton> {
             {GameManager.BUTTON_WATER, GameManager.BUTTON_WATER},
@@ -50,5 +51,9 @@ namespace Archipelago.Data {
             
             AlwaysShoot = buttons[rng.Next(n)];
         }
+
+        internal static void StickyFeet() { FeetState = PaintType.StickyPaint; }
+        internal static void BouncyFeet() { FeetState = PaintType.BouncyPaint; }
+        internal static void ToxinkFeet() { FeetState = PaintType.AntiWater; }
     }
 }

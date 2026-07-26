@@ -142,6 +142,8 @@
     <Compile Include="Patches\Controller\Input\Button.cs" />
     <Compile Include="Patches\Controller\CheckpointEnablePower.cs" />
     <Compile Include="CorePatches\ForbidSteamCloud.cs" />
+    <Compile Include="Patches\Controller\Input\Collisions.cs" />
+    <Compile Include="Patches\Controller\Input\Fire.cs" />
     <Compile Include="Patches\Controller\Save\Delete.cs" />
     <Compile Include="Patches\Controller\Save\Exists.cs" />
     <Compile Include="Patches\Controller\Save\Load.cs" />
