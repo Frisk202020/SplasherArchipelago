@@ -88,6 +88,7 @@
     <Compile Include="Data\Locations\Powers.cs" />
     <Compile Include="Data\Locations\Splashers.cs" />
     <Compile Include="Data\PendingKeyUnlock.cs" />
+    <Compile Include="Data\TrapController.cs" />
     <Compile Include="Data\UI\Animator.cs" />
     <Compile Include="Data\UI\Sprites.cs" />
     <Compile Include="Helpers\AnimationTracker.cs" />
@@ -144,7 +145,6 @@
     <Compile Include="Patches\Controller\Save\Delete.cs" />
     <Compile Include="Patches\Controller\Save\Exists.cs" />
     <Compile Include="Patches\Controller\Save\Load.cs" />
-    <Compile Include="Patches\Controller\Input\ButtonDown.cs" />
     <Compile Include="Patches\Controller\Save\OnPlayerDataLoaded.cs" />
     <Compile Include="Patches\Controller\Save\Save.cs" />
     <Compile Include="Patches\Location\ExitLevel.cs" />

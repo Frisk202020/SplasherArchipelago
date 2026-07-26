@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using TSKGames.Inputs;
 
 namespace Archipelago {
     internal static class Util {
@@ -23,5 +24,9 @@ namespace Archipelago {
         internal static string Seed = "";
         internal static string SaveFile() => $"Archipelago_{Seed}";
         internal static string SaveFileExtension() => SaveFile() + "_Extension";
+
+        internal static readonly InputGamepadButton[] ShootButtons = new[] {
+            GameManager.BUTTON_WATER, GameManager.BUTTON_STICKY, GameManager.BUTTON_BOUNCY
+        };
     }
 }

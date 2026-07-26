@@ -7,8 +7,8 @@ namespace Core {
         #region Variables
         public const string Game = "Splasher";
         public const string PluginIdRoot = "com.frisk.splasher";
-        public const string VersionStr = "0.0.7";
-        public static readonly Version Version = new Version(0, 0, 7);
+        public const string VersionStr = "0.0.8";
+        public static readonly Version Version = new Version(0, 0, 8);
         public const string VanillaSave = "Save1";
         private static GameObject persistentObject;
         public static GameObject PersistentObject() {
