@@ -143,6 +143,7 @@
     <Compile Include="Patches\Controller\Paint\Bullet\Init.cs" />
     <Compile Include="Patches\Controller\Paint\Bullet\Pool.cs" />
     <Compile Include="Patches\Controller\Paint\Bullet\Reset.cs" />
+    <Compile Include="Patches\Controller\Paint\Bullet\Spot.cs" />
     <Compile Include="Patches\Controller\Paint\Button.cs" />
     <Compile Include="Patches\Controller\CheckpointEnablePower.cs" />
     <Compile Include="CorePatches\ForbidSteamCloud.cs" />

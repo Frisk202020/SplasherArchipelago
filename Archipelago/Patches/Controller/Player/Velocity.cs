@@ -4,29 +4,39 @@ using UnityEngine;
 namespace Archipelago.Patches.Controller.Player {
     [HarmonyPatch(typeof(PlayerController), "UpdateVelocity")]
     public static class Velocity {
+        private static float getControl(PlayerController player) => ((Vector2)Fields.leftStickAxis.GetValue(player)).x == 0f
+            ? player.CD.GroundControlStop
+            : (player.OnWind
+                ? player.CD.GroundControlWind
+                : player.CD.GroundControl
+            );
+
+        internal static void SpeedinkVelocity(PlayerController player) {
+            var v = player.Velocity;
+            if ((bool)Fields.autoStickCorner.GetValue(player)) {
+                if (v.x == 0f) return;
+
+                var num = Mathf.Sign(v.x);
+                v.x = Mathf.Lerp(v.x, 2 * num * player.CD.RunSpeed, getControl(player) * Time.deltaTime);
+                return;
+            }
+            
+            v.x = Mathf.Lerp(
+                v.x, 
+                ((Vector2)Fields.leftStickSign.GetValue(player)).x * player.CD.RunSpeed * 2,
+                getControl(player) * Time.deltaTime * (float)Fields.bounceControl.GetValue(player)
+            );
+            player.Velocity = v;
+        }
+
         public static bool Prefix(PlayerController __instance) {
             var paint = (PaintType)Fields.groundState.GetValue(__instance);
             if (
                 (PositionFreezeType)Fields.freeze.GetValue(__instance) != PositionFreezeType.None || 
-                (bool)Fields.autoStickCorner.GetValue(__instance) ||
                 paint != PaintType.SpeedyPaint
             ) return true;
 
-            var v = (Vector3)Fields.velocity.GetValue(__instance);
-            var control = ((Vector2)Fields.leftStickAxis.GetValue(__instance)).x == 0f
-                ? __instance.CD.GroundControlStop
-                : (__instance.OnWind
-                    ? __instance.CD.GroundControlWind
-                    : __instance.CD.GroundControl
-                );
-
-            var x = Mathf.Lerp(
-                __instance.Velocity.x, 
-                ((Vector2)Fields.leftStickSign.GetValue(__instance)).x * __instance.CD.RunSpeed * 2,
-                control * Time.deltaTime * (float)Fields.bounceControl.GetValue(__instance)
-            );
-
-            Fields.velocity.SetValue(__instance, new Vector3(x, v.y, v.z));
+            SpeedinkVelocity(__instance);
             return false;
         }
     }
