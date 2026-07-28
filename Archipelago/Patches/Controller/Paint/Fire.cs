@@ -12,7 +12,7 @@ namespace Archipelago.Patches.Controller.Paint {
 
         private static PaintType GetPaint(InputGamepadButton button) {
             switch(button) {
-                case GameManager.BUTTON_WATER: return Powers.HasSpeed ? PaintType.SpeedyPaint : PaintType.Water;
+                case GameManager.BUTTON_WATER: return Powers.WaterLevel == WaterState.Speedy ? PaintType.SpeedyPaint : PaintType.Water;
                 case GameManager.BUTTON_STICKY: return PaintType.StickyPaint;
                 case GameManager.BUTTON_BOUNCY: return PaintType.BouncyPaint;
                 default: return PaintType.None;

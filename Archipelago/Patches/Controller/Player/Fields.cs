@@ -9,8 +9,8 @@ namespace Archipelago.Patches.Controller.Player {
         internal static readonly FieldInfo freeze = AccessTools.DeclaredField(typeof(PlayerController), "positionFreeze");
         internal static readonly FieldInfo autoStickCorner = AccessTools.DeclaredField(typeof(PlayerController), "autoStickCorner");
         internal static readonly FieldInfo leftStickSign = AccessTools.DeclaredField(typeof(PlayerController), "leftJoystickSign");
-        internal static readonly FieldInfo leftStickAxis = AccessTools.DeclaredField(typeof(PlayerController), "leftJoystickAxis");
         internal static readonly FieldInfo bounceControl = AccessTools.DeclaredField(typeof(PlayerController), "bounceControl");
         internal static readonly FieldInfo lastDir = AccessTools.DeclaredField(typeof(PlayerController), "lastDirection");
+        internal static readonly FieldInfo shootButton = AccessTools.DeclaredField(typeof(PlayerController), "shootButtonPressed");
     }
 }

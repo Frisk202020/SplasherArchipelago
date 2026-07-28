@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Archipelago.Patches.Controller.Player {
     [HarmonyPatch(typeof(PlayerController), "UpdateVelocity")]
     public static class Velocity {
-        private static float getControl(PlayerController player) => ((Vector2)Fields.leftStickAxis.GetValue(player)).x == 0f
+        private static float getControl(PlayerController player) => player.LeftJoystickAxis.x == 0f
             ? player.CD.GroundControlStop
             : (player.OnWind
                 ? player.CD.GroundControlWind
