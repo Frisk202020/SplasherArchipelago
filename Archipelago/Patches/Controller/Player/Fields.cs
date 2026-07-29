@@ -12,5 +12,6 @@ namespace Archipelago.Patches.Controller.Player {
         internal static readonly FieldInfo bounceControl = AccessTools.DeclaredField(typeof(PlayerController), "bounceControl");
         internal static readonly FieldInfo lastDir = AccessTools.DeclaredField(typeof(PlayerController), "lastDirection");
         internal static readonly FieldInfo shootButton = AccessTools.DeclaredField(typeof(PlayerController), "shootButtonPressed");
+        internal static readonly MethodInfo updateJump = AccessTools.Method(typeof(PlayerController), "UpdateJump");
     }
 }

@@ -123,9 +123,11 @@
     <Compile Include="Network\Helpers\ProxyManager.cs" />
     <Compile Include="Network\Items\ZoneKey.cs" />
     <Compile Include="Patches\Controller\Achievements.cs" />
+    <Compile Include="Patches\Controller\Damage\Bubon.cs" />
     <Compile Include="Patches\Controller\Death\Die.cs" />
     <Compile Include="Patches\Controller\Death\PlayerState.cs" />
     <Compile Include="Patches\Controller\Death\SplasherDie.cs" />
+    <Compile Include="Patches\Controller\Damage\Enemies.cs" />
     <Compile Include="Patches\Controller\Hub\PatchLeds.cs" />
     <Compile Include="Patches\Controller\Hub\DoorLocked.cs" />
     <Compile Include="Patches\Controller\Hub\DoorState.cs" />
@@ -142,6 +144,7 @@
     <Compile Include="Patches\Controller\Paint\Bullet\Get.cs" />
     <Compile Include="Patches\Controller\Paint\Bullet\Init.cs" />
     <Compile Include="Patches\Controller\Paint\Bullet\Pool.cs" />
+    <Compile Include="Patches\Controller\Paint\Bullet\Receive.cs" />
     <Compile Include="Patches\Controller\Paint\Bullet\Reset.cs" />
     <Compile Include="Patches\Controller\Paint\Bullet\Spot.cs" />
     <Compile Include="Patches\Controller\Paint\Button.cs" />
@@ -163,6 +166,7 @@
     <Compile Include="Patches\Controller\Hub\BossUnlock.cs" />
     <Compile Include="Patches\Location\Speedrun.cs" />
     <Compile Include="Patches\Location\SplasherCollect.cs" />
+    <Compile Include="Patches\TranspilerHelper.cs" />
     <Compile Include="Patches\UI\CheckpointGivePower.cs" />
     <Compile Include="Patches\UI\DoorLockedText.cs" />
     <Compile Include="Patches\UI\HUDDoorUpdate.cs" />

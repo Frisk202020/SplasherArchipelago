@@ -24,7 +24,7 @@ namespace Archipelago.Patches.UI {
             ___backpackAnimator.Rebind();
             ___backpackAnimator.Update(0f);
 
-            ___backpackAnimator.SetBool("Water", Data.Items.Powers.HasWater);
+            ___backpackAnimator.SetInteger("WaterLevel", (int)Data.Items.Powers.WaterLevel);
             ___backpackAnimator.SetBool("Stickink", Data.Items.Powers.HasSticky);
             ___backpackAnimator.SetBool("Bouncink", Data.Items.Powers.HasBouncy);
         }
