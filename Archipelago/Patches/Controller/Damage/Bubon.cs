@@ -7,12 +7,7 @@ namespace Archipelago.Patches.Controller.Damage {
     public static class Bubon {
         private const string NAME = "Bubon Damage For Universal Water";
         private static bool IsPaintValid(PaintType p) {
-            switch(p) {
-                case PaintType.Water:
-                case PaintType.SpeedyPaint: return true;
-            }
-
-            return false;
+            return p == PaintType.SpeedyPaint;
         }
 
         public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator) {

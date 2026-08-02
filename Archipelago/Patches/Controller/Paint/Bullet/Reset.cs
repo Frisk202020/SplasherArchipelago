@@ -11,8 +11,13 @@ namespace Archipelago.Patches.Controller.Paint.Bullet {
                 : new Func<PaintBullet, bool>(x => x.gameObject.activeInHierarchy);
         }
 
+        private static void ResetType(ref PaintBullet[] arr) {
+            foreach (var x in arr.Where(Predicate())) { x.gameObject.SetActive(false); }
+        }
+
         public static void Postfix() {
-            foreach(var x in Pool.speedPool.Where(Predicate())) { x.gameObject.SetActive(false); }
+            ResetType(ref Pool.speedPool);
+            ResetType(ref Pool.pollutedPool);
         }
     }
 }

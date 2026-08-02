@@ -37,6 +37,10 @@ namespace Archipelago.Patches.Controller.Player {
 
                     __instance.State = PlayerState.GroundBouncing;
                     break;
+                
+                case Util.PollutedWater:
+                    __instance.Die();
+                    break;
             }
   
             Fields.groundState.SetValue(__instance, TrapController.FeetState);

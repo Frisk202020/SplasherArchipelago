@@ -12,7 +12,7 @@ namespace Archipelago.Patches.Controller.Paint.Bullet {
         // the condition by which is replaced the vanilla ternary. Can add more types if needed
         private static bool UseSmallTexture(
             PaintType type
-        ) => type != PaintType.StickyPaint && type != PaintType.BouncyPaint && type != PaintType.SpeedyPaint;
+        ) => type != PaintType.StickyPaint && type != PaintType.BouncyPaint && !Util.CustomPaintTypes.Contains(type);
 
         // A ref to pass when injecting the instruction
         private static readonly MethodInfo useSmallTextureRef = AccessTools.Method(typeof(Spot), nameof(UseSmallTexture));

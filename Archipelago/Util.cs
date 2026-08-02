@@ -1,4 +1,5 @@
-﻿using HarmonyLib;
+﻿using System.Collections.Generic;
+using HarmonyLib;
 using TSKGames.Inputs;
 
 namespace Archipelago {
@@ -28,5 +29,8 @@ namespace Archipelago {
         internal static readonly InputGamepadButton[] ShootButtons = new[] {
             GameManager.BUTTON_WATER, GameManager.BUTTON_STICKY, GameManager.BUTTON_BOUNCY
         };
+
+        internal const PaintType PollutedWater = (PaintType)((int)PaintType.None + 1);
+        internal static readonly HashSet<PaintType> CustomPaintTypes = new HashSet<PaintType> { PaintType.SpeedyPaint, PollutedWater };
     }
 }
