@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<?xml version="1.0" encoding="UTF-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="15.0">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -29,9 +29,6 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup>
-    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="0Harmony">
@@ -150,7 +147,8 @@
     <Compile Include="Patches\Controller\Paint\Button.cs" />
     <Compile Include="Patches\Controller\CheckpointEnablePower.cs" />
     <Compile Include="CorePatches\ForbidSteamCloud.cs" />
-    <Compile Include="Patches\Controller\Paint\ManagerMasks.cs" />
+    <Compile Include="Patches\Controller\Paint\Manager\Masks.cs" />
+    <Compile Include="Patches\Controller\Player\BouncySpotGround.cs" />
     <Compile Include="Patches\Controller\Player\CheckGroundShootWater.cs" />
     <Compile Include="Patches\Controller\Player\Collisions.cs" />
     <Compile Include="Patches\Controller\Paint\Fire.cs" />
@@ -179,6 +177,7 @@
     <Compile Include="Patches\UI\Backpack.cs" />
     <Compile Include="Patches\Controller\Hub\SplasherCount.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Patches\Controller\Paint\Manager\GetPaintType.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

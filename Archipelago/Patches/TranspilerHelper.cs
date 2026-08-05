@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Reflection.Emit;
 using HarmonyLib;
 
@@ -9,13 +10,14 @@ namespace Archipelago.Patches {
         );
 
         private readonly string name;
+        public bool errors = true;
         private string Error => $"Failed to apply transpiler patch on : {name}";
 
         internal CodeMatcher Matcher { get; private set; }
 
         private bool Result() {
             if (Matcher.IsInvalid) {
-                Core.Static.Error(Error);
+                if (errors) Core.Static.Error(Error);
                 return false;
             }
 

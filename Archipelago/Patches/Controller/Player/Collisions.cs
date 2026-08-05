@@ -12,6 +12,11 @@ namespace Archipelago.Patches.Controller.Player {
                 infection = 0;
                 return;
             }
+
+            if (__instance.PaintGround == Util.PollutedWater) {
+                __instance.Die();
+                return;
+            }
             
             switch(TrapController.FeetState) {
                 case PaintType.None: return;
@@ -36,10 +41,6 @@ namespace Archipelago.Patches.Controller.Player {
                     }
 
                     __instance.State = PlayerState.GroundBouncing;
-                    break;
-                
-                case Util.PollutedWater:
-                    __instance.Die();
                     break;
             }
   
