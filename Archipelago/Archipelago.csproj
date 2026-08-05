@@ -182,6 +182,7 @@
     <Compile Include="Patches\Controller\Player\Collisions\CheckCeiling.cs" />
     <Compile Include="Patches\Controller\Player\Collisions\ApplyCeiling.cs" />
     <Compile Include="Patches\Controller\Damage\Life.cs" />
+    <Compile Include="Patches\Controller\Damage\Splasher.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
