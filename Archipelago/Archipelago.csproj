@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="15.0">
-  <Import Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -181,6 +181,7 @@
     <Compile Include="Patches\Controller\Player\Collisions\Wall.cs" />
     <Compile Include="Patches\Controller\Player\Collisions\CheckCeiling.cs" />
     <Compile Include="Patches\Controller\Player\Collisions\ApplyCeiling.cs" />
+    <Compile Include="Patches\Controller\Damage\Life.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
