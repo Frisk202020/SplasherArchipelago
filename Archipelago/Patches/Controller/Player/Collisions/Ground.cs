@@ -2,9 +2,9 @@
 using HarmonyLib;
 using UnityEngine;
 
-namespace Archipelago.Patches.Controller.Player {
+namespace Archipelago.Patches.Controller.Player.Collisions {
     [HarmonyPatch(typeof(PlayerController), "CheckGround")]
-    public static class Collisions {
+    public static class Ground {
         private static uint infection = 0;
 
         public static void Postfix(PlayerController __instance) {

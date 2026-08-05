@@ -38,7 +38,6 @@ namespace Archipelago.Patches.Controller.Paint.Bullet {
             GameData.Instance.PaintColors[2] = new Color(.42f, .32f, 96f, 1f); // speedink
 
             var mColor = MaskColor();
-            System.Console.WriteLine(mColor);
             FillIfNeeded(GameData.Instance.PaintColors, new Color(.35f, .85f, .7f));
             FillIfNeeded(GameData.Instance.PaintMaskColors, mColor);
             FillIfNeeded(GameData.Instance.PaintMaskTextures, pollutedMask);
