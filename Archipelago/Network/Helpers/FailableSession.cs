@@ -126,6 +126,7 @@ namespace Archipelago.Network.Helpers {
             Util.Seed = (string)data["seed"];
 
             Data.Items.Splashers.Goal = (int)(long)data["splashers_goal"];
+            Data.Items.Powers.ProgressiveWater = (long)data["progressive_water"] == 1;
             Data.Locations.Speedrun.SetHighestMedal((Medal)(long)data["include_medals"]);
 
             var deathLink = conf.DeathLinkOverride.Value > 0 

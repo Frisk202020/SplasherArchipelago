@@ -12,6 +12,8 @@
         internal static bool HasSticky { get; private set; } = false;
         internal static bool HasBouncy { get; private set; } = false;
 
+        internal static bool ProgressiveWater = false;
+
         internal static void UnlockProgressiveWater() { 
             if (WaterLevel == WaterState.Speedy) return;
             WaterLevel = (WaterState)((int)WaterLevel + 1);
@@ -23,17 +25,21 @@
         internal static void UnlockBouncy() { HasBouncy = true; }
 
         internal static void UnlockProgressive() {
-            if (!HasWater) {
-                WaterLevel = WaterState.Clean;
-                return;
-            }
+            if (HasBouncy) return;
 
-            if (!HasSticky) {
-                HasSticky = true;
-                return;
+            switch(WaterLevel) {
+                case WaterState.None: WaterLevel = ProgressiveWater ? WaterState.Polluted : WaterState.Clean; return;
+                case WaterState.Polluted: WaterLevel = WaterState.Clean; return;
+                case WaterState.Clean: 
+                    if (ProgressiveWater) WaterLevel = WaterState.Speedy;
+                    else if (HasSticky) HasBouncy = true;
+                    else HasSticky = true;
+                    return;
+                case WaterState.Speedy:
+                    if (HasSticky) HasBouncy = true;
+                    else HasSticky = true;
+                    return;
             }
-
-            HasBouncy = true;
         }
     }
 }

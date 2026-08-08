@@ -183,6 +183,7 @@
     <Compile Include="Patches\Controller\Player\Collisions\ApplyCeiling.cs" />
     <Compile Include="Patches\Controller\Damage\Life.cs" />
     <Compile Include="Patches\Controller\Damage\Splasher.cs" />
+    <Compile Include="Network\Items\Powers\ProgressiveWater.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

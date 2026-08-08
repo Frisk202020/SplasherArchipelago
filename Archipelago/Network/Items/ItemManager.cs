@@ -9,7 +9,7 @@ namespace Archipelago.Network.Items {
 
         private static List<Item> OrderedItems() {
             var items = new List<Item> {
-                new Freedom(), new Splasher(), new Powers.Progressive(),
+                new Freedom(), new Splasher(), new Powers.Progressive(), new Powers.ProgressiveWater(),
                 new Powers.Water(), new Powers.Stickink(), new Powers.Bouncink(),
                 new Fillers.Nothing(), new Fillers.Nothing(), new Fillers.Nothing(),
                 new Traps.PaintSwap(), new Traps.BodyAches(), // new Traps.Antiwater(), 

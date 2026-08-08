@@ -1,8 +1,8 @@
 ﻿using Archipelago.MultiClient.Net.Models;
 
 namespace Archipelago.Network.Items.Powers {
-    abstract class Power {
-        public virtual string Name() => "Unlock";
+    abstract class Power : Item {
+        public virtual string Name() => "Gun Unlock";
         public virtual void Collect(ItemInfo item) {
             Patches.UI.Backpack.Update();
         }
