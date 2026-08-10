@@ -52,8 +52,14 @@ namespace Archipelago.Data {
             AlwaysShoot = buttons[rng.Next(n)];
         }
 
-        internal static void StickyFeet() { FeetState = PaintType.StickyPaint; }
-        internal static void BouncyFeet() { FeetState = PaintType.BouncyPaint; }
-        internal static void ToxinkFeet() { FeetState = PaintType.AntiWater; }
+        private static void ChangeFeetState(PaintType p) {
+            Poison.EndInfection();
+            FeetState = p;
+        }
+
+        internal static void CleanFeet() => ChangeFeetState(PaintType.None);
+        internal static void StickyFeet() => ChangeFeetState(PaintType.StickyPaint);
+        internal static void BouncyFeet() => ChangeFeetState(PaintType.BouncyPaint);
+        internal static void ToxinkFeet() => ChangeFeetState(PaintType.AntiWater);
     }
 }

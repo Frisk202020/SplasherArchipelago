@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="15.0">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <Import Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -187,7 +187,8 @@
     <Compile Include="Data\UI\Camera.cs" />
     <Compile Include="Patches\UI\Camera\Animator.cs" />
     <Compile Include="Data\Poison.cs" />
-    <Compile Include="Patches\UI\Camera\DeathEffect.cs" />
+    <Compile Include="Patches\UI\Camera\PlayDeath.cs" />
+    <Compile Include="Patches\UI\Camera\PlayArena.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -5,30 +5,46 @@ using UnityEngine;
 namespace Archipelago.Patches.Controller.Player.Collisions {
     [HarmonyPatch(typeof(PlayerController), "CheckGround")]
     public static class Ground {
-        private static uint infection = 0;
-
         public static void Postfix(PlayerController __instance) {
-            if (__instance.State != PlayerState.Grounded || GameManager.LockControl != LockControlType.None) {
-                infection = 0;
+            // assert player on ground and vulnerable
+            if (
+                __instance.State != PlayerState.Grounded || 
+                GameManager.LockControl != LockControlType.None
+            ) {
+                Poison.EndInfection();
                 return;
             }
 
-            if (__instance.PaintGround == Util.PollutedWater) {
-                Poison.Die(__instance);
-                return;
+            // check if a state should override feet state
+            switch(__instance.PaintGround) {
+                case PaintType.None: 
+                    break;
+                case Util.PollutedWater:
+                    Poison.EndInfection();
+                    Poison.Die(__instance);
+                    return;
+                default: 
+                    Poison.EndInfection();
+                    return;
             }
             
+            // apply feet state
             switch(TrapController.FeetState) {
                 case PaintType.None: return;
-
                 case PaintType.AntiWater:
-                    if (infection == 180) {
-                        infection = 0;
-                        __instance.Die();
+                    if (Poison.Infection == 180) {
+                        Poison.EndInfection();
+                        Poison.Die(__instance);
                         return;
                     }
 
-                    infection++;
+                    if (Poison.Infection == 0) {
+                        PlayerCamera.Instance.PlayEffect("Infection", 0);
+                        Data.UI.Camera.UpdateCurves(PlayerCamera.Instance, 1, true);
+                    } else if (Poison.Infection % 10 == 0) 
+                        Data.UI.Camera.UpdateCurves(PlayerCamera.Instance, 1 - .5f * Poison.Infection / 180, false);
+
+                    Poison.IncrementInfection();
                     break;
 
                 case PaintType.BouncyPaint:
