@@ -29,7 +29,6 @@ namespace Archipelago.Data.UI {
         }
 
         internal static void UpdateCurves(PlayerCamera instance, float ratio, bool init) {
-            Core.Static.Log("Update");
             var script = instance.gameObject.GetComponent<ColorCorrectionCurves>();
             var curve = AnimationCurve.Linear(0, 0, 1, ratio);
 

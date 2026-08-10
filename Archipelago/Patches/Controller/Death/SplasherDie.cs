@@ -10,7 +10,7 @@ namespace Archipelago.Patches.Controller.Death {
         public static bool Prefix(Splasher __instance) {
             if (__instance.isDocteur) return false;
 
-            Data.DeathLink.ReportSplasherDeath();
+            Data.Death.ReportSplasherDeath();
             return true;
         }
     }

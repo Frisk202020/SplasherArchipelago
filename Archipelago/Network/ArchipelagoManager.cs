@@ -1,6 +1,5 @@
 ﻿using Archipelago.Data.Locations;
 using Archipelago.MultiClient.Net;
-using Archipelago.Network.Helpers;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -130,7 +129,7 @@ namespace Archipelago.Network {
         }
 
         internal static void Check(LocationType loc, long id) {
-            new BackgroundThread("Check", () => session.Execute(session => {
+            new Helpers.BackgroundThread("Check", () => session.Execute(session => {
                 session.Locations.CompleteLocationChecks(Util.BaseId + (int)loc + id);
                 Visited.Add(id);
             })).Execute();

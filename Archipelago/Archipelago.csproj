@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="15.0">
-  <Import Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -74,7 +74,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\DeathLink.cs" />
+    <Compile Include="Data\Death.cs" />
     <Compile Include="Data\Items\Freedom.cs" />
     <Compile Include="Data\Items\LevelKeys.cs" />
     <Compile Include="Data\Items\Powers.cs" />
@@ -113,8 +113,6 @@
     <Compile Include="Network\Items\Powers\Stickink.cs" />
     <Compile Include="Network\Items\Powers\Water.cs" />
     <Compile Include="Network\Items\Splasher.cs" />
-    <Compile Include="Network\Items\Traps\Antiwater.cs" />
-    <Compile Include="Network\Items\Traps\BodyAches.cs" />
     <Compile Include="Network\Items\Traps\PaintSwap.cs" />
     <Compile Include="Network\Items\Freedom.cs" />
     <Compile Include="Network\Helpers\ProxyManager.cs" />
@@ -175,7 +173,6 @@
     <Compile Include="Util.cs" />
     <Compile Include="Patches\Controller\InitializePowers.cs" />
     <Compile Include="Patches\UI\Backpack.cs" />
-    <Compile Include="Patches\Controller\Hub\SplasherCount.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Patches\Controller\Paint\Manager\GetPaintType.cs" />
     <Compile Include="Patches\Controller\Player\Collisions\Wall.cs" />
@@ -189,6 +186,9 @@
     <Compile Include="Data\Poison.cs" />
     <Compile Include="Patches\UI\Camera\PlayDeath.cs" />
     <Compile Include="Patches\UI\Camera\PlayArena.cs" />
+    <Compile Include="Network\Items\Traps\MadGun.cs" />
+    <Compile Include="Network\Items\Traps\Feet.cs" />
+    <Compile Include="Patches\Controller\Hub\HUDAwake.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

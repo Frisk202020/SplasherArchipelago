@@ -17,6 +17,15 @@ namespace Archipelago.Data {
             {GameManager.BUTTON_BOUNCY, GameManager.BUTTON_BOUNCY}
         };
 
+        internal static void Free() {
+            Mapping[GameManager.BUTTON_WATER] = GameManager.BUTTON_WATER;
+            Mapping[GameManager.BUTTON_STICKY] = GameManager.BUTTON_STICKY;
+            Mapping[GameManager.BUTTON_BOUNCY] = GameManager.BUTTON_BOUNCY;
+
+            AlwaysShoot = InputGamepadButton.None;
+            ChangeFeetState(PaintType.None);  
+        }
+
         internal static InputGamepadButton GetMapped(InputGamepadButton btn) {
             if (!Mapping.ContainsKey(btn)) return InputGamepadButton.None;
             return Mapping[btn];
@@ -37,6 +46,8 @@ namespace Archipelago.Data {
             Mapping[GameManager.BUTTON_WATER] = buttons[0];
             Mapping[GameManager.BUTTON_STICKY] = buttons[1];
             Mapping[GameManager.BUTTON_BOUNCY] = buttons[2];
+
+            Death.StartTrapCount();
         }
 
         internal static void SetRandomAlwaysAction() {
@@ -50,16 +61,21 @@ namespace Archipelago.Data {
             if (n == 0) return;
             
             AlwaysShoot = buttons[rng.Next(n)];
+            Death.StartTrapCount();
+        }
+
+        internal static void SetRandomFeetState() {
+            var states = new List<PaintType> { PaintType.AntiWater, PaintType.SpeedyPaint };
+            if (Powers.HasSticky) states.Add(PaintType.StickyPaint);
+            if (Powers.HasBouncy) states.Add(PaintType.BouncyPaint);
+
+            ChangeFeetState(states[rng.Next(states.Count)]);
+            Death.StartTrapCount();
         }
 
         private static void ChangeFeetState(PaintType p) {
             Poison.EndInfection();
             FeetState = p;
         }
-
-        internal static void CleanFeet() => ChangeFeetState(PaintType.None);
-        internal static void StickyFeet() => ChangeFeetState(PaintType.StickyPaint);
-        internal static void BouncyFeet() => ChangeFeetState(PaintType.BouncyPaint);
-        internal static void ToxinkFeet() => ChangeFeetState(PaintType.AntiWater);
     }
 }

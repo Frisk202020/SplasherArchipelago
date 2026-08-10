@@ -1,5 +1,4 @@
 ﻿using Archipelago.MultiClient.Net.Models;
-using System;
 using System.Collections.Generic;
 
 namespace Archipelago.Network.Items {
@@ -12,7 +11,7 @@ namespace Archipelago.Network.Items {
                 new Freedom(), new Splasher(), new Powers.Progressive(), new Powers.ProgressiveWater(),
                 new Powers.Water(), new Powers.Stickink(), new Powers.Bouncink(),
                 new Fillers.Nothing(), new Fillers.Nothing(), new Fillers.Nothing(),
-                new Traps.PaintSwap(), new Traps.BodyAches(), // new Traps.Antiwater(), 
+                new Traps.PaintSwap(), new Traps.MadGun(), new Traps.Feet()
             };
 
             foreach (int n in new int[] { 

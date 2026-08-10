@@ -132,7 +132,7 @@ namespace Archipelago.Network.Helpers {
             var deathLink = conf.DeathLinkOverride.Value > 0 
                 ? conf.DeathLinkOverride.Value
                 : (long)data["death_link"];
-            if (deathLink > 0) ApplyDeathLink((uint)(deathLink-1));
+            if (deathLink > 0) ApplyDeathLink((uint)deathLink);
             
             bool? heroOverride = null;
             switch (conf.HeroModeOverride.Value) {
@@ -147,7 +147,7 @@ namespace Archipelago.Network.Helpers {
                 heroOverride == true ||
                 (heroOverride == null && (long)data["hero_mode"] == 1)
             ) {
-                Data.DeathLink.SetHero();
+                Data.Death.SetHero();
             }
 
             Data.PendingKeyUnlock.Mode = (Data.PendingKeyUnlock.KeyMode)(long)data["include_keys"];
@@ -160,11 +160,11 @@ namespace Archipelago.Network.Helpers {
         }
 
         private void ApplyDeathLink(uint trigger) {
-            Data.DeathLink.Trigger = trigger;
+            Data.Death.DeathLinkAmnesty = trigger;
 
             var deathLinkService = session.CreateDeathLinkService();
             deathLinkService.EnableDeathLink();
-            deathLinkService.OnDeathLinkReceived += Data.DeathLink.ReceiveDeathLink;
+            deathLinkService.OnDeathLinkReceived += Data.Death.ReceiveDeathLink;
 
             deathLinkThread = new BackgroundThread("DeathLink Worker", () => deathLinkService.SendDeathLink(new DeathLink(player)));
         }

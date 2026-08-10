@@ -10,7 +10,7 @@ namespace Archipelago.Patches.Controller {
     public static class Die {
 
         public static bool Prefix() {
-            Data.DeathLink.AddDeath();
+            Data.Death.AddDeath();
             Data.Poison.EndInfection();
 
             return true;
