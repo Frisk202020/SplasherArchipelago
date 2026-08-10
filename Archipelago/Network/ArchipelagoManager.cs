@@ -78,6 +78,7 @@ namespace Archipelago.Network {
             var bundle = AssetBundle.LoadFromFile("BepInEx/assets/archipelago");
             Data.UI.Animator.Load(bundle);
             Data.UI.Sprites.Load(bundle);
+            Data.UI.Camera.Load(bundle);
             Patches.Controller.Paint.Bullet.Init.Load(bundle);
             bundle.Unload(false);
 

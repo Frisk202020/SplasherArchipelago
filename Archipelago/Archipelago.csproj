@@ -184,6 +184,10 @@
     <Compile Include="Patches\Controller\Damage\Life.cs" />
     <Compile Include="Patches\Controller\Damage\Splasher.cs" />
     <Compile Include="Network\Items\Powers\ProgressiveWater.cs" />
+    <Compile Include="Data\UI\Camera.cs" />
+    <Compile Include="Patches\UI\Camera\Animator.cs" />
+    <Compile Include="Data\Poison.cs" />
+    <Compile Include="Patches\UI\Camera\DeathEffect.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -14,7 +14,7 @@ namespace Archipelago.Patches.Controller.Player.Collisions {
             }
 
             if (__instance.PaintGround == Util.PollutedWater) {
-                __instance.Die();
+                Poison.Die(__instance);
                 return;
             }
             

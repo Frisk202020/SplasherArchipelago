@@ -1,3 +1,4 @@
+using Archipelago.Data;
 using HarmonyLib;
 
 namespace Archipelago.Patches.Controller.Player.Collisions {
@@ -5,7 +6,7 @@ namespace Archipelago.Patches.Controller.Player.Collisions {
     public static class ApplyCeiling {
         public static void Postfix(PlayerController __instance) {
             if (CheckCeiling.ActualPaintType == Util.PollutedWater)
-                __instance.Die();
+                Poison.Die(__instance);
         }
     }
 }

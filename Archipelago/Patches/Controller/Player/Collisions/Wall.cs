@@ -1,3 +1,4 @@
+using Archipelago.Data;
 using HarmonyLib;
 
 namespace Archipelago.Patches.Controller.Player.Collisions {
@@ -7,7 +8,7 @@ namespace Archipelago.Patches.Controller.Player.Collisions {
             if (
                 GameManager.LockControl == LockControlType.None &&
                 __instance.PaintWall == Util.PollutedWater
-            ) __instance.Die();
+            ) Poison.Die(__instance);
         }
     }
 }
