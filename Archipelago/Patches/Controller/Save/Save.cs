@@ -14,16 +14,5 @@ namespace Archipelago.Patches.Controller.Save {
             AutoSaveFilename = Util.SaveFile();
             return true;
         }
-
-        public static void Postfix(string AutoSaveFilename) {
-            if (AutoSaveFilename == Util.SaveFileExtension()) return;
-
-            DataStore.AutoSaveSilently(
-                Data.SaveData.Saver,
-                Util.SaveFileExtension()
-            );
-
-            Core.Static.Log("Archipelago saved");
-        }
     }
 }

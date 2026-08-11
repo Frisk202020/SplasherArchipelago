@@ -69,6 +69,7 @@
     <Compile Include="Tools\Field\IField.cs" />
     <Compile Include="Tools\Field\StringField.cs" />
     <Compile Include="Tools\Field\UintField.cs" />
+    <Compile Include="Tools\Field\IntField.cs" />
     <Compile Include="Static.cs" />
     <Compile Include="Tools\Tracker.cs" />
     <Compile Include="Tools\VoidTracker.cs" />

@@ -1,7 +1,7 @@
 ﻿namespace Archipelago.Data {
     internal static class Death {
         internal static uint DeathLinkAmnesty = 5;
-        internal static uint TrapAmnesty = 5;
+        internal static uint? TrapAmnesty = 5;
         private static bool hero = false;
 
         internal static void SetHero() => hero = true;
@@ -25,7 +25,7 @@
                 Network.ArchipelagoManager.SendDeathLink();
             } 
 
-            if (TrapCount != null && TrapCount % TrapAmnesty == 0) {
+            if (TrapAmnesty != null && TrapCount != null && TrapCount % TrapAmnesty == 0) {
                 TrapController.Free();
                 TrapCount = null;
             }

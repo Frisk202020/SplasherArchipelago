@@ -7,7 +7,10 @@ namespace Archipelago.Data {
     internal static class SaveData {
         internal static bool EnableTimeAttackDoors = false;
         private static Helpers.Save.SaveDataExtension data = new Helpers.Save.SaveDataExtension();
-        internal static Helpers.Save.GameSaver Saver => new Helpers.Save.GameSaver(data);
+        internal static void Save() {
+            DataStore.AutoSaveSilently(new Helpers.Save.GameSaver(data), Util.SaveFileExtension());
+            Core.Static.Log("Archipelago saved.");
+        }
 
         private static readonly MethodInfo DoorSetter = AccessTools.DeclaredPropertySetter(typeof(Door), "State");
 

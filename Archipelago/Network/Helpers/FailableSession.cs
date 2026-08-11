@@ -124,8 +124,29 @@ namespace Archipelago.Network.Helpers {
         internal Dictionary<string, object> ApplyOptions(Core.Tools.Config conf) {
             var data = session.DataStorage.GetSlotData();
             Util.Seed = (string)data["seed"];
-
             Data.Items.Splashers.Goal = (int)(long)data["splashers_goal"];
+
+            var trapAmnesty = conf.TrapAmnestyOverride.Value;
+            if (trapAmnesty < 0 || trapAmnesty > 2) trapAmnesty = (int)(long)data["trap_amnesty"];
+
+            var trapDeathAmnesty = conf.TrapDeathAmnestyOverride.Value;
+            if (trapDeathAmnesty <= 0) trapDeathAmnesty = (uint)(long)data["trap_death_amnesty"];
+
+            switch(trapAmnesty) {
+                case 0: 
+                    Data.Death.TrapAmnesty = trapDeathAmnesty;
+                    Data.TrapController.CheckpointAmnesty = false;
+                    break;
+                case 1:
+                    Data.Death.TrapAmnesty = null;
+                    Data.TrapController.CheckpointAmnesty = true;
+                    break;
+                case 2:
+                    Data.Death.TrapAmnesty = trapDeathAmnesty;
+                    Data.TrapController.CheckpointAmnesty = true;
+                    break;
+            }
+
             Data.Items.Powers.ProgressiveWater = (long)data["progressive_water"] == 1;
             Data.Locations.Speedrun.SetHighestMedal((Medal)(long)data["include_medals"]);
 
@@ -134,15 +155,7 @@ namespace Archipelago.Network.Helpers {
                 : (long)data["death_link"];
             if (deathLink > 0) ApplyDeathLink((uint)deathLink);
             
-            bool? heroOverride = null;
-            switch (conf.HeroModeOverride.Value) {
-                case "true": heroOverride = true; break;
-                case "false": heroOverride = false; break;
-                case "":
-                case "null": break;
-                default: Core.Static.Warn($"Unrecognized Hero Override option : {conf.HeroModeOverride.Value}"); break;
-            }
-
+            bool? heroOverride = conf.HeroModeOverride.AsNullableBool();
             if (
                 heroOverride == true ||
                 (heroOverride == null && (long)data["hero_mode"] == 1)

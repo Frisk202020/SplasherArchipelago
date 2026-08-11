@@ -54,7 +54,7 @@ namespace Archipelago.Network.Items {
 
                 if (splasherItem.SaveCollect()) {
                     Data.SaveData.CollectedItems.Add(item.LocationId);
-                    GameData.Instance.SavePlayerData();
+                    Data.SaveData.Save();
                 }
 
                 splasherItem.Collect(item);

@@ -24,6 +24,8 @@ namespace Core.Tools {
         #region Overrides
         public readonly UintField DeathLinkOverride = new UintField { DefaultBinding = 0 };
         public readonly StringField HeroModeOverride = new StringField { DefaultBinding = null };
+        public readonly IntField TrapAmnestyOverride = new IntField { DefaultBinding = -1 };
+        public readonly UintField TrapDeathAmnestyOverride = new UintField { DefaultBinding = 0 };
         #endregion
 
         private Config() { }

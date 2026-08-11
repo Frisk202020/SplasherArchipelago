@@ -10,6 +10,7 @@ namespace Archipelago.Data {
 
         internal static InputGamepadButton AlwaysShoot { get; private set; } = InputGamepadButton.None;
         internal static PaintType FeetState { get; private set; } = PaintType.None;
+        internal static bool CheckpointAmnesty = true;
 
         private static readonly Dictionary<InputGamepadButton, InputGamepadButton> Mapping = new Dictionary<InputGamepadButton, InputGamepadButton> {
             {GameManager.BUTTON_WATER, GameManager.BUTTON_WATER},

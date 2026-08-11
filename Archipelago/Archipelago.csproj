@@ -189,6 +189,8 @@
     <Compile Include="Network\Items\Traps\Feet.cs" />
     <Compile Include="Patches\Controller\Hub\HUDAwake.cs" />
     <Compile Include="Network\Items\Traps\Trap.cs" />
+    <Compile Include="Patches\Controller\Save\Lock.cs" />
+    <Compile Include="Patches\Controller\CheckpointReached.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
