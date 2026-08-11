@@ -31,6 +31,7 @@ namespace Archipelago.Network {
             }
 
             RestoreCheckedLocations();
+            Items.ItemManager.AddCollected(Data.SaveData.CollectedItems);
             Items.ItemManager.CollectPending();
         }
 

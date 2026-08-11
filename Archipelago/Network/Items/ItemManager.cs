@@ -5,12 +5,13 @@ namespace Archipelago.Network.Items {
     static class ItemManager {
         private static readonly HashSet<long> collectedLocationIds = new HashSet<long>();
         private static readonly Queue<ItemInfo> pending = new Queue<ItemInfo>();
+        internal static void AddCollected(List<long> locIds) => collectedLocationIds.UnionWith(locIds);
 
         private static List<Item> OrderedItems() {
             var items = new List<Item> {
                 new Freedom(), new Splasher(), new Powers.Progressive(), new Powers.ProgressiveWater(),
                 new Powers.Water(), new Powers.Stickink(), new Powers.Bouncink(),
-                new Fillers.Nothing(), new Fillers.Nothing(), new Fillers.Nothing(),
+                new Nothing(), new Nothing(), new Nothing(),
                 new Traps.PaintSwap(), new Traps.MadGun(), new Traps.Feet()
             };
 
@@ -50,6 +51,11 @@ namespace Archipelago.Network.Items {
             var id = item.ItemId - Util.BaseId;
             if (id >= 0 && id < orderedItems.Count) {
                 var splasherItem = orderedItems[(int)id];
+
+                if (splasherItem.SaveCollect()) {
+                    Data.SaveData.CollectedItems.Add(item.LocationId);
+                    GameData.Instance.SavePlayerData();
+                }
 
                 splasherItem.Collect(item);
             } 

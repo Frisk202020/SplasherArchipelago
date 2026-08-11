@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using System.Collections.Generic;
 using System.Reflection;
 using TSKGames.Save;
 
@@ -33,6 +34,8 @@ namespace Archipelago.Data {
 
             GameData.Instance.GetLevelData(door.levelMetaData.SceneName).State = state;
         }
+
+        internal static List<long> CollectedItems => data.CollectedIds;
 
         internal static void Init() {
             DataStore.OnAutosaveLoad += (save, savename) => {

@@ -6,5 +6,6 @@ namespace Archipelago.Network.Items.Powers {
         public virtual void Collect(ItemInfo item) {
             Patches.UI.Backpack.Update();
         }
+        public bool SaveCollect() => false;
     }
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="15.0">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <Import Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -102,8 +102,7 @@
     <Compile Include="Network\ArchipelagoManager.cs" />
     <Compile Include="Network\Helpers\HintInfo.cs" />
     <Compile Include="Network\Items\Essence.cs" />
-    <Compile Include="Network\Items\Fillers\Filler.cs" />
-    <Compile Include="Network\Items\Fillers\Nothing.cs" />
+    <Compile Include="Network\Items\Nothing.cs" />
     <Compile Include="Network\Items\Item.cs" />
     <Compile Include="Network\Items\ItemManager.cs" />
     <Compile Include="Network\Items\Key.cs" />
@@ -189,6 +188,7 @@
     <Compile Include="Network\Items\Traps\MadGun.cs" />
     <Compile Include="Network\Items\Traps\Feet.cs" />
     <Compile Include="Patches\Controller\Hub\HUDAwake.cs" />
+    <Compile Include="Network\Items\Traps\Trap.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

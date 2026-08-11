@@ -17,5 +17,6 @@ namespace Archipelago.Network.Items {
             if (data.StarFillCount < 1) data.StarFillCount = 1;
             else if (data.StarFillCount > 700) data.StarFillCount = 700;
         }
+        public bool SaveCollect() => false;
     }
 }

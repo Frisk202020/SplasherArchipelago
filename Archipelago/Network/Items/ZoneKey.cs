@@ -44,6 +44,7 @@ namespace Archipelago.Network.Items {
         }
 
         public string Name() => $"{name} : Keys";
+        public bool SaveCollect() => false;
         
         internal static void AddAll(List<Item> items, bool speedrun) {
             foreach(var x in data) {

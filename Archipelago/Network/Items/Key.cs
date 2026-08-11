@@ -17,6 +17,7 @@ namespace Archipelago.Network.Items {
         }
 
         public string Name() => $"{levelName} {(speedrun ? "- Time Attack" : "")}: Entrance Key";
+        public bool SaveCollect() => false;
         
         internal static void AddAll(List<Item> items, bool speedrun) {
             for (uint i = 1; i < Util.Levels.Length; i++) {

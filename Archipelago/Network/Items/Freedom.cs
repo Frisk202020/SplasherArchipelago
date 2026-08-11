@@ -5,6 +5,7 @@ namespace Archipelago.Network.Items {
         internal Freedom() { }
 
         public string Name() => "Freedom";
+        public bool SaveCollect() => false;
 
         public void Collect(ItemInfo _item) {
             Data.Items.Freedom.Free();
