@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="15.0">
-  <Import Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -191,6 +191,7 @@
     <Compile Include="Network\Items\Traps\Trap.cs" />
     <Compile Include="Patches\Controller\Save\Lock.cs" />
     <Compile Include="Patches\Controller\CheckpointReached.cs" />
+    <Compile Include="Patches\Controller\Hub\HUDUpdate.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

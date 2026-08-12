@@ -5,6 +5,14 @@
         internal static int Goal { get; set; } = 0;
 
         internal static int Count { get; private set; } = 0;
-        internal static void Add() { Count++; }
+        internal static bool Update { get; private set; } = false;
+        internal static void Add() { 
+            Count++; 
+            Update = true;
+        }
+        internal static string Text() {
+            Update = false;
+            return Count + "/" + Goal;
+        }
     }
 }
