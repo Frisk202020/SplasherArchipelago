@@ -4,7 +4,7 @@ using HarmonyLib;
 namespace Core.Patches.Cutscene {
     [HarmonyPatch(typeof(Trigger), "Start")]
     public static class OnStart {
-        private static readonly Dictionary<string, string> Cutscenes = new Dictionary<string, string> {
+        private static readonly Dictionary<string, Data.Time.Cutscene> Cutscenes = new Dictionary<string, Data.Time.Cutscene> {
             {"A1", "Docteur_PorteSplasher"},
             {"A_Boss", "Docteur_IntroBoss1"}, 
             {"B_Boss", "Docteur_IntroBoss2"}, 
