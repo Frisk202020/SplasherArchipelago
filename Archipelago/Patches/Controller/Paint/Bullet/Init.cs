@@ -1,15 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Archipelago.Helpers.Assets;
 using HarmonyLib;
 using UnityEngine;
 
 namespace Archipelago.Patches.Controller.Paint.Bullet {
     [HarmonyPatch(typeof(PaintBullet), "InitializeBulletPools")]
+    [Loader]
     public static class Init {
-        private static Texture2D pollutedMask;
+        [Asset]
+        private static Texture2D SpotPollued_mask = null;
         private static Color _maskColor;
         private static Color MaskColor() {
-            if (_maskColor == Color.clear) _maskColor = pollutedMask.GetPixels().First((pixel) => pixel.a > .1f);
+            if (_maskColor == Color.clear) _maskColor = SpotPollued_mask.GetPixels().First((pixel) => pixel.a > .1f);
             return _maskColor;
         }
 
@@ -28,10 +31,6 @@ namespace Archipelago.Patches.Controller.Paint.Bullet {
             l.Add(toAdd);
         }
 
-        internal static void Load(AssetBundle bundle) {
-            pollutedMask = bundle.LoadAsset<Texture2D>("SpotPollued_mask");
-        }
-
         public static void Postfix() {
             Pool.speedPool = new PaintBullet[PaintBullet.GD.BulletPoolCount];
             Pool.pollutedPool = new PaintBullet[PaintBullet.GD.BulletPoolCount];
@@ -40,7 +39,7 @@ namespace Archipelago.Patches.Controller.Paint.Bullet {
             var mColor = MaskColor();
             FillIfNeeded(GameData.Instance.PaintColors, new Color(.35f, .85f, .7f));
             FillIfNeeded(GameData.Instance.PaintMaskColors, mColor);
-            FillIfNeeded(GameData.Instance.PaintMaskTextures, pollutedMask);
+            FillIfNeeded(GameData.Instance.PaintMaskTextures, SpotPollued_mask);
 
             if (!GameData.MaskColorIndices.ContainsKey(mColor))
                 GameData.MaskColorIndices.Add(mColor, (int)Util.PollutedWater);

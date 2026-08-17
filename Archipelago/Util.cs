@@ -22,6 +22,12 @@ namespace Archipelago {
             "Good Luck Splasher"
         };
 
+        internal readonly static string[] Scenes = new[] {
+            "A1", "A2", "A3", "A5", "A6", "A_Boss",
+            "B1", "B2", "B3", "B4", "B6", "B7", "B8", "B_Boss",
+            "C1", "C2", "C3", "C4", "C6", "C7", "C8", "C_Boss"  
+        };
+
         internal static string Seed = "";
         internal static string SaveFile() => $"Archipelago_{Seed}";
         internal static string SaveFileExtension() => SaveFile() + "_Extension";

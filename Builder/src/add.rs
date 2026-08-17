@@ -114,9 +114,12 @@ fn update_proj(assembly: &str, path: &str, class: &str, project_root: &str) {
                 }
             } && !el.children.iter().any(|x| {
                 match x {
-                    XMLNode::Element(child) => child.attributes.values().any(|v| {
-                        v.contains(class)
-                    }),
+                    XMLNode::Element(child) => {
+                        let target = format!("{path}\\{class}.cs");
+                        child.attributes.values().any(|child_path| {
+                            &target == child_path
+                        })
+                    },
                     _ => false
                 }
             })
@@ -132,6 +135,8 @@ fn update_proj(assembly: &str, path: &str, class: &str, project_root: &str) {
         new_compile.namespace = group.namespace.clone();
 
         group.children.push(XMLNode::Element(new_compile));
+    } else {
+        println!("Group not found, skipped adding a Compile entry");
     }
 
     let mut conf = EmitterConfig::new();

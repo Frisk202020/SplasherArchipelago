@@ -86,8 +86,6 @@
     <Compile Include="Data\Locations\Splashers.cs" />
     <Compile Include="Data\PendingKeyUnlock.cs" />
     <Compile Include="Data\TrapController.cs" />
-    <Compile Include="Data\UI\Animator.cs" />
-    <Compile Include="Data\UI\Sprites.cs" />
     <Compile Include="Helpers\AnimationTracker.cs" />
     <Compile Include="Data\SaveData.cs" />
     <Compile Include="Helpers\EachLevel.cs" />
@@ -190,9 +188,12 @@
     <Compile Include="Patches\Controller\Hub\HUDAwake.cs" />
     <Compile Include="Network\Items\Traps\Trap.cs" />
     <Compile Include="Patches\Controller\Save\Lock.cs" />
-    <Compile Include="Patches\Controller\CheckpointReached.cs" />
+    <Compile Include="Patches\Controller\ReachCheckpoint.cs" />
     <Compile Include="Patches\Controller\Hub\HUDUpdate.cs" />
     <Compile Include="Patches\Controller\Hub\SplasherCount.cs" />
+    <Compile Include="Data\Items\CheckpointItem.cs" />
+    <Compile Include="Helpers\Assets\LoaderAttribute.cs" />
+    <Compile Include="Helpers\Assets\AssetAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

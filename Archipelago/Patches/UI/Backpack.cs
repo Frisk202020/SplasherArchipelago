@@ -1,4 +1,5 @@
-﻿using HarmonyLib;
+﻿using Archipelago.Helpers.Assets;
+using HarmonyLib;
 using System.Reflection;
 using UnityEngine;
 
@@ -10,14 +11,26 @@ using UnityEngine;
 
 namespace Archipelago.Patches.UI {
     [HarmonyPatch(typeof(PlayerController), "Start")]
+    [Loader]
     public static class Backpack {
+        [Asset]
+        private static RuntimeAnimatorController Backpack_Archipelago = null;
         private static readonly FieldInfo backpack = AccessTools.DeclaredField(typeof(PlayerController), "backpackAnimator");
 
         public static void Postfix(Animator ___backpackAnimator) {
             if (___backpackAnimator == null) return;
 
-            ___backpackAnimator.runtimeAnimatorController = Data.UI.Animator.Backpack;
+            ___backpackAnimator.runtimeAnimatorController = Backpack_Archipelago;
             UpdateAnimator(___backpackAnimator);
+        }
+
+        public static void Update() {
+            if (PlayerController.Instance == null) return;
+
+            var b = (Animator)backpack.GetValue(PlayerController.Instance);
+            if (b == null) return;
+
+            UpdateAnimator(b);
         }
 
         private static void UpdateAnimator(Animator ___backpackAnimator) {
@@ -27,15 +40,6 @@ namespace Archipelago.Patches.UI {
             ___backpackAnimator.SetInteger("WaterLevel", (int)Data.Items.Powers.WaterLevel);
             ___backpackAnimator.SetBool("Stickink", Data.Items.Powers.HasSticky);
             ___backpackAnimator.SetBool("Bouncink", Data.Items.Powers.HasBouncy);
-        }
-
-        public static void Update() {
-            if (PlayerController.Instance == null) return;
-
-            var animator = (Animator)backpack.GetValue(PlayerController.Instance);
-            if (animator == null) return;
-
-            UpdateAnimator(animator);
         }
     }
 }

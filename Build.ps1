@@ -13,8 +13,6 @@ if ($LASTEXITCODE -ne 0) {
     exit $LASTEXITCODE
 }
 
-Write-Host "Build succeeded! Running post-build events..." -ForegroundColor Green
-
 Copy-Item -Path "$PSScriptRoot\Archipelago\bin\$Configuration\Archipelago.dll" -Destination $PluginDir -Force
 Copy-Item -Path "$PSScriptRoot\Core\bin\$Configuration\Core.dll" -Destination $PluginDir -Force
 

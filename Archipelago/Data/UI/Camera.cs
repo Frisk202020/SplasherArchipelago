@@ -1,9 +1,11 @@
 using System.Reflection;
+using Archipelago.Helpers.Assets;
 using HarmonyLib;
 using UnityEngine;
 using UnityStandardAssets.ImageEffects;
 
 namespace Archipelago.Data.UI {
+    [Loader]
     internal static class Camera {
         private class VanillaCurves {
             internal AnimationCurve red;
@@ -13,18 +15,17 @@ namespace Archipelago.Data.UI {
         }
         private static VanillaCurves vanilla = null;
 
-
-        private static RuntimeAnimatorController animator;
+        [Asset]
+        private static RuntimeAnimatorController CameraEffect_AnimController = null;
         private static readonly FieldInfo AccessAnimator = AccessTools.Field(typeof(PlayerCamera), "effectAnimator");
 
         internal static void Load(AssetBundle bundle) {
-            animator = bundle.LoadAsset<RuntimeAnimatorController>("CameraEffect_AnimController");
             if (PlayerCamera.Instance != null) SetAnim(PlayerCamera.Instance);
         }
 
         internal static void SetAnim(PlayerCamera instance) {
-            var field = (UnityEngine.Animator)AccessAnimator.GetValue(instance);
-            field.runtimeAnimatorController = animator;
+            var field = (Animator)AccessAnimator.GetValue(instance);
+            field.runtimeAnimatorController = CameraEffect_AnimController;
             field.Rebind();
         }
 

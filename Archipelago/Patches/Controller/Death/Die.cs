@@ -1,4 +1,6 @@
-﻿using HarmonyLib;
+﻿using System.Reflection;
+using HarmonyLib;
+using UnityEngine;
 
 /**
  * This patch allows to increment the death counter when the player dies.
@@ -8,10 +10,12 @@
 namespace Archipelago.Patches.Controller {
     [HarmonyPatch(typeof(PlayerController), "Die")]
     public static class Die {
+        private static readonly FieldInfo ckpVisual = AccessTools.DeclaredField(typeof(global::Checkpoint), "anim");
 
         public static bool Prefix() {
             Data.Death.AddDeath();
             Data.Poison.EndInfection();
+            Data.Items.CheckpointItem.DisableLockedCheckpoints();
 
             return true;
         }
