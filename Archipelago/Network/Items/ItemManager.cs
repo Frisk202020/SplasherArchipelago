@@ -27,6 +27,8 @@ namespace Archipelago.Network.Items {
             Key.AddAll(items, true);
             ZoneKey.AddAll(items, true);
 
+            Checkpoint.AddAll(items);
+
             return items;
         }
         private static readonly List<Item> orderedItems = OrderedItems();

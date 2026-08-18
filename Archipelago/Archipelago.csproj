@@ -194,6 +194,9 @@
     <Compile Include="Data\Items\CheckpointItem.cs" />
     <Compile Include="Helpers\Assets\LoaderAttribute.cs" />
     <Compile Include="Helpers\Assets\AssetAttribute.cs" />
+    <Compile Include="Network\Items\Checkpoint.cs" />
+    <Compile Include="Data\Locations\Checkpoint.cs" />
+    <Compile Include="Data\CheckpointTable.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

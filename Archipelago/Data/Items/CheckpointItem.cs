@@ -26,37 +26,11 @@ namespace Archipelago.Data.Items {
 
         internal static int seedOption = 0;
         const string CATEGORY = "ArchipelagoCheckpoint";
-        private static readonly Dictionary<string, int> specificCkpBounds = new Dictionary<string, int> {
-            {"A1", 4},
-            {"A_Boss", 4},
-            {"B_Boss", 5},
-            {"C1", 5},
-            {"C_Boss", 8}
-        };
-        private static readonly HashSet<string> withParenthesis = new HashSet<string> { "A2", "A3" };
-        private static string NameById(int id) => $"LD_Checkpoint{id}";
 
-        private static Dictionary<string, Dictionary<string, bool>> table;
-        private static Dictionary<string, Dictionary<string, bool>> Table() {
-            if (table == null) {
-                table = new Dictionary<string, Dictionary<string, bool>>();
-                foreach(var scene in Util.Scenes) {
-                    var d = new Dictionary<string, bool>();
-                    var n = specificCkpBounds.ContainsKey(scene) ? specificCkpBounds[scene] : 6;
-                    for (int i = 2; i <= n; i++) {
-                        var name = NameById(i);
-                        d.Add(withParenthesis.Contains(scene) ? (name + " (1)") : name, false);
-                    }
-
-                    table.Add(scene, d);
-                }
-            }
-
-            return table;
-        }
+        private static readonly CheckpointTable table = new CheckpointTable();
 
         private static PatchInfo Info(string name) {
-            if (seedOption == 0 || Table()[GameData.Instance.CurrentLevelMetaData.SceneName][name])
+            if (seedOption == 0 || table.Get(name))
                 return new PatchInfo { languageKey = "saved", color = new Color(1, 1, 1) };
 
             return seedOption == 1
@@ -79,7 +53,8 @@ namespace Archipelago.Data.Items {
         }
 
         internal static void Collect(string scene, int id) {
-            Table()[scene][NameById(id + 2)] = true;
+            Core.Static.Log($"Collect {CheckpointTable.NameById(id, scene)} for {scene}");
+            table.Check(CheckpointTable.NameById(id, scene), scene);
         }
     }
 }
