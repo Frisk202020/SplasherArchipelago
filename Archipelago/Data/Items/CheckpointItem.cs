@@ -33,6 +33,7 @@ namespace Archipelago.Data.Items {
             {"C1", 5},
             {"C_Boss", 8}
         };
+        private static readonly HashSet<string> withParenthesis = new HashSet<string> { "A2", "A3" };
         private static string NameById(int id) => $"LD_Checkpoint{id}";
 
         private static Dictionary<string, Dictionary<string, bool>> table;
@@ -43,7 +44,8 @@ namespace Archipelago.Data.Items {
                     var d = new Dictionary<string, bool>();
                     var n = specificCkpBounds.ContainsKey(scene) ? specificCkpBounds[scene] : 6;
                     for (int i = 2; i <= n; i++) {
-                        d.Add(NameById(i), false);
+                        var name = NameById(i);
+                        d.Add(withParenthesis.Contains(scene) ? (name + " (1)") : name, false);
                     }
 
                     table.Add(scene, d);
