@@ -53,8 +53,9 @@ namespace Archipelago.Data.Items {
         }
 
         internal static void Collect(string scene, int id) {
-            Core.Static.Log($"Collect {CheckpointTable.NameById(id, scene)} for {scene}");
             table.Check(CheckpointTable.NameById(id, scene), scene);
         }
+
+        internal static bool Unlocked(string name) => table.Get(name);
     }
 }

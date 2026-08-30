@@ -188,7 +188,7 @@
     <Compile Include="Patches\Controller\Hub\HUDAwake.cs" />
     <Compile Include="Network\Items\Traps\Trap.cs" />
     <Compile Include="Patches\Controller\Save\Lock.cs" />
-    <Compile Include="Patches\Controller\ReachCheckpoint.cs" />
+    <Compile Include="Patches\Controller\Checkpoints\Reached.cs" />
     <Compile Include="Patches\Controller\Hub\HUDUpdate.cs" />
     <Compile Include="Patches\Controller\Hub\SplasherCount.cs" />
     <Compile Include="Data\Items\CheckpointItem.cs" />
@@ -197,6 +197,8 @@
     <Compile Include="Network\Items\Checkpoint.cs" />
     <Compile Include="Data\Locations\Checkpoint.cs" />
     <Compile Include="Data\CheckpointTable.cs" />
+    <Compile Include="Public\CheckpointTrigger.cs" />
+    <Compile Include="Patches\Controller\Checkpoints\Start.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

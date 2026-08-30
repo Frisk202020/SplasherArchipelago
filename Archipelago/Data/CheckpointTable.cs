@@ -2,17 +2,48 @@ using System.Collections.Generic;
 
 namespace Archipelago.Data {
     class CheckpointTable {
-        private static string SceneOrCurrent(string scene) => scene ?? GameData.Instance.CurrentLevelMetaData.SceneName;
+        private static string SceneOrCurrent(string scene) => (scene ?? GameData.Instance?.CurrentLevelMetaData?.SceneName) ?? "";
         private static readonly Dictionary<string, int> specificCkpBounds = new Dictionary<string, int> {
             {"A1", 3},
             {"A_Boss", 3},
             {"B_Boss", 4},
-            {"C1", 4},
             {"C_Boss", 7}
         };
+        private static void TryInit() {
+            if (idTable != null) return;
+
+            idTable = new Dictionary<string, Dictionary<string, int>>();
+            int id = 0;
+
+            foreach(var s in Util.Scenes) {
+                var d = new Dictionary<string, int>();
+                for (int i = 0; i < IdRange(s); i++) {
+                    d.Add(NameById(i, s), id);
+                    id++;
+                }
+
+                idTable.Add(s, d);
+            }
+        }
+
         internal static int IdRange(string scene) {
             if (specificCkpBounds.ContainsKey(scene)) return specificCkpBounds[scene];
             return 5;
+        }
+
+        internal static string Next(string name, string scene=null) {
+            TryInit();
+            var activeScene = SceneOrCurrent(scene);
+            System.Console.WriteLine(activeScene == null);
+            if (!idTable.ContainsKey(activeScene)) return null;
+
+            var data = idTable[activeScene];
+            if (!data.ContainsKey(name)) return null;
+
+            var id = data[name] + 1;
+            if (id >= IdRange(activeScene)) return null;
+
+            return NameById(id, activeScene);
         }
 
         private static readonly HashSet<string> withParenthesis = new HashSet<string> { "A2", "A3" };
@@ -24,21 +55,7 @@ namespace Archipelago.Data {
 
         private static Dictionary<string, Dictionary<string, int>> idTable;
         internal static int Id(string name, string scene=null) {
-            if (idTable == null) {
-                idTable = new Dictionary<string, Dictionary<string, int>>();
-                int id = 0;
-
-                foreach(var s in Util.Scenes) {
-                    var d = new Dictionary<string, int>();
-                    for (int i = 0; i < IdRange(s); i++) {
-                        d.Add(NameById(i, scene), id);
-                        id++;
-                    }
-
-                    idTable.Add(s, d);
-                }
-            }
-
+            TryInit();
             return idTable[SceneOrCurrent(scene)][name];
         }
 

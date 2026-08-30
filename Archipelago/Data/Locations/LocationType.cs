@@ -6,12 +6,12 @@ namespace Archipelago.Data.Locations {
         Stickink = 1,
         Bouncink = 2,
         Splasher = 3,
-        Clear = Splasher + Util.LevelCount * 7,
-        Bronze = Clear + Util.LevelCount,
+        Bronze = Splasher + Util.LevelCount * 7,
         Silver = Bronze + Util.LevelCount,
         Gold = Silver + Util.LevelCount,
         Platinum = Gold + Util.LevelCount,
-        Checkpoint = Platinum + Util.LevelCount
+        Clear = Platinum + Util.LevelCount,
+        Checkpoint = Platinum + Util.LevelCount,
     }
 
     static class LocationExtensions {
