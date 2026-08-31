@@ -3,6 +3,14 @@ using System.Collections.Generic;
 
 namespace Archipelago.Network.Items {
     static class ItemManager {
+        private class EssenceInfo {
+            public readonly int amount;
+            public readonly string name;
+            public EssenceInfo(int _amount, string _name) {
+                amount = _amount; name = _name;
+            } 
+        }
+
         private static readonly HashSet<long> collectedLocationIds = new HashSet<long>();
         private static readonly Queue<ItemInfo> pending = new Queue<ItemInfo>();
         internal static void AddCollected(List<long> locIds) => collectedLocationIds.UnionWith(locIds);
@@ -15,11 +23,27 @@ namespace Archipelago.Network.Items {
                 new Traps.PaintSwap(), new Traps.MadGun(), new Traps.Feet()
             };
 
-            foreach (int n in new int[] { 
-                1, 2, 5, 10, 15, 20, 25, 30, 40, 50,
-                -1, -2, -3, -5, -10, -15, -20, -25 
+            foreach (EssenceInfo x in new List<EssenceInfo> {
+                new EssenceInfo(1, "Essence drop"),
+                new EssenceInfo(2, "Essence drops"),
+                new EssenceInfo(5, "Broken essence flask"),
+                new EssenceInfo(10, "Full essence flask"),
+                new EssenceInfo(15, "Dry essence barrel"),
+                new EssenceInfo(20, "Essence barrel"),
+                new EssenceInfo(25, "Overflowing essence barrel"),
+                new EssenceInfo(30, "Goombase essence tank"),
+                new EssenceInfo(40, "Secretaire essence tank"),
+                new EssenceInfo(50, "Docteur's essence storage"),
+                new EssenceInfo(-1, "Minor essence leak"),
+                new EssenceInfo(-2, "Small essence leak"),
+                new EssenceInfo(-3, "Noticeable essence leak"),
+                new EssenceInfo(-5, "Severe essence leak"),
+                new EssenceInfo(-10, "Essence container crack"),
+                new EssenceInfo(-15, "Forgiving essence fee"),
+                new EssenceInfo(-20, "Severe essence fee"),
+                new EssenceInfo(-25, "Le Docteur's essence tax")
             }) {
-                items.Add(new Essence(n));
+                items.Add(new Essence(x.amount, x.name));
             }
 
             Key.AddAll(items, false);
@@ -53,13 +77,23 @@ namespace Archipelago.Network.Items {
             var id = item.ItemId - Util.BaseId;
             if (id >= 0 && id < orderedItems.Count) {
                 var splasherItem = orderedItems[(int)id];
+                splasherItem.Collect(item);
 
+                bool save = false;
+                if (!Data.SaveData.WeakCollectedItems.Contains(item.LocationId)) {
+                    Data.SaveData.WeakCollectedItems.Add(item.LocationId);
+                    Data.UI.Tracker.AddItemReceived(
+                        splasherItem, 
+                        ArchipelagoManager.IsPlayerSelf(item.Player.Slot) ?  null : item.Player.Name
+                    );
+                    save = true;
+                }
                 if (splasherItem.SaveCollect()) {
                     Data.SaveData.CollectedItems.Add(item.LocationId);
-                    Data.SaveData.Save();
+                    save = true;
                 }
 
-                splasherItem.Collect(item);
+                if (save) Data.SaveData.Save();
             } 
         }
     }

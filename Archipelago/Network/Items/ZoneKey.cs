@@ -43,7 +43,7 @@ namespace Archipelago.Network.Items {
             }
         }
 
-        public string Name() => $"{name} : Keys";
+        public string Name() => $"{name} {(speedrun ? "- Time Attack " : "")} : Zone Keys";
         public bool SaveCollect() => false;
         
         internal static void AddAll(List<Item> items, bool speedrun) {
@@ -51,5 +51,7 @@ namespace Archipelago.Network.Items {
                 items.Add(new ZoneKey(x.name, x.keys, speedrun));
             }
         }
+
+        public Classification GetClassification() => Classification.Progression;
     }
 }

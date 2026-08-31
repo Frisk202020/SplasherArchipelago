@@ -5,5 +5,6 @@ namespace Archipelago.Network.Items.Traps {
         public bool SaveCollect() => true;
         abstract public string Name();
         abstract public void Collect(ItemInfo _item);
+        public Classification GetClassification() => Classification.Trap;
     }
 }

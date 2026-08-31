@@ -16,7 +16,7 @@ namespace Archipelago.Network.Items {
             Data.Items.LevelKeys.Unlock((int)id, speedrun);
         }
 
-        public string Name() => $"{levelName} {(speedrun ? "- Time Attack" : "")}: Entrance Key";
+        public string Name() => $"{levelName} {(speedrun ? "- Time Attack " : "")}: Entrance Key";
         public bool SaveCollect() => false;
         
         internal static void AddAll(List<Item> items, bool speedrun) {
@@ -24,5 +24,7 @@ namespace Archipelago.Network.Items {
                 items.Add(new Key(i - 1, Util.Levels[i], speedrun));
             }
         }
+
+        public Classification GetClassification() => Classification.Progression;
     }
 }

@@ -5,5 +5,6 @@ namespace Archipelago.Network.Items {
         public string Name() => "Splasher";
         public void Collect(ItemInfo item) => Data.Items.Splashers.Add();
         public bool SaveCollect() => false;
+        public Classification GetClassification() => Classification.Progression;
     }
 }

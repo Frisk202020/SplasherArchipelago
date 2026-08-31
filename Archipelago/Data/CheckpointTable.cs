@@ -34,7 +34,6 @@ namespace Archipelago.Data {
         internal static string Next(string name, string scene=null) {
             TryInit();
             var activeScene = SceneOrCurrent(scene);
-            System.Console.WriteLine(activeScene == null);
             if (!idTable.ContainsKey(activeScene)) return null;
 
             var data = idTable[activeScene];

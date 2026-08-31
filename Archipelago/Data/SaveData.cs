@@ -39,6 +39,7 @@ namespace Archipelago.Data {
         }
 
         internal static List<long> CollectedItems => data.CollectedIds;
+        internal static List<long> WeakCollectedItems => data.WeakCollectedIds;
 
         internal static void Init() {
             DataStore.OnAutosaveLoad += (save, savename) => {

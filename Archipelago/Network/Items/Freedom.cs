@@ -10,5 +10,7 @@ namespace Archipelago.Network.Items {
         public void Collect(ItemInfo _item) {
             Data.Items.Freedom.Free();
         }
+
+        public Classification GetClassification() => Classification.Progression;
     }
 }

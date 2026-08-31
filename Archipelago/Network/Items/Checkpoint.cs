@@ -13,6 +13,7 @@ namespace Archipelago.Network.Items {
             this.id = id;
         }
 
+        public Classification GetClassification() => Data.Items.CheckpointItem.seedOption == 2 ? Classification.Progression : Classification.Useful;
         public string Name() => $"{level} - Checkpoint {id + 1}";
         public bool SaveCollect() => false;
         public void Collect(ItemInfo _info) => Data.Items.CheckpointItem.Collect(scene, id);

@@ -10,6 +10,7 @@ namespace Archipelago.Network {
         private static Helpers.FailableSession session;
         private static bool enabled = false;
         internal static bool Connected() => session.Connected;
+        internal static bool IsPlayerSelf(int player) => player == session.Slot;
         
 
         private static long include_keys = 0;

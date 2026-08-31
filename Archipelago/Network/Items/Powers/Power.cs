@@ -7,5 +7,6 @@ namespace Archipelago.Network.Items.Powers {
             Patches.UI.Backpack.Update();
         }
         public bool SaveCollect() => false;
+        public Classification GetClassification() => Classification.Progression;
     }
 }

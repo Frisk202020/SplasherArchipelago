@@ -23,7 +23,7 @@ namespace Archipelago.Network.Helpers {
         private readonly BackgroundThread connexionThread;
         private bool firstConnectionDone = false;
         internal bool Connected { get; private set; } = false;
-        private int slot;
+        internal int Slot { get; private set; }
 
         private BackgroundThread deathLinkThread;
 
@@ -87,7 +87,7 @@ namespace Archipelago.Network.Helpers {
                 return false;
             }
 
-            slot = session.ConnectionInfo.Slot;
+            Slot = session.ConnectionInfo.Slot;
             while (pendingEvents.Count > 0) {
                 var pending = pendingEvents.Dequeue();
                 try {
@@ -107,14 +107,14 @@ namespace Archipelago.Network.Helpers {
             if (hints is null) return new Queue<HintInfo>();
 
             return new Queue<HintInfo>(
-                hints.Where(hint => !hint.Found && hint.FindingPlayer == slot).Select(hint => {
+                hints.Where(hint => !hint.Found && hint.FindingPlayer == Slot).Select(hint => {
                     var receiver = session.Players.AllPlayers.FirstOrDefault(x => x.Slot == hint.ReceivingPlayer);
                     
                     return new HintInfo(
                         session.Locations.GetLocationNameFromId(hint.LocationId),  
                         receiver?.Name, 
                         receiver is null ? null : session.Items.GetItemName(hint.ItemId, receiver.Game),
-                        hint.ReceivingPlayer == slot
+                        hint.ReceivingPlayer == Slot
                     );
                 })
             );

@@ -11,7 +11,7 @@ namespace Archipelago.Data.Locations {
         Gold = Silver + Util.LevelCount,
         Platinum = Gold + Util.LevelCount,
         Clear = Platinum + Util.LevelCount,
-        Checkpoint = Platinum + Util.LevelCount,
+        Checkpoint = Clear + Util.LevelCount,
     }
 
     static class LocationExtensions {

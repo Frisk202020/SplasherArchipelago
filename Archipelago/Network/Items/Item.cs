@@ -5,5 +5,6 @@ namespace Archipelago.Network.Items {
         void Collect(ItemInfo item);
         string Name();
         bool SaveCollect();
+        Classification GetClassification();
     }
 }
