@@ -1,4 +1,5 @@
-﻿using Archipelago.MultiClient.Net.Models;
+﻿using Archipelago.MultiClient.Net.Enums;
+using Archipelago.MultiClient.Net.Models;
 using System.Collections.Generic;
 
 namespace Archipelago.Network.Items {
@@ -25,6 +26,6 @@ namespace Archipelago.Network.Items {
             }
         }
 
-        public Classification GetClassification() => Classification.Progression;
+        public ItemFlags GetClassification() => ItemFlags.Advancement;
     }
 }

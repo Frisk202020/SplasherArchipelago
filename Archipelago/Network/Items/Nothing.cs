@@ -1,10 +1,14 @@
-﻿using Archipelago.MultiClient.Net.Models;
+﻿using Archipelago.MultiClient.Net.Enums;
+using Archipelago.MultiClient.Net.Models;
 
 namespace Archipelago.Network.Items {
     class Nothing : Item {
-        public string Name() => "Nothing";
+        private string name;
+        public Nothing(string _name) => name = _name;
+
+        public string Name() => name;
         public bool SaveCollect() => false;
         public void Collect(ItemInfo _item) {}
-        public Classification GetClassification() => Classification.Filler;
+        public ItemFlags GetClassification() => ItemFlags.None;
     }
 }

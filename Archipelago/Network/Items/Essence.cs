@@ -1,4 +1,5 @@
-﻿using Archipelago.MultiClient.Net.Models;
+﻿using Archipelago.MultiClient.Net.Enums;
+using Archipelago.MultiClient.Net.Models;
 
 namespace Archipelago.Network.Items {
     class Essence : Item {
@@ -20,6 +21,6 @@ namespace Archipelago.Network.Items {
             else if (data.StarFillCount > 700) data.StarFillCount = 700;
         }
         public bool SaveCollect() => false;
-        public Classification GetClassification() => Classification.Useful;
+        public ItemFlags GetClassification() => ItemFlags.NeverExclude;
     }
 }

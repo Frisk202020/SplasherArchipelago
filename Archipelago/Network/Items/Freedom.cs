@@ -1,4 +1,5 @@
-﻿using Archipelago.MultiClient.Net.Models;
+﻿using Archipelago.MultiClient.Net.Enums;
+using Archipelago.MultiClient.Net.Models;
 
 namespace Archipelago.Network.Items {
     class Freedom : Item {
@@ -11,6 +12,6 @@ namespace Archipelago.Network.Items {
             Data.Items.Freedom.Free();
         }
 
-        public Classification GetClassification() => Classification.Progression;
+        public ItemFlags GetClassification() => ItemFlags.Advancement;
     }
 }

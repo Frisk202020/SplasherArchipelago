@@ -1,10 +1,11 @@
-﻿using Archipelago.MultiClient.Net.Models;
+﻿using Archipelago.MultiClient.Net.Enums;
+using Archipelago.MultiClient.Net.Models;
 
 namespace Archipelago.Network.Items {
     interface Item {
         void Collect(ItemInfo item);
         string Name();
         bool SaveCollect();
-        Classification GetClassification();
+        ItemFlags GetClassification();
     }
 }

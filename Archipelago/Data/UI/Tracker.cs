@@ -1,17 +1,19 @@
 using System.Collections.Generic;
+using Archipelago.MultiClient.Net.Enums;
 using Archipelago.MultiClient.Net.Models;
 using Archipelago.Network.Items;
 
 namespace Archipelago.Data.UI {
     internal static class Tracker {
+        const string PERSON_COLOR = "FA4DB2";
         private static readonly Queue<string> messages = new Queue<string>();
 
-        private static string Color(Classification classification) {
+        private static string Color(ItemFlags classification) {
             switch(classification) {
-                case Classification.Progression: return "FFD700";
-                case Classification.Useful: return "9B83FC";
-                case Classification.Filler: return "4DFAF5";
-                case Classification.Trap: return "FA814D";
+                case ItemFlags.Advancement: return "FFD700";
+                case ItemFlags.NeverExclude: return "9B83FC";
+                case ItemFlags.None: return "4DFAF5";
+                case ItemFlags.Trap: return "FA814D";
                 default: return "FFFFFF";
             }
         }
@@ -23,12 +25,16 @@ namespace Archipelago.Data.UI {
             return messages.Dequeue();
         }
 
-        internal static void AddItemReceived(Item item, string sender=null) {
-            var itemLabel = ColorSpan(item.Name(), Color(item.GetClassification()));
+        internal static void AddItemReceived(Item item, ItemFlags classification, string sender=null) {
+            var itemLabel = ColorSpan(item.Name(), Color(classification));
             messages.Enqueue(sender == null
                 ? $"You found your {itemLabel} !"
-                : $"Received {itemLabel} from {ColorSpan(sender, "FA4DB2")}"
+                : $"Received {itemLabel} from {ColorSpan(sender, PERSON_COLOR)}"
             );
+        }
+
+        internal static void AddItemSent(string item, ItemFlags classification, string receiver) {
+            messages.Enqueue($"Sent {ColorSpan(item, Color(classification))} to {ColorSpan(receiver, PERSON_COLOR)}");
         }
     }
 }

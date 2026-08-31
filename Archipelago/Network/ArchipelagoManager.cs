@@ -1,5 +1,6 @@
 ﻿using Archipelago.Data.Locations;
 using Archipelago.MultiClient.Net;
+using Archipelago.MultiClient.Net.Models;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -129,8 +130,19 @@ namespace Archipelago.Network {
 
         internal static void Check(LocationType loc, long id) {
             new Helpers.BackgroundThread("Check", () => session.Execute(session => {
+                var trueId = Util.BaseId + (int)loc + id;
                 session.Locations.CompleteLocationChecks(Util.BaseId + (int)loc + id);
                 Visited.Add(id);
+
+                session.Locations.ScoutLocationsAsync(x => {
+                    if (!x.ContainsKey(trueId)) {
+                        Core.Static.Warn($"Cannot inform about this location : id {trueId} was not found");
+                        return;
+                    }
+
+                    var item = x[trueId];
+                    if (!IsPlayerSelf(item.Player)) Data.UI.Tracker.AddItemSent(item.ItemName, item.Flags, item.Player.Name);
+                }, new[] { trueId });
             })).Execute();
         }
 

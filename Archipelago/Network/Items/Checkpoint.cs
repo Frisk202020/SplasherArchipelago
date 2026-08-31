@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Archipelago.MultiClient.Net.Enums;
 using Archipelago.MultiClient.Net.Models;
 
 namespace Archipelago.Network.Items {
@@ -13,7 +14,7 @@ namespace Archipelago.Network.Items {
             this.id = id;
         }
 
-        public Classification GetClassification() => Data.Items.CheckpointItem.seedOption == 2 ? Classification.Progression : Classification.Useful;
+        public ItemFlags GetClassification() => Data.Items.CheckpointItem.seedOption == 2 ? ItemFlags.Advancement : ItemFlags.NeverExclude;
         public string Name() => $"{level} - Checkpoint {id + 1}";
         public bool SaveCollect() => false;
         public void Collect(ItemInfo _info) => Data.Items.CheckpointItem.Collect(scene, id);

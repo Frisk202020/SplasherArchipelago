@@ -19,7 +19,7 @@ namespace Archipelago.Network.Items {
             var items = new List<Item> {
                 new Freedom(), new Splasher(), new Powers.Progressive(), new Powers.ProgressiveWater(),
                 new Powers.Water(), new Powers.Stickink(), new Powers.Bouncink(),
-                new Nothing(), new Nothing(), new Nothing(),
+                new Nothing("Job Promotion"), new Nothing("Le Docteur's autograph"), new Nothing("A Secreatire's ticket"),
                 new Traps.PaintSwap(), new Traps.MadGun(), new Traps.Feet()
             };
 
@@ -84,6 +84,7 @@ namespace Archipelago.Network.Items {
                     Data.SaveData.WeakCollectedItems.Add(item.LocationId);
                     Data.UI.Tracker.AddItemReceived(
                         splasherItem, 
+                        item.Flags,
                         ArchipelagoManager.IsPlayerSelf(item.Player.Slot) ?  null : item.Player.Name
                     );
                     save = true;

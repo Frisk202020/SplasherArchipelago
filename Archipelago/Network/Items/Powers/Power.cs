@@ -1,4 +1,5 @@
-﻿using Archipelago.MultiClient.Net.Models;
+﻿using Archipelago.MultiClient.Net.Enums;
+using Archipelago.MultiClient.Net.Models;
 
 namespace Archipelago.Network.Items.Powers {
     abstract class Power : Item {
@@ -7,6 +8,6 @@ namespace Archipelago.Network.Items.Powers {
             Patches.UI.Backpack.Update();
         }
         public bool SaveCollect() => false;
-        public Classification GetClassification() => Classification.Progression;
+        public ItemFlags GetClassification() => ItemFlags.Advancement;
     }
 }

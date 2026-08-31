@@ -1,5 +1,6 @@
+
 namespace Archipelago.Network.Items {
-    internal enum Classification {
+    enum Classification {
         Progression,
         Useful,
         Filler,
