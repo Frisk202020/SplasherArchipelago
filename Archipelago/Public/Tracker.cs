@@ -34,7 +34,7 @@ namespace Archipelago.Public {
             count = 0;
             trackerObject.gameObject.SetActive(true);
             trackerText.text = msg;
-            GameActor.GM.AudioManager.PlayFX(GameActor.GD.SoundData.SoundEffect_UnlockComplete);
+            GameActor.GM.AudioManager.PlayFX(GameActor.GD.SoundData.SoundEffect_Yeah);
         }
     }
 }

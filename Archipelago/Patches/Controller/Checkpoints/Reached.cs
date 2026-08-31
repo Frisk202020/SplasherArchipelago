@@ -20,9 +20,9 @@ namespace Archipelago.Patches.Controller.Checkpoints {
             Data.Locations.Checkpoint.Check(__instance.gameObject.name);
 
             var validated = !Data.Items.CheckpointItem.TriggerPrefix(__instance, ___anim);
-            
-            if (validated) __instance.ForceValidation();
-            if (validated || Data.Items.CheckpointItem.seedOption < 2) notify.Invoke(__instance, new object[] {});
+
+            if (validated || Data.Items.CheckpointItem.seedOption < 2) __instance.ForceValidation();
+            notify.Invoke(__instance, new object[] {});
 
             var state = "CheckpointAppear";
             ___anim.Play(validated ? state : (state + "_Locked"));
