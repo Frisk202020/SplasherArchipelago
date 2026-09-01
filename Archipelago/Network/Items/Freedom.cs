@@ -5,13 +5,13 @@ namespace Archipelago.Network.Items {
     class Freedom : Item {
         internal Freedom() { }
 
-        public string Name() => "Freedom";
-        public bool SaveCollect() => false;
+        public override string Name() => "Liberté";
+        public override bool SaveCollect() => false;
 
-        public void Collect(ItemInfo _item) {
+        public override void Collect(ItemInfo _item) {
             Data.Items.Freedom.Free();
         }
 
-        public ItemFlags GetClassification() => ItemFlags.Advancement;
+        public override ItemFlags GetClassification() => ItemFlags.Advancement;
     }
 }

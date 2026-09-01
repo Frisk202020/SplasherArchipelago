@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Archipelago.Helpers;
 using Archipelago.MultiClient.Net.Enums;
 using Archipelago.MultiClient.Net.Models;
 
@@ -14,10 +15,10 @@ namespace Archipelago.Network.Items {
             this.id = id;
         }
 
-        public ItemFlags GetClassification() => Data.Items.CheckpointItem.seedOption == 2 ? ItemFlags.Advancement : ItemFlags.NeverExclude;
-        public string Name() => $"{level} - Checkpoint {id + 1}";
-        public bool SaveCollect() => false;
-        public void Collect(ItemInfo _info) => Data.Items.CheckpointItem.Collect(scene, id);
+        public override ItemFlags GetClassification() => Data.Items.CheckpointItem.seedOption == 2 ? ItemFlags.Advancement : ItemFlags.NeverExclude;
+        public override string Name() => Language.Get(CATEGORY, "Checkpoint", new[] { level, (id + 1).ToString() });
+        public override bool SaveCollect() => false;
+        public override void Collect(ItemInfo _info) => Data.Items.CheckpointItem.Collect(scene, id);
 
         internal static void AddAll(List<Item> items) {
             for (var i = 0; i < Util.Scenes.Length; i++) {

@@ -23,27 +23,11 @@ namespace Archipelago.Network.Items {
                 new Traps.PaintSwap(), new Traps.MadGun(), new Traps.Feet()
             };
 
-            foreach (EssenceInfo x in new List<EssenceInfo> {
-                new EssenceInfo(1, "Essence drop"),
-                new EssenceInfo(2, "Essence drops"),
-                new EssenceInfo(5, "Broken essence flask"),
-                new EssenceInfo(10, "Full essence flask"),
-                new EssenceInfo(15, "Dry essence barrel"),
-                new EssenceInfo(20, "Essence barrel"),
-                new EssenceInfo(25, "Overflowing essence barrel"),
-                new EssenceInfo(30, "Goombase essence tank"),
-                new EssenceInfo(40, "Secretaire essence tank"),
-                new EssenceInfo(50, "Docteur's essence storage"),
-                new EssenceInfo(-1, "Minor essence leak"),
-                new EssenceInfo(-2, "Small essence leak"),
-                new EssenceInfo(-3, "Noticeable essence leak"),
-                new EssenceInfo(-5, "Severe essence leak"),
-                new EssenceInfo(-10, "Essence container crack"),
-                new EssenceInfo(-15, "Forgiving essence fee"),
-                new EssenceInfo(-20, "Severe essence fee"),
-                new EssenceInfo(-25, "Le Docteur's essence tax")
+            foreach (var i in new[] {
+                1, 2, 5, 10, 15, 20, 25, 30, 40, 50,
+                -1, -2, -3, -5, -10, -15, -20, -25
             }) {
-                items.Add(new Essence(x.amount, x.name));
+                items.Add(new Essence(i));
             }
 
             Key.AddAll(items, false);

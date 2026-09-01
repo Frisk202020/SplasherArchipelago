@@ -2,10 +2,11 @@
 using Archipelago.MultiClient.Net.Models;
 
 namespace Archipelago.Network.Items {
-    interface Item {
-        void Collect(ItemInfo item);
-        string Name();
-        bool SaveCollect();
-        ItemFlags GetClassification();
+    abstract class Item {
+        protected const string CATEGORY = "ArchipelagoItems";
+        public abstract void Collect(ItemInfo item);
+        public abstract string Name();
+        public abstract bool SaveCollect();
+        public abstract ItemFlags GetClassification();
     }
 }

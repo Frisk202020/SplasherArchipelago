@@ -3,9 +3,7 @@ using Archipelago.MultiClient.Net.Models;
 
 namespace Archipelago.Network.Items.Traps {
     internal abstract class Trap : Item {
-        public bool SaveCollect() => true;
-        abstract public string Name();
-        abstract public void Collect(ItemInfo _item);
-        public ItemFlags GetClassification() => ItemFlags.Trap;
+        public override bool SaveCollect() => true;
+        public override ItemFlags GetClassification() => ItemFlags.Trap;
     }
 }

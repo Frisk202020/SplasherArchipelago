@@ -6,9 +6,9 @@ namespace Archipelago.Network.Items {
         private string name;
         public Nothing(string _name) => name = _name;
 
-        public string Name() => name;
-        public bool SaveCollect() => false;
-        public void Collect(ItemInfo _item) {}
-        public ItemFlags GetClassification() => ItemFlags.None;
+        public override string Name() => name;
+        public override bool SaveCollect() => false;
+        public override void Collect(ItemInfo _item) {}
+        public override ItemFlags GetClassification() => ItemFlags.None;
     }
 }

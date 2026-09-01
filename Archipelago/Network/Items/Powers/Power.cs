@@ -3,11 +3,10 @@ using Archipelago.MultiClient.Net.Models;
 
 namespace Archipelago.Network.Items.Powers {
     abstract class Power : Item {
-        public virtual string Name() => "Gun Unlock";
-        public virtual void Collect(ItemInfo item) {
+        public override void Collect(ItemInfo item) {
             Patches.UI.Backpack.Update();
         }
-        public bool SaveCollect() => false;
-        public ItemFlags GetClassification() => ItemFlags.Advancement;
+        public override bool SaveCollect() => false;
+        public override ItemFlags GetClassification() => ItemFlags.Advancement;
     }
 }

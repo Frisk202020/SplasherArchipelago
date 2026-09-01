@@ -1,4 +1,5 @@
-﻿using Archipelago.MultiClient.Net.Enums;
+﻿using Archipelago.Helpers;
+using Archipelago.MultiClient.Net.Enums;
 using Archipelago.MultiClient.Net.Models;
 using System.Collections.Generic;
 
@@ -38,14 +39,14 @@ namespace Archipelago.Network.Items {
             this.speedrun = speedrun;
         }
 
-        public void Collect(ItemInfo _item) {
+        public override void Collect(ItemInfo _item) {
             foreach (var key in keys) {
                 Data.Items.LevelKeys.Unlock((int)key, speedrun);
             }
         }
 
-        public string Name() => $"{name} {(speedrun ? "- Time Attack " : "")} : Zone Keys";
-        public bool SaveCollect() => false;
+        public override string Name() => Language.Get(CATEGORY, $"Zone{(speedrun ? "Time" : "")}", new[] { name });
+        public override bool SaveCollect() => false;
         
         internal static void AddAll(List<Item> items, bool speedrun) {
             foreach(var x in data) {
@@ -53,6 +54,6 @@ namespace Archipelago.Network.Items {
             }
         }
 
-        public ItemFlags GetClassification() => ItemFlags.Advancement;
+        public override ItemFlags GetClassification() => ItemFlags.Advancement;
     }
 }

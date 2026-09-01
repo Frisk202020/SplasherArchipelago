@@ -1,4 +1,5 @@
-﻿using Archipelago.MultiClient.Net.Models;
+﻿using Archipelago.Helpers;
+using Archipelago.MultiClient.Net.Models;
 
 namespace Archipelago.Network.Items.Powers {
     class Stickink : Power {
@@ -7,6 +8,6 @@ namespace Archipelago.Network.Items.Powers {
             base.Collect(_item);
         }
 
-        public override string Name() => $"Sticky Paint {base.Name()}";
+        public override string Name() => Language.Get(CATEGORY, "Stickink");
     }
 }

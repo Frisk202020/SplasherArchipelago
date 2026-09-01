@@ -1,18 +1,17 @@
-﻿using Archipelago.MultiClient.Net.Enums;
+﻿using Archipelago.Helpers;
+using Archipelago.MultiClient.Net.Enums;
 using Archipelago.MultiClient.Net.Models;
 
 namespace Archipelago.Network.Items {
     class Essence : Item {
         private readonly int amount;
-        private readonly string name;
 
-        public Essence(int amount, string name) { 
+        public Essence(int amount) { 
             this.amount = amount;
-            this.name = name;
         }
 
-        public string Name() => name;
-        public void Collect(ItemInfo info) {
+        public override string Name() => Language.Get(CATEGORY, $"Essence{amount}");
+        public override void Collect(ItemInfo info) {
             var data = GameData.Instance.CollectableData;
             if (data.StarFillCount == 1) return;
 
@@ -20,7 +19,7 @@ namespace Archipelago.Network.Items {
             if (data.StarFillCount < 1) data.StarFillCount = 1;
             else if (data.StarFillCount > 700) data.StarFillCount = 700;
         }
-        public bool SaveCollect() => false;
-        public ItemFlags GetClassification() => ItemFlags.NeverExclude;
+        public override bool SaveCollect() => false;
+        public override ItemFlags GetClassification() => ItemFlags.NeverExclude;
     }
 }

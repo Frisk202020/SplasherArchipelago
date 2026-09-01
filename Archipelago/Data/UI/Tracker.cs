@@ -1,10 +1,11 @@
 using System.Collections.Generic;
+using Archipelago.Helpers;
 using Archipelago.MultiClient.Net.Enums;
-using Archipelago.MultiClient.Net.Models;
 using Archipelago.Network.Items;
 
 namespace Archipelago.Data.UI {
     internal static class Tracker {
+        const string CATEGORY = "ArchipelagoTracker";
         const string PERSON_COLOR = "FA4DB2";
         private static readonly Queue<string> messages = new Queue<string>();
 
@@ -28,13 +29,16 @@ namespace Archipelago.Data.UI {
         internal static void AddItemReceived(Item item, ItemFlags classification, string sender=null) {
             var itemLabel = ColorSpan(item.Name(), Color(classification));
             messages.Enqueue(sender == null
-                ? $"You found your {itemLabel} !"
-                : $"Received {itemLabel} from {ColorSpan(sender, PERSON_COLOR)}"
+                ? Language.Get(CATEGORY, "found", new[] { itemLabel })
+                : Language.Get(CATEGORY, "received", new[] { itemLabel, ColorSpan(sender, PERSON_COLOR) })
             );
         }
 
         internal static void AddItemSent(string item, ItemFlags classification, string receiver) {
-            messages.Enqueue($"Sent {ColorSpan(item, Color(classification))} to {ColorSpan(receiver, PERSON_COLOR)}");
+            messages.Enqueue(Language.Get(
+                CATEGORY, "sent", 
+                new[] { ColorSpan(item, Color(classification)), ColorSpan(receiver, PERSON_COLOR) }
+            ));
         }
     }
 }

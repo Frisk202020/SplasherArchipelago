@@ -1,3 +1,4 @@
+using Archipelago.Helpers;
 using Archipelago.MultiClient.Net.Models;
 
 namespace Archipelago.Network.Items.Powers {
@@ -6,6 +7,6 @@ namespace Archipelago.Network.Items.Powers {
             Data.Items.Powers.UnlockProgressiveWater();
             base.Collect(info);
         }
-        public override string Name() => "Progressive Water";
+        public override string Name() => Language.Get(CATEGORY, "Progressive Water");
     }
 }

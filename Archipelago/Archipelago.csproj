@@ -201,7 +201,6 @@
     <Compile Include="Patches\Controller\Checkpoints\Start.cs" />
     <Compile Include="Patches\UI\TrackerHUD.cs" />
     <Compile Include="Data\UI\Tracker.cs" />
-    <Compile Include="Network\Items\Classification.cs" />
     <Compile Include="Public\Tracker.cs" />
   </ItemGroup>
   <ItemGroup>
