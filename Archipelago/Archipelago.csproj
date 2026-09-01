@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="15.0">
-  <Import Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -194,7 +194,6 @@
     <Compile Include="Data\Items\CheckpointItem.cs" />
     <Compile Include="Helpers\Assets\LoaderAttribute.cs" />
     <Compile Include="Helpers\Assets\AssetAttribute.cs" />
-    <Compile Include="Network\Items\Checkpoint.cs" />
     <Compile Include="Data\Locations\Checkpoint.cs" />
     <Compile Include="Data\CheckpointTable.cs" />
     <Compile Include="Public\CheckpointTrigger.cs" />
@@ -202,7 +201,11 @@
     <Compile Include="Patches\UI\TrackerHUD.cs" />
     <Compile Include="Data\UI\Tracker.cs" />
     <Compile Include="Public\Tracker.cs" />
-    <Compile Include="Network\Items\CheckpointLevel.cs" />
+    <Compile Include="Data\Items\Zone.cs" />
+    <Compile Include="Network\Items\Checkpoints\Zone.cs" />
+    <Compile Include="Network\Items\Checkpoints\Singular.cs" />
+    <Compile Include="Network\Items\Checkpoints\Level.cs" />
+    <Compile Include="Network\Items\Checkpoints\Base.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

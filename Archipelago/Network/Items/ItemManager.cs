@@ -35,8 +35,9 @@ namespace Archipelago.Network.Items {
             Key.AddAll(items, true);
             ZoneKey.AddAll(items, true);
 
-            Checkpoint.AddAll(items);
-            CheckpointLevel.AddAll(items);
+            Checkpoints.Singular.AddAll(items);
+            Checkpoints.Level.AddAll(items);
+            Checkpoints.Zone.AddAll(items);
 
             return items;
         }

@@ -1,13 +1,12 @@
 using System.Collections.Generic;
 using Archipelago.Helpers;
-using Archipelago.MultiClient.Net.Enums;
 using Archipelago.MultiClient.Net.Models;
 
-namespace Archipelago.Network.Items {
-    class Checkpoint : CheckpointLevel {
+namespace Archipelago.Network.Items.Checkpoints {
+    class Singular : Level {
         readonly int id;
 
-        private Checkpoint(int lvl, int id) : base(lvl) {
+        private Singular(int lvl, int id) : base(lvl) {
             this.id = id;
         }
 
@@ -17,7 +16,7 @@ namespace Archipelago.Network.Items {
         internal static new void AddAll(List<Item> items) {
             for (var i = 0; i < Util.Scenes.Length; i++) {
                 for (var j = 0; j < Data.CheckpointTable.IdRange(Util.Scenes[i]); j++) {
-                    items.Add(new Checkpoint(i, j));
+                    items.Add(new Singular(i, j));
                 }
             }
         }

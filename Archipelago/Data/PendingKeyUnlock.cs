@@ -12,7 +12,7 @@
         internal static string KeyItemName(LocalizedString lvlName, bool isSpeedrun) {
             var isZone = Mode == KeyMode.Zone;
             var itemName = isZone
-                ? Network.Items.ZoneKey.FindZone(Helpers.LevelByName.Id(lvlName))
+                ? Items.Zone.FindZone((uint)Helpers.LevelByName.Id(lvlName))
                 : lvlName.GetString();
 
             if (SpeedrunKeys && isSpeedrun) itemName += " Time Attack";
