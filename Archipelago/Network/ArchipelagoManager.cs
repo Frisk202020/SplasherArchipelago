@@ -1,6 +1,5 @@
 ﻿using Archipelago.Data.Locations;
 using Archipelago.MultiClient.Net;
-using Archipelago.MultiClient.Net.Models;
 using System;
 using System.Collections.Generic;
 using UnityEngine;

@@ -19,7 +19,7 @@ namespace Archipelago.Network.Items {
             var items = new List<Item> {
                 new Freedom(), new Splasher(), new Powers.Progressive(), new Powers.ProgressiveWater(),
                 new Powers.Water(), new Powers.Stickink(), new Powers.Bouncink(),
-                new Nothing("Job Promotion"), new Nothing("Le Docteur's autograph"), new Nothing("A Secreatire's ticket"),
+                new Nothing("Job"), new Nothing("Autograph"), new Nothing("Ticket"),
                 new Traps.PaintSwap(), new Traps.MadGun(), new Traps.Feet()
             };
 
@@ -36,6 +36,7 @@ namespace Archipelago.Network.Items {
             ZoneKey.AddAll(items, true);
 
             Checkpoint.AddAll(items);
+            CheckpointLevel.AddAll(items);
 
             return items;
         }
