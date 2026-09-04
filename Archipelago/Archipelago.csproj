@@ -206,6 +206,7 @@
     <Compile Include="Network\Items\Checkpoints\Singular.cs" />
     <Compile Include="Network\Items\Checkpoints\Level.cs" />
     <Compile Include="Network\Items\Checkpoints\Base.cs" />
+    <Compile Include="Patches\Location\InstantSplasherCollect.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

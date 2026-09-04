@@ -1,8 +1,17 @@
-﻿using Archipelago.Helpers;
+﻿using System.Reflection;
+using Archipelago.Helpers;
+using HarmonyLib;
 
 namespace Archipelago.Data.Locations {
     static class Splashers {
         private const int splashers_per_level = 7;
+        private static readonly FieldInfo Index = AccessTools.DeclaredField(typeof(Splasher), "index");
+
+        internal static void Check(Splasher s) {
+            var index = (int)Index.GetValue(s);
+            var name = GameData.Instance.CurrentLevelMetaData.LevelName;
+            Check(name, index);
+        }
 
         internal static void Check(LocalizedString level, int splasherId) {
             var levelId = (int)LevelByName.Id(level);

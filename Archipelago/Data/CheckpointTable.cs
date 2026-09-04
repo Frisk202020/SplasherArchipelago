@@ -80,7 +80,6 @@ namespace Archipelago.Data {
             var id = dataTable.Get().IndexOf(ParseId(name));
             t[id] = true;
         }
-        //internal void Check(int id, string scene) => table.Get(scene)[id] = true;
         internal void Check(int id, string scene) {
             table.Get(scene)[id] = true;
         }

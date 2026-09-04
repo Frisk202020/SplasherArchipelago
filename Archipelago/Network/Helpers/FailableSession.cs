@@ -126,6 +126,7 @@ namespace Archipelago.Network.Helpers {
             Util.Seed = (string)data["seed"];
             Data.Items.Splashers.Goal = (int)(long)data["splashers_goal"];
             Data.Items.CheckpointItem.seedOption = (int)(long)data["checkpoint_sanity"];
+            Patches.Location.InstantSplasherCollect.Active = (long)data["instant_splasher_collect"] == 1;
 
             var trapAmnesty = conf.TrapAmnestyOverride.Value;
             if (trapAmnesty < 0 || trapAmnesty > 2) trapAmnesty = (int)(long)data["trap_amnesty"];
