@@ -76,9 +76,13 @@ namespace Archipelago.Network {
 
             enabled = true;
 
-            var bundle = AssetBundle.LoadFromFile("BepInEx/assets/archipelago");
+            var pathRoot = "BepInEx/assets/";
+            var bundle = AssetBundle.LoadFromFile(pathRoot + "archipelago");
             Archipelago.Helpers.Assets.LoaderAttribute.LoadAll(bundle);
             bundle.Unload(false);
+
+            var scene = AssetBundle.LoadFromFile(pathRoot + "archipelago_c1");
+            if (scene == null) Core.Static.Error("Failed to load custom C1 scene");
 
             var slotData = ApplyOptions(conf);
             include_keys = (long)slotData["include_keys"];

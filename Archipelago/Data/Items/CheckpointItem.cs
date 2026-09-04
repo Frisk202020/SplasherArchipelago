@@ -52,10 +52,8 @@ namespace Archipelago.Data.Items {
             return info.locked;
         }
 
-        internal static void Collect(string scene, int id) {
-            table.Check(CheckpointTable.NameById(id, scene), scene);
-        }
-
+        internal static void Collect(string scene, int id) => table.Check(id, scene);
+        internal static void CollectLevel(string scene) => table.CheckLevel(scene);
         internal static bool Unlocked(string name) => table.Get(name);
     }
 }

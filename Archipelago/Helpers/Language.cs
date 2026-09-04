@@ -1,14 +1,11 @@
 ﻿namespace Archipelago.Helpers {
     internal static class Language {
-        internal static string Get(string category, string id, string[] wildcards = null) {
+        internal static string Get(string category, string id, params string[] wildcards) {
             var str = LanguageMgr.GetStringById($"{category}.{id}").Split(new[] { '*' });
             var placeholders = str.Length - 1;
-            var nWild = (wildcards?.Length) ?? 0;
+            var nWild = wildcards.Length;
 
-            if (
-                (wildcards == null && placeholders != 0) ||
-                nWild != placeholders
-            ) {
+            if (nWild != placeholders) {
                 Core.Static.Error($"Expected {nWild} wildcards, got {placeholders} for {category}.{id}");
                 return null;
             }

@@ -55,7 +55,7 @@ namespace Archipelago.Patches.Controller.Hub.Secretaire {
                 case "0": 
                     var completion = Network.ArchipelagoManager.Completion();
                     self.bubleText.text = completion < 100f 
-                        ? Helpers.Language.Get(CATEGORY, id, new[] { completion.ToString() })
+                        ? Helpers.Language.Get(CATEGORY, id, completion.ToString())
                         : Helpers.Language.Get(CATEGORY, "finished"); 
                     break;
 
@@ -64,14 +64,12 @@ namespace Archipelago.Patches.Controller.Hub.Secretaire {
                     var item = hint.item ?? Helpers.Language.Get(Util.FALLBACK_CATEGORY, "unknown_item");
 
                     self.bubleText.text = hint.local
-                        ? Helpers.Language.Get(CATEGORY, "hint_local", new[] { item, hint.location })
+                        ? Helpers.Language.Get(CATEGORY, "hint_local", item, hint.location)
                         : Helpers.Language.Get(
                             CATEGORY, "hint", 
-                            new[] { 
-                                item, 
-                                hint.player ?? Helpers.Language.Get(Util.FALLBACK_CATEGORY, "unknown_player"), 
-                                hint.location 
-                            }
+                            item, 
+                            hint.player ?? Helpers.Language.Get(Util.FALLBACK_CATEGORY, "unknown_player"), 
+                            hint.location 
                         );
                     break;
 

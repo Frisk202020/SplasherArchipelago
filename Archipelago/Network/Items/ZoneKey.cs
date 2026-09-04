@@ -21,7 +21,7 @@ namespace Archipelago.Network.Items {
             }
         }
 
-        public override string Name() => Language.Get(CATEGORY, $"Zone{(speedrun ? "Time" : "")}", new[] { name });
+        public override string Name() => Language.Get(CATEGORY, $"Zone{(speedrun ? "Time" : "")}", name);
         public override bool SaveCollect() => false;
         
         internal static void AddAll(List<Item> items, bool speedrun) {

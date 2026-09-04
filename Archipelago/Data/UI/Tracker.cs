@@ -29,15 +29,15 @@ namespace Archipelago.Data.UI {
         internal static void AddItemReceived(Item item, ItemFlags classification, string sender=null) {
             var itemLabel = ColorSpan(item.Name(), Color(classification));
             messages.Enqueue(sender == null
-                ? Language.Get(CATEGORY, "found", new[] { itemLabel })
-                : Language.Get(CATEGORY, "received", new[] { itemLabel, ColorSpan(sender, PERSON_COLOR) })
+                ? Language.Get(CATEGORY, "found", itemLabel)
+                : Language.Get(CATEGORY, "received", itemLabel, ColorSpan(sender, PERSON_COLOR))
             );
         }
 
         internal static void AddItemSent(string item, ItemFlags classification, string receiver) {
             messages.Enqueue(Language.Get(
                 CATEGORY, "sent", 
-                new[] { ColorSpan(item, Color(classification)), ColorSpan(receiver, PERSON_COLOR) }
+                ColorSpan(item, Color(classification)), ColorSpan(receiver, PERSON_COLOR)
             ));
         }
     }

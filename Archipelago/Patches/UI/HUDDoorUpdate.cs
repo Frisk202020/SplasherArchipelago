@@ -18,7 +18,7 @@ namespace Archipelago.Patches.UI {
             UIModeDescription.Instance.modeDesc.text = Helpers.Language.Get(
                 "ArchipelagoLevelKeys", 
                 "Desc", 
-                new[] { Data.PendingKeyUnlock.KeyItemName(Door.PlayerInFront.levelMetaData.LevelName, false) }
+                Data.PendingKeyUnlock.KeyItemName(Door.PlayerInFront.levelMetaData.LevelName, false)
             );
 
             UIModeDescription.Instance.Show(true);

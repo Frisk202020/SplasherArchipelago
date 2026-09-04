@@ -9,7 +9,7 @@ namespace Archipelago.Data.Locations {
             if (table.Get(name)) return;
             
             table.Check(name);
-            Network.ArchipelagoManager.Check(LocationType.Checkpoint, CheckpointTable.Id(name));
+            Network.ArchipelagoManager.Check(LocationType.Checkpoint, CheckpointTable.LocationId(name));
         }
     }
 }

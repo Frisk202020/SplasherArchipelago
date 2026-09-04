@@ -18,7 +18,7 @@ namespace Archipelago.Network.Items {
             Data.Items.LevelKeys.Unlock((int)id, speedrun);
         }
 
-        public override string Name() => Language.Get(CATEGORY, $"Key{(speedrun ? "Time" : "")}", new[] { levelName });
+        public override string Name() => Language.Get(CATEGORY, $"Key{(speedrun ? "Time" : "")}", levelName);
         public override bool SaveCollect() => false;
         
         internal static void AddAll(List<Item> items, bool speedrun) {
