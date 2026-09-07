@@ -24,6 +24,8 @@ namespace Archipelago.Patches.Controller.Hub.UnlockLevelAnimation {
             DoorReference.UnlockOccurring = null;
             GameManager.LockControl = LockControlType.None;
             Core.Data.Time.Clean();
+
+            if (PlayerController.Instance.transform.position.y < 0) PlayerController.Instance.ManualReset();
         }
     }
 }

@@ -48,6 +48,8 @@ namespace Archipelago.Patches.Controller.Player.Collisions {
                     break;
 
                 case PaintType.BouncyPaint:
+                    if (GameManager.LockControl != LockControlType.None || Door.PlayerInFront != null) return;
+
                     Fields.trail.Invoke(__instance, new object[] { TrailAnchor.Bottom });
 					__instance.Feedback_PlayJump(PaintType.BouncyPaint, __instance.transform.position);
 

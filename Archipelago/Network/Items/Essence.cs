@@ -5,6 +5,8 @@ using Archipelago.MultiClient.Net.Models;
 namespace Archipelago.Network.Items {
     class Essence : Item {
         private readonly int amount;
+        private const int MIN = 50;
+        private const int MAX = 700;  
 
         public Essence(int amount) { 
             this.amount = amount;
@@ -13,11 +15,11 @@ namespace Archipelago.Network.Items {
         public override string Name() => Language.Get(CATEGORY, $"Essence{amount}");
         public override void Collect(ItemInfo info) {
             var data = GameData.Instance.CollectableData;
-            if (data.StarFillCount == 1) return;
+            if (data.StarFillCount == MIN) return;
 
             data.StarFillCount -= amount;
-            if (data.StarFillCount < 1) data.StarFillCount = 1;
-            else if (data.StarFillCount > 700) data.StarFillCount = 700;
+            if (data.StarFillCount < MIN) data.StarFillCount = MIN;
+            else if (data.StarFillCount > MAX) data.StarFillCount = MAX;
         }
         public override bool SaveCollect() => false;
         public override ItemFlags GetClassification() => ItemFlags.NeverExclude;
