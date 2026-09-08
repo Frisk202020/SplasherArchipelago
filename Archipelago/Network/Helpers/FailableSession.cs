@@ -171,6 +171,8 @@ namespace Archipelago.Network.Helpers {
                 Data.PendingKeyUnlock.SpeedrunKeys = true;
             }
 
+            Public.Tracker.Delay = conf.ItemMessageDuration.Value * 60;
+
             return data;
         }
 

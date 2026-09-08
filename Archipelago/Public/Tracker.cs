@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace Archipelago.Public {
     public class Tracker : MonoBehaviour {
-        private const uint DELAY = 300;
+        internal static uint Delay = 300;
 
         private uint? count = null;
         private GameObject trackerObject = null;
@@ -17,7 +17,7 @@ namespace Archipelago.Public {
             if (count != null) {
                 count++;
                 
-                if (count == DELAY) {
+                if (count == Delay) {
                     count = null;
                     trackerObject.gameObject.SetActive(false);
                 } else return;
