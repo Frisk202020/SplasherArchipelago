@@ -10,10 +10,10 @@ namespace Archipelago.Patches.Controller.Paint.Bullet {
             switch(p) {
                 case PaintType.SpeedyPaint: arr = Pool.speedPool; break;
                 case Util.PollutedWater: arr = Pool.pollutedPool; break;
-                default: return true;
             }
+            if (arr == null) return true;
 
-            var bullet = arr.FirstOrDefault(x => !x.gameObject.activeInHierarchy);
+            var bullet = arr.FirstOrDefault(x => x != null && !x.gameObject.activeInHierarchy);
             if (bullet != null && bullet.trailRenderer == null) bullet.PaintType = p;
 
             __result = bullet;

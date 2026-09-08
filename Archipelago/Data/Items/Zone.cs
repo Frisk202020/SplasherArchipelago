@@ -1,20 +1,26 @@
 using System.Collections.Generic;
+using Archipelago.Helpers;
 
 namespace Archipelago.Data.Items {
     internal static class Zone {
         internal class ZoneData {
-            public string name;
-            public HashSet<uint> keys;
+            internal string name;
+            internal HashSet<uint> keys;
+
+            internal ZoneData(string _name, params uint[] ids) {
+                name = Language.Get("ArchipelagoZones", _name);
+                keys = new HashSet<uint>(ids);
+            }
         }
 
         internal static readonly ZoneData[] ZoneForLevel = new ZoneData[] {
-            new ZoneData { name = "Reception Hub", keys = new HashSet<uint> { 0, 1, 2, 6 } },
-            new ZoneData { name = "Water Pool", keys = new HashSet<uint> { 4, 5, 8, 12 } }, 
-            new ZoneData { name = "Ray Man Paradise", keys = new HashSet<uint> { 7, 11, 17, 19 } },
-            new ZoneData { name = "Toxink Hell", keys = new HashSet<uint> { 15, 18, 20 } },
-            new ZoneData { name = "Inkorp Outskirts", keys = new HashSet<uint> { 10, 13, 16 } },
-            new ZoneData { name = "Fun Park", keys = new HashSet<uint> { 3, 9, 14 } },
-            new ZoneData { name = "Docteur's Office", keys = new HashSet<uint> { 21 } }
+            new ZoneData("reception", 0, 1, 2, 6),
+            new ZoneData("pool", 4, 5, 8, 12),
+            new ZoneData("paradise", 7, 11, 17, 19),
+            new ZoneData("hell", 15, 18, 20),
+            new ZoneData("outskirts", 10, 13, 16),
+            new ZoneData("fun", 3, 9, 14),
+            new ZoneData("docteur", 21)
         };
 
         internal static string FindZone(uint id) {

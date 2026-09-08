@@ -61,7 +61,8 @@ namespace Archipelago.Data {
             var n = buttons.Count;
             if (n == 0) return;
             
-            AlwaysShoot = buttons[rng.Next(n)];
+            //AlwaysShoot = buttons[rng.Next(n)];
+            AlwaysShoot = GameManager.BUTTON_WATER;
             Death.StartTrapCount();
         }
 

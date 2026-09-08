@@ -16,12 +16,14 @@ namespace Archipelago.Patches.Controller.Checkpoints {
             if (___alreadyValidated) return false;
             if (!___visual || GameManager.Mode != GameMode.Standard) return true;
 
-            if (Data.TrapController.CheckpointAmnesty) Data.TrapController.Free();
             Data.Locations.Checkpoint.Check(__instance.gameObject.name);
-
             var validated = !Data.Items.CheckpointItem.TriggerPrefix(__instance, ___anim);
 
-            if (validated || Data.Items.CheckpointItem.seedOption < 2) __instance.ForceValidation();
+            if (validated || Data.Items.CheckpointItem.seedOption < Data.Items.CheckpointItem.PROGRESSION) {
+                __instance.ForceValidation();
+                if (Data.TrapController.CheckpointAmnesty) Data.TrapController.Free();
+            }
+
             notify.Invoke(__instance, new object[] {});
 
             var state = "CheckpointAppear";

@@ -7,6 +7,10 @@ using UnityEngine;
 namespace Archipelago.Data.Items {
     [Helpers.Assets.Loader]
     internal static class CheckpointItem {
+        internal const uint NO_ITEMS = 1;
+        internal const uint USEFUL = 2;
+        internal const uint PROGRESSION = 3;
+
         [Helpers.Assets.Asset]
         private static RuntimeAnimatorController CheckpointAnimController = null;
         private static readonly FieldInfo ckpVisual = AccessTools.DeclaredField(typeof(Checkpoint), "anim");
@@ -30,10 +34,10 @@ namespace Archipelago.Data.Items {
         private static readonly CheckpointTable table = new CheckpointTable();
 
         private static PatchInfo Info(string name) {
-            if (seedOption == 0 || table.Get(name))
+            if (seedOption <= NO_ITEMS || table.Get(name))
                 return new PatchInfo { languageKey = "saved", color = new Color(1, 1, 1) };
 
-            return seedOption == 1
+            return seedOption == USEFUL
                 ? new PatchInfo { languageKey = "checked", color = new Color(1, 1, .81f), locked = true }
                 : new PatchInfo { languageKey = "missing", color = new Color(.76f, .13f, 0), locked = true };
         }
