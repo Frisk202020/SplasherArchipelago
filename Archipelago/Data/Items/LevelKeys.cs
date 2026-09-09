@@ -16,6 +16,8 @@ namespace Archipelago.Data.Items {
 
         internal static void Unlock(int id, bool speedrun) {
             if (id >= Levels + 1) return;
+
+            id++;
             if (SaveData.GetDoorState(id, speedrun) != HubDoorState.Locked) return;
 
             pendingUnlocks.Enqueue(new PendingKeyUnlock(id, speedrun));

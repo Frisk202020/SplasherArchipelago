@@ -1,18 +1,29 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Archipelago.Helpers.Assets;
+using Archipelago.MultiClient.Net.Enums;
 using HarmonyLib;
 using UnityEngine;
 
 namespace Archipelago.Data.Items {
-    [Helpers.Assets.Loader]
+    [Loader]
     internal static class CheckpointItem {
         internal const uint NO_ITEMS = 1;
         internal const uint USEFUL = 2;
         internal const uint PROGRESSION = 3;
 
-        [Helpers.Assets.Asset]
+        [Asset]
         private static RuntimeAnimatorController CheckpointAnimController = null;
+        [Asset]
+        private static Sprite Checkpoint_Progression = null;
+        [Asset]
+        private static Sprite Checkpoint_Useful = null;
+        [Asset]
+        private static Sprite Checkpoint_Filler = null;
+        [Asset]
+        private static Sprite Checkpoint_Trap = null;
+
         private static readonly FieldInfo ckpVisual = AccessTools.DeclaredField(typeof(Checkpoint), "anim");
         private static readonly List<Checkpoint> lockedEnabled = new List<Checkpoint>();
         internal static void DisableLockedCheckpoints() {
@@ -32,6 +43,20 @@ namespace Archipelago.Data.Items {
         const string CATEGORY = "ArchipelagoCheckpoint";
 
         private static readonly CheckpointTable table = new CheckpointTable();
+
+        internal static Sprite PeekItemInfo(string name) {
+            var id = CheckpointTable.LocationId(name);
+            var item = Network.ArchipelagoManager.LocationItemInfo(Locations.LocationType.Checkpoint, id);
+
+            if (item.ItemGame == Core.Static.Game && item.ItemName.Contains("Checkpoint")) return null;
+            switch (item.Flags) {
+                case ItemFlags.Advancement: return Checkpoint_Progression;
+                case ItemFlags.NeverExclude: return Checkpoint_Useful;
+                case ItemFlags.None: return Checkpoint_Filler;
+                case ItemFlags.Trap: return Checkpoint_Trap;
+                default: return null;
+            }
+        }
 
         private static PatchInfo Info(string name) {
             if (seedOption <= NO_ITEMS || table.Get(name))

@@ -8,6 +8,7 @@ namespace Archipelago.Patches.Controller.Checkpoints {
                 GameManager.Mode != GameMode.Standard || 
                 GameData.Instance?.CurrentLevelMetaData?.SceneName == null
             ) return;
+            
             Public.CheckpointTrigger.Init(__instance);
         }
     }

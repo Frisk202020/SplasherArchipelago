@@ -66,7 +66,7 @@ namespace Archipelago.Network.Items {
                 splasherItem.Collect(item);
 
                 bool save = false;
-                if (!Data.SaveData.WeakCollectedItems.Contains(item.LocationId)) {
+                if (item.LocationId == -1 || !Data.SaveData.WeakCollectedItems.Contains(item.LocationId)) {
                     Data.SaveData.WeakCollectedItems.Add(item.LocationId);
                     Data.UI.Tracker.AddItemReceived(
                         splasherItem, 

@@ -4,17 +4,19 @@ using System.Linq;
 
 namespace Archipelago.Data {
     class CheckpointTable {
-        private class TableData<T> where T : class {
-            private readonly Dictionary<string, T> table;
-            internal TableData(Func<string, T> mapping) => table = Util.Scenes.ToDictionary(s => s, s => mapping(s));
+        private class TableData<T> where T : struct {
+            private readonly Dictionary<string, List<T>> table;
+            internal TableData(Func<string, List<T>> mapping) => table = Util.Scenes.ToDictionary(s => s, s => mapping(s));
 
-            internal T Get(string scene=null) {
+            internal List<T> Get(string scene=null) {
                 var key = scene ?? GameData.Instance?.CurrentLevelMetaData?.SceneName;
                 return key == null ? null : table[key];
             }
+
+            internal int Count => table.Values.Sum(x => x.Count);
         } 
 
-        private static readonly TableData<List<int>> dataTable = new TableData<List<int>>(
+        private static readonly TableData<int> dataTable = new TableData<int>(
             s => {
                 switch(s) {
                     case "A1": return Enumerable.Range(2, 3).ToList();
@@ -30,6 +32,8 @@ namespace Archipelago.Data {
             var n = name.Contains("(1)") ? 5 : 1;
             return name[name.Length - n] - '0';
         }
+        internal static int Count => dataTable.Count;
+
         private static string NameFromId(int id, bool parenthesis) => $"LD_Checkpoint{id}{(parenthesis ? " (1)" : "")}";
 
         internal static int LocationId(string name) {
@@ -56,8 +60,8 @@ namespace Archipelago.Data {
             return (i == -1 || i >= (data.Count-1)) ? null : NameFromId(data[i + 1], false);
         }
 
-        private readonly TableData<List<bool>> table;
-        internal CheckpointTable() => table = new TableData<List<bool>>(s => Enumerable.Repeat(false, dataTable.Get(s).Count).ToList());
+        private readonly TableData<bool> table;
+        internal CheckpointTable() => table = new TableData<bool>(s => Enumerable.Repeat(false, dataTable.Get(s).Count).ToList());
 
         internal bool Get(string name, string scene=null) {
             var t = table.Get(scene);

@@ -1,7 +1,9 @@
 ﻿using Archipelago.Data.Locations;
 using Archipelago.MultiClient.Net;
+using Archipelago.MultiClient.Net.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Archipelago.Network {
@@ -16,6 +18,24 @@ namespace Archipelago.Network {
         private static long include_keys = 0;
         private static long LocationCount = 0;
         private static readonly HashSet<long> Visited = new HashSet<long>();
+
+        private static Dictionary<long, ScoutedItemInfo> locationItemInfo = null;
+        
+        internal static ScoutedItemInfo LocationItemInfo(LocationType loc, long id) {
+            if (locationItemInfo == null) {
+                Core.Static.Warn($"Location items dictionary is not yet initialized !");
+                return null;
+            }
+
+            var trueId = Util.BaseId + (int)loc + id;
+            if (!locationItemInfo.ContainsKey(trueId)) {
+                Core.Static.Warn($"Location not found : {loc} ({trueId})");
+                return null;
+            }
+
+            return locationItemInfo[trueId];
+        }
+
         internal static double Completion() {
             double comp = 100 * Visited.Count / LocationCount;
             return Math.Truncate(comp);
@@ -74,15 +94,17 @@ namespace Archipelago.Network {
                 return false;
             }
 
+            var ids = Enumerable.Range(0, Data.CheckpointTable.Count)
+                .Select(x => Util.BaseId + (int)LocationType.Checkpoint + x)
+                .ToArray();
+
+            session.Execute(s => s.Locations.ScoutLocationsAsync(d => locationItemInfo = d, ids));
             enabled = true;
 
             var pathRoot = "BepInEx/assets/";
             var bundle = AssetBundle.LoadFromFile(pathRoot + "archipelago");
             Archipelago.Helpers.Assets.LoaderAttribute.LoadAll(bundle);
             bundle.Unload(false);
-
-            var scene = AssetBundle.LoadFromFile(pathRoot + "archipelago_c1");
-            if (scene == null) Core.Static.Error("Failed to load custom C1 scene");
 
             var slotData = ApplyOptions(conf);
             include_keys = (long)slotData["include_keys"];
@@ -131,21 +153,19 @@ namespace Archipelago.Network {
             });
         }
 
+        internal static void Scout(Action<Dictionary<long, ScoutedItemInfo>> f) => session.Execute(
+            s => s.Locations.ScoutLocationsAsync(f)
+        );
+
         internal static void Check(LocationType loc, long id) {
             new Helpers.BackgroundThread("Check", () => session.Execute(session => {
                 var trueId = Util.BaseId + (int)loc + id;
                 session.Locations.CompleteLocationChecks(Util.BaseId + (int)loc + id);
                 Visited.Add(id);
 
-                session.Locations.ScoutLocationsAsync(x => {
-                    if (!x.ContainsKey(trueId)) {
-                        Core.Static.Warn($"Cannot inform about this location : id {trueId} was not found");
-                        return;
-                    }
-
-                    var item = x[trueId];
-                    if (!IsPlayerSelf(item.Player)) Data.UI.Tracker.AddItemSent(item.ItemName, item.Flags, item.Player.Name);
-                }, new[] { trueId });
+                var item = LocationItemInfo(loc, id);
+                if (item != null && !IsPlayerSelf(item.Player)) 
+                    Data.UI.Tracker.AddItemSent(item.ItemName, item.Flags, item.Player.Name);
             })).Execute();
         }
 
